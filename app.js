@@ -1,9 +1,9 @@
 var app = require('express').createServer(),
-    irc = require('irc-js'),
+    irc = require('./lib/IRC-js/lib/irc'),
     io = require('./lib/Socket.IO-node'),
     socket = io.listen(app);
 
-var opts = {server: "irc.freenode.org",
+var opts = {server: "localhost",
     channels: ["#knplabs", "#martirc"],
     nick: "MartIrcTest",
     maxMsgs: 1000};
@@ -49,15 +49,17 @@ socket.on('connection', function(client){
     });
 
 
-    webClients.push({session:client.sessionId,client:client});
+    webClients.push({session:client.sessionId,client:client, server:server});
     console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
 
     client.send({msgs:ircMessages,channels: opts.channels});
 
     client.on('disconnect', function(){ 
         for(i in webClients) {
-            if(webClients[i].session == client.sessionId)
-        webClients.splice(i,1);
+            if(webClients[i].session == client.sessionId) {
+                webClients[i].server.disconnect();
+                webClients.splice(i,1);
+            }
         }
         console.log("disconnect");
     });
