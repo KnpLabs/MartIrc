@@ -81,7 +81,7 @@ $(document).ready(function() {
         window.location = "error.html";	
     }
 
-    $('#connect').click(function() {
+    $('#connectButton').click(function() {
         doPage($('#server').val(),parseInt($('#port').val()));
     });
 
