@@ -60,9 +60,9 @@ function createChannels(list)
     }});
 }
 
-function doPage() 
+function doPage(server) 
 {
-    var socket = new io.Socket(null, {port: 3000});
+    var socket = new io.Socket(server, {port: 3000});
     socket.connect();
 
     socket.on('message', function(msg) {
@@ -78,9 +78,7 @@ function doPage()
 
 $(document).ready(function() {
     if("WebSocket" in window) {
-        $.getScript('socket.io.js', function() {
-            doPage();
-        });
+            doPage('localhost');
     } else {
         window.location = "error.html";	
     }

@@ -3,8 +3,6 @@ var app = require('express').createServer(),
     io = require('./lib/Socket.IO-node'),
     socket = io.listen(app);
 
-require('jade');
-
 var opts = {server: "irc.freenode.org",
     channels: ["#knplabs", "#martirc"],
     nick: "MartIrcTest",
@@ -61,15 +59,4 @@ socket.on('connection', function(client){
     });
 });
 
-app.set('view engine', 'jade');
-app.set('view options', {
-    layout: false
-});
-
-app.get('/', function(req, res){
-    res.render('index');	
-});
-
-app.get('/*.*', function(req, res){res.sendfile("./static"+req.url);});
-
-           app.listen(3000);
+app.listen(3000);
