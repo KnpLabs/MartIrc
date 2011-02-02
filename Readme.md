@@ -13,7 +13,6 @@ NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a brow
 Node dependencies
 
     npm install express
-    npm install irc-js
 
 # Running the server
 

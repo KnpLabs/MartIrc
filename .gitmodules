@@ -1,3 +1,6 @@
 [submodule "lib/Socket.IO-node"]
 	path = lib/Socket.IO-node
 	url = https://github.com/LearnBoost/Socket.IO-node.git
+[submodule "lib/IRC-js"]
+	path = lib/IRC-js
+	url = git://github.com/gf3/IRC-js.git
