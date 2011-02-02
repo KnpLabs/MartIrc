@@ -60,9 +60,9 @@ function createChannels(list)
     }});
 }
 
-function doPage(server) 
+function doPage(server, portNumber) 
 {
-    var socket = new io.Socket(server, {port: 3000});
+    var socket = new io.Socket(server, {port: portNumber});
     socket.connect();
 
     socket.on('message', function(msg) {
@@ -77,10 +77,12 @@ function doPage(server)
 }
 
 $(document).ready(function() {
-    if("WebSocket" in window) {
-            doPage('localhost');
-    } else {
+    if(!"WebSocket" in window) {
         window.location = "error.html";	
     }
+
+    $('#connect').click(function() {
+        doPage($('#server').val(),parseInt($('#port').val()));
+    });
 
 });
