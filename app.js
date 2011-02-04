@@ -47,7 +47,9 @@ socket.on('connection', function(client){
 
                             if(webClients.length != 0) {
                                 for(i in webClients) {
-                                    webClients[i].client.send(data);
+                                    if(webClients[i].server == this) {
+                                        webClients[i].client.send(data);
+                                    }
                                 }
                             }
                         }
