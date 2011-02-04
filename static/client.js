@@ -4,7 +4,7 @@ var socket = null;
 function update(msg) 
 {
     for(i in channelList) {
-        if(channelList[i] == msg.channel)
+        if(channelList[i].toLowerCase() == msg.channel.toLowerCase())
             $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.msg)+"<br/>");
 
         scroll(i);
@@ -16,7 +16,7 @@ function updateAll(list)
 {
     for(i in list) {
         for(j in channelList) {
-            if(channelList[j] == list[i].channel)
+            if(channelList[j].toLowerCase() == list[i].channel.toLowerCase())
                 $("#messages"+j).append("&lt;"+list[i].from+"&gt; "+scanMsg(list[i].msg)+"<br/>");
         }
     }
@@ -42,7 +42,7 @@ function createChannels(list)
     str = '<div id="tabs"><ul>';
 
     for(i in list) {
-        str += '<li><a href="#tabs-'+i+'">'+list[i]+'</a></li>';
+        str += '<li><a href="#tabs-'+i+'">'+list[i].toLowerCase()+'</a></li>';
     }
 
     str += '</ul>';
@@ -61,7 +61,7 @@ function createChannels(list)
     }});
 }
 
-function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
+function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname, channels)
 {
     socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
     socket.connect();
@@ -71,7 +71,8 @@ function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, ni
         {
             ircHost:ircServerHost, 
             ircPort:ircServerPort, 
-            nick:nickname
+            nick:nickname,
+            channels:channels
         }
     };
 
@@ -102,7 +103,8 @@ $(document).ready(function() {
         doPage(
             $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
             $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
-            $('#nickname').val()
+            $('#nickname').val(),
+            ["#knpLabs","#martirc"]
             );
     });
 

@@ -4,9 +4,8 @@ var app = require('express').createServer(),
     socket = io.listen(app);
 
 var opts = {
-    channels: ["#knplabs", "#martirc"],
     encoding: "utf-8",
-    maxMsgs: 1000};
+};
 var webClients = [];
 var servers = [];
 
@@ -28,10 +27,12 @@ socket.on('connection', function(client){
                     encoding: opts.encoding
                 });
 
+                channels = clientMessage.data.channels;
+
                 server.connect(function() {
                     setTimeout(function() {
-                        for(i in opts.channels) {
-                            server.join(opts.channels[i]);
+                        for(i in channels) {
+                            server.join(channels[i]);
                         }
                     }, 2000);
                 });
@@ -45,25 +46,32 @@ socket.on('connection', function(client){
 
                     console.log("IRC new: "+msg.params[0]+" - "+msg.person.nick+":"+msg.params[1]+"\n");
 
-                    for(i in opts.channels) {
-                        if(chan == opts.channels[i]) {
 
-                            if(webClients.length != 0) {
-                                for(i in webClients) {
-                                    if(webClients[i].server == this) {
-                                        webClients[i].client.send(data);
+                    if(webClients.length != 0) {
+                        for(i in webClients) {
+                            webClient = webClients[i];
+
+                            if(webClient.server == this) {
+
+                                for(j in webClient.channels) {
+
+                                    if(chan.toLowerCase() == webClient.channels[j].toLowerCase()) {
+
+                                        webClient.client.send(data);
+
                                     }
                                 }
                             }
                         }
                     }
 
+
                 });
 
-                webClients.push({session:client.sessionId,client:client, server:server});
+                webClients.push({session:client.sessionId,client:client, server:server, channels: channels});
                 console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
 
-                client.send({msgs:[],channels: opts.channels});
+                client.send({msgs:[],channels: channels});
 
                 break;
 
