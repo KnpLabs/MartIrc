@@ -60,14 +60,26 @@ function createChannels(list)
     }});
 }
 
-function doPage(server, portNumber) 
+function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
 {
-    var socket = new io.Socket(server, {port: portNumber});
+    var socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
     socket.connect();
+
+
+    var data = {
+        type: 'connect', data: 
+        {
+            ircHost:ircServerHost, 
+            ircPort:ircServerPort, 
+            nick:nickname
+        }
+    };
+
+    socket.send(data);
 
     socket.on('message', function(msg) {
         if(msg.channels != null) {
-            channelList = msg.channels;				
+            channelList = msg.channels;
             createChannels(msg.channels);
             updateAll(msg.msgs);
         } else {
@@ -78,11 +90,15 @@ function doPage(server, portNumber)
 
 $(document).ready(function() {
     if(!"WebSocket" in window) {
-        window.location = "error.html";	
+        window.location = "error.html";
     }
 
     $('#connectButton').click(function() {
-        doPage($('#server').val(),parseInt($('#port').val()));
+        doPage(
+            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
+            $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
+            $('#nickname').val()
+            );
     });
 
 });

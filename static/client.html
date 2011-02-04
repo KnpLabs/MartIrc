@@ -13,11 +13,22 @@
     <body>
         <div id="container">
             <h1>MartIrc</h1>
-            <div id="connect">
-                <input type="text" value="localhost" id="server" />
-                <input type="text" value="3000" id="port" />
-                <input type="submit" value="Connect" id="connectButton"/>
-            </div>
+            <fieldset id="nodeServer">
+                <legend>Node server informations</legend>
+                <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
+                <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
+            </fieldset>
+            <fieldset id="ircServer">
+                <legend>Irc server informations</legend>
+                <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
+                <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
+            </fieldset>
+            <fieldset id="connectionInformations">
+                <legend>Connection informations</legend>
+                <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
+            </fieldset>
+            <input type="submit" value="Connect" id="connectButton"/>
+
             <div id="tab_wrapper">
             </div>
         </div>
