@@ -3,9 +3,9 @@ var app = require('express').createServer(),
     io = require('./lib/Socket.IO-node'),
     socket = io.listen(app);
 
-var opts = {server: "localhost",
+var opts = {
     channels: ["#knplabs", "#martirc"],
-    nick: "MartIrcTest",
+    encoding: "utf-8",
     maxMsgs: 1000};
 var ircMessages = [];
 var webClients = [];
@@ -22,7 +22,12 @@ socket.on('connection', function(client){
         {
             case 'connect':
 
-                var server = new irc({ server: clientMessage.data.ircHost, nick: clientMessage.data.nick });
+                var server = new irc({
+                    server: clientMessage.data.ircHost,
+                    port: clientMessage.data.ircPort,
+                    nick: clientMessage.data.nick,
+                    encoding: opts.encoding
+                });
 
                 server.connect(function() {
                     setTimeout(function() {
