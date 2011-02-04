@@ -63,6 +63,8 @@ socket.on('connection', function(client){
                 webClients.push({session:client.sessionId,client:client, server:server});
                 console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
 
+                client.send({msgs:[],channels: opts.channels});
+
                 break;
 
         }
