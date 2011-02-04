@@ -1,4 +1,5 @@
 var channelList = [];
+var socket = null;
 
 function update(msg) 
 {
@@ -62,9 +63,8 @@ function createChannels(list)
 
 function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
 {
-    var socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
+    socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
     socket.connect();
-
 
     var data = {
         type: 'connect', data: 
@@ -94,6 +94,11 @@ $(document).ready(function() {
     }
 
     $('#connectButton').click(function() {
+
+        if(socket && socket.connected){
+            socket.disconnect();
+        }
+
         doPage(
             $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
             $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
