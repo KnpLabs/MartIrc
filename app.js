@@ -7,7 +7,6 @@ var opts = {
     channels: ["#knplabs", "#martirc"],
     encoding: "utf-8",
     maxMsgs: 1000};
-var ircMessages = [];
 var webClients = [];
 var servers = [];
 
@@ -48,7 +47,6 @@ socket.on('connection', function(client){
 
                     for(i in opts.channels) {
                         if(chan == opts.channels[i]) {
-                            ircMessages.push(data);
 
                             if(webClients.length != 0) {
                                 for(i in webClients) {
@@ -60,14 +58,10 @@ socket.on('connection', function(client){
                         }
                     }
 
-                    if(ircMessages.length >= opts.maxMsgs) 
-                        ircMessages = ircMessages.splice(0,1);
                 });
 
                 webClients.push({session:client.sessionId,client:client, server:server});
                 console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
-
-                client.send({msgs:ircMessages,channels: opts.channels});
 
                 break;
 
