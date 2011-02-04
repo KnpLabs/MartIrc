@@ -48,7 +48,6 @@ socket.on('connection', function(client){
             ircMessages = ircMessages.splice(0,1);
     });
 
-
     webClients.push({session:client.sessionId,client:client, server:server});
     console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
 
@@ -57,12 +56,19 @@ socket.on('connection', function(client){
     client.on('disconnect', function(){ 
         for(i in webClients) {
             if(webClients[i].session == client.sessionId) {
-                webClients[i].server.disconnect();
+                webClients[i].server.quit("Leaving");
                 webClients.splice(i,1);
             }
         }
         console.log("disconnect");
     });
 });
+
+
+process.on('uncaughtException', function (err) {
+    //We should certainly do something here :)
+    console.log(err);
+});
+
 
 app.listen(3000);
