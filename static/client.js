@@ -100,11 +100,17 @@ $(document).ready(function() {
             socket.disconnect();
         }
 
+        //Basic input cleaning
+        var channels = $('#channels').val().split("\n");
+        for(i in channels.size) {
+            channels[i] = $.trim(channels[i]);
+        }
+
         doPage(
             $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
             $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
             $('#nickname').val(),
-            ["#knpLabs","#martirc"]
+            channels
             );
     });
 
