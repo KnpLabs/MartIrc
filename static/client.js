@@ -32,6 +32,20 @@ function scanMsg(msg)
     return msg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
 }
 
+function sendMsgToActiveChannel(msg)
+{
+    var activeChannel = $.trim($('#tabs>ul>li.ui-state-active>a').html());
+    var data = {
+        type: 'privmsg', data:
+        {
+            channel:activeChannel,
+            message:msg
+        }
+    };
+
+    socket.send(data);
+}
+
 function scroll(i) 
 {
     $("#messages"+i).scrollTop(9999999);
@@ -48,7 +62,9 @@ function createChannels(list)
     str += '</ul>';
 
     for(i in list) {
-        str += '<div id="tabs-'+i+'"><div id="messages'+i+'" class="messages"></div></div>';
+        str += '<div id="tabs-'+i+'"><div id="messages'+i+'" class="messages"></div>';
+        str += '<div id="inputs-'+i+'"><input type="text" id="input-text'+i+'" class="input-message"/></div>';
+        str += '</div>';
     }
 
     str += '</div>';
@@ -59,6 +75,17 @@ function createChannels(list)
         for(i in channelList) 
         scroll(i);
     }});
+
+    $('.input-message').each(function() {
+       $(this).keypress(function(e)
+        {
+            code= (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                sendMsgToActiveChannel($(this).val());
+                $(this).val('');
+            }
+        });
+    });
 }
 
 function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname, channels)

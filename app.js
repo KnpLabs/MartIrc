@@ -11,8 +11,6 @@ var servers = [];
 
 socket.on('connection', function(client){
 
-
-
     client.on('message', function(clientMessage){
         console.log("got a message :: "+ clientMessage.type);
 
@@ -72,6 +70,23 @@ socket.on('connection', function(client){
                 console.log("got a client :: "+client.sessionId+" :: "+webClients.length);
 
                 client.send({msgs:[],channels: channels});
+
+                break;
+
+            case 'privmsg':
+                console.log("got a message for " + clientMessage.data.channel + " :: "+ clientMessage.data.message);
+
+                if(webClients.length != 0) {
+                    for(i in webClients) {
+                        webClient = webClients[i];
+
+                        if(webClient.session == client.sessionId) {
+                            //TODO: change the from nickname
+                            webClient.client.send({channel: clientMessage.data.channel, from:'me', msg:clientMessage.data.message});
+                            webClient.server.privmsg(clientMessage.data.channel, clientMessage.data.message);
+                        }
+                    }
+                }
 
                 break;
 
