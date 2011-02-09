@@ -31,9 +31,19 @@ textarea {
 }
 
 fieldset {
+    border:none;
+    padding:5px;
+    margin-bottom:20px;
+}
+
+fieldset legend{
     -moz-border-radius:10px 10px 10px 10px;
     border-radius:10px 10px 10px 10px;
     border: 1px solid #e89d00;
+    font-weight:bold;
+    background-color: #e89d00;
+    color:white;
+    padding:5px;
 }
 
 #tab_wrapper input[type=text] {
@@ -62,7 +72,7 @@ h1 {
 }
 
 .text {
-    font-family: Arial;
+    font-family: Verdana;
     font-size: 14px;
 }
 
@@ -120,4 +130,17 @@ h1 {
   text-align:left;
   width: 988px;
   margin: auto;
+}
+
+#header {
+    height: 50px;
+    position: relative;
+    padding-bottom:10px;
+}
+
+#header img {
+    position:absolute;
+    right:0px;
+    top:0px;
+    width: 50px;
 }
