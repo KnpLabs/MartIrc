@@ -20,7 +20,7 @@ To install the dependencies, you should install [npm](https://github.com/isaacs/
 
 # Running the server
 
-    node app.js
+    node server.js
 
 # Connecting to the server with you browser
 
