@@ -1,9 +1,12 @@
-[submodule "lib/Socket.IO-node"]
-	path = lib/Socket.IO-node
-	url = https://github.com/LearnBoost/Socket.IO-node.git
-[submodule "lib/IRC-js"]
-	path = lib/IRC-js
-	url = git://github.com/gf3/IRC-js.git
 [submodule "vendor/express"]
 	path = vendor/express
 	url = git://github.com/visionmedia/express.git
+[submodule "vendor/Socket.IO-node"]
+	path = vendor/Socket.IO-node
+	url = git://github.com/LearnBoost/Socket.IO-node.git
+[submodule "vendor/IRC-js"]
+	path = vendor/IRC-js
+	url = git://github.com/gf3/IRC-js.git
+[submodule "vendor/coloured-log"]
+	path = vendor/coloured-log
+	url = git://github.com/bentruyman/coloured-log.git

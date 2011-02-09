@@ -6,10 +6,6 @@ NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a brow
 
 Obviously you should first install [node.JS](https://github.com/ry/node). Really, this will help.
 
-To install the dependencies, you should install [npm](https://github.com/isaacs/npm) a package manager for node.JS, then:
-
-    npm install coloured-log
-
 # Installation
 
     git clone git://github.com/knplabs/MartIrc.git

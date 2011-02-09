@@ -1,6 +1,11 @@
-var app = require('./vendor/express/lib/express').createServer(),
-    irc = require('./lib/IRC-js/lib/irc'),
-    io = require('./lib/Socket.IO-node'),
+var path = require('path');
+
+require.paths.unshift( path.join( __dirname,'vendor') )
+require.paths.unshift( path.join( __dirname,'vendor','coloured-log','lib') )
+
+var app = require('express/lib/express').createServer(),
+    irc = require('IRC-js/lib/irc'),
+    io = require('Socket.IO-node'),
     socket = io.listen(app);
 
 var opts = {
