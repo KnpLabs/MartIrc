@@ -8,7 +8,6 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
 
 To install the dependencies, you should install [npm](https://github.com/isaacs/npm) a package manager for node.JS, then:
 
-    npm install express
     npm install coloured-log
 
 # Installation

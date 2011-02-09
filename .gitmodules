@@ -4,3 +4,6 @@
 [submodule "lib/IRC-js"]
 	path = lib/IRC-js
 	url = git://github.com/gf3/IRC-js.git
+[submodule "vendor/express"]
+	path = vendor/express
+	url = git://github.com/visionmedia/express.git

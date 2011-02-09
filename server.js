@@ -1,4 +1,4 @@
-var app = require('express').createServer(),
+var app = require('./vendor/express/lib/express').createServer(),
     irc = require('./lib/IRC-js/lib/irc'),
     io = require('./lib/Socket.IO-node'),
     socket = io.listen(app);
