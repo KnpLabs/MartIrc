@@ -22,9 +22,9 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
 Open `static/client.html` in your browser. The application will try to connect to the node server on `localhost:3000`.  
 Then you should be connected to `#martirc` and `#knplabs` on Freenode`.`
 
-You can only see messages, you can't send one for the moment.
+You can send and receive messages.
 
 
-# Greetings
+# Credits
 
-Thiw work was started by [Abronte](https://github.com/abronte/WebIRC).
+This work was started by [Abronte](https://github.com/abronte/WebIRC).

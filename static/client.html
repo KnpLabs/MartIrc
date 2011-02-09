@@ -3,37 +3,39 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>MartIrc</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="stylesheet" type="text/css" href="jquery-ui.css">
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="jquery-ui.js"></script>
-        <script type="text/javascript" src="socket.io.js"></script>
-        <script type="text/javascript" src="client.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/screen.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/socket.io.js"></script>
+        <script type="text/javascript" src="js/client.js"></script>
     </head>
     <body>
-        <div id="container">
+        <div id="wrap">
             <h1>MartIrc</h1>
-            <fieldset id="nodeServer">
-                <legend>Node server informations</legend>
-                <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
-                <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
-            </fieldset>
-            <fieldset id="ircServer">
-                <legend>Irc server informations</legend>
-                <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
-                <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
-            </fieldset>
-            <fieldset id="connectionInformations">
-                <legend>Connection informations</legend>
-                <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
-                <label for="channels" style="display:block;">Channel list, one per line</label>
-                <textarea name="channels" id="channels">#knplabs
-#martirc</textarea>
-            </fieldset>
-            <input type="submit" value="Connect" id="connectButton"/>
+            <div class="text textWrapper">
+                <fieldset id="nodeServer">
+                    <legend>Node server informations</legend>
+                    <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
+                    <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
+                </fieldset>
+                <fieldset id="ircServer">
+                    <legend>Irc server informations</legend>
+                    <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
+                    <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
+                </fieldset>
+                <fieldset id="connectionInformations">
+                    <legend>Connection informations</legend>
+                    <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
+                    <label for="channels" style="display:block;">Channel list, one per line</label>
+                    <textarea name="channels" id="channels">#knplabs
+    #martirc</textarea>
+                </fieldset>
+                <input type="submit" value="Connect" id="connectButton"/>
 
-            <div id="tab_wrapper">
-            </div>
+                <div id="tab_wrapper">
+                </div>
+              </div>
         </div>
     </body>
 </html>
