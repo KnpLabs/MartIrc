@@ -5,7 +5,10 @@ require.paths.unshift( path.join( __dirname,'vendor','coloured-log','lib') )
 
 var MartIrc = require('./lib/martirc');
 
-new MartIrc({ port: 3000 });
+new MartIrc({ 
+    port: 3000
+    , encoding: "utf-8"
+});
 
 process.addListener('uncaughtException', function (err, stack) {
   console.log('------------------------');
