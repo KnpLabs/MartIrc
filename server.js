@@ -5,7 +5,7 @@ require.paths.unshift( path.join( __dirname,'vendor','coloured-log','lib') )
 
 var MartIrc = require('./lib/martirc');
 
-new MartIrc({ 
+new MartIrc({
     port: 3000
     , encoding: "utf-8"
 });
