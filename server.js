@@ -1,9 +1,10 @@
 var path = require('path');
 
 require.paths.unshift( path.join( __dirname,'vendor') )
+require.paths.unshift( path.join( __dirname,'lib') )
 require.paths.unshift( path.join( __dirname,'vendor','coloured-log','lib') )
 
-var MartIrc = require('./lib/martirc');
+var MartIrc = require('martirc');
 
 new MartIrc({
     port: 3000

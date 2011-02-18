@@ -5,7 +5,7 @@ function update(msg)
 {
     for(i in channelList) {
         if(channelList[i].toLowerCase() == msg.channel.toLowerCase())
-            $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.msg)+"<br/>");
+            $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.message)+"<br/>");
 
         scroll(i);
     }
