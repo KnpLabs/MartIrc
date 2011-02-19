@@ -4,7 +4,7 @@ NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a brow
 
 # Requirements
 
-Obviously you should first install [node.JS](https://github.com/ry/node). Really, this will help.
+Obviously you should first install [node.JS](https://github.com/ry/node). Really, this will help. Then you will need to install [npm](http://npmjs.org/), the node package manager.
 
 # Installation
 
@@ -12,6 +12,10 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
     cd MartIrc
     git submodule init
     git submodule update
+
+    npm install express
+    npm install coloured
+    npm install log
 
 # Running the server
 
