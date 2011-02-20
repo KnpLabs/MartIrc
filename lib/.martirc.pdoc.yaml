@@ -1,0 +1,209 @@
+---
+id: "MartIrc"
+type: class
+line_number: 6
+description: |
+  An IRC wrapper for Websockets
+
+file: lib/martirc.js
+
+---
+id: "new MartIrc"
+parent_id: "MartIrc"
+type: constructor
+line_number: 23
+description: |
+  Creates a new `MartIrc` instance.
+  
+  ### Examples
+  
+      var MartIrc = new MartIrc( { port: 3000, encoding: 'utf-8' });
+
+signatures:
+ -
+  signature: "new MartIrc( options )"
+arguments:
+ -
+  name: options
+  types: [Object]
+  description: >
+    Options for specific instance.
+
+file: lib/martirc.js
+
+---
+id: "MartIrc#init"
+parent_id: "MartIrc"
+type: instance method
+line_number: 46
+description: |
+  Create and init HTTPServer
+
+signatures:
+ -
+  signature: "MartIrc#init()"
+  return_value: "self"
+file: lib/martirc.js
+
+---
+id: "MartIrc#createHTTPServer"
+parent_id: "MartIrc"
+type: instance method
+line_number: 65
+description: |
+  Create HTTPServer and bind event for client connection/msg
+
+signatures:
+ -
+  signature: "MartIrc#createHTTPServer()"
+  return_value: "app"
+file: lib/martirc.js
+
+---
+id: "MartIrc#createIrcServerForClient"
+parent_id: "MartIrc"
+type: instance method
+line_number: 123
+description: |
+  Create an IRC server connection for a given client (on connect for example)
+
+signatures:
+ -
+  signature: "MartIrc#createIrcServerForClient(client, ircHost, ircPort, nick, encoding, channels)"
+  return_value: "null"
+file: lib/martirc.js
+
+---
+id: "MartIrc#disconnectClient"
+parent_id: "MartIrc"
+type: instance method
+line_number: 172
+description: |
+  Disconnect a client from IRC
+
+signatures:
+ -
+  signature: "MartIrc#disconnectClient(clientSessionId)"
+  return_value: "null"
+arguments:
+ -
+  name: clientSessionId
+  types: [String]
+  description: >
+    Client unique identifier
+
+file: lib/martirc.js
+
+---
+id: "MartIrc#sendMessageToServerChannelFromClient"
+parent_id: "MartIrc"
+type: instance method
+line_number: 193
+description: |
+  Send a message comming from a client to the IRC server
+
+signatures:
+ -
+  signature: "MartIrc#sendMessageToServerChannelFromClient(channel, message, clientSessionId)"
+  return_value: "null"
+arguments:
+ -
+  name: channel
+  types: [String]
+  description: >
+    The channel to send the message to
+
+ -
+  name: message
+  types: [String]
+  description: >
+    The message to send
+
+ -
+  name: clientSessionId
+  types: [String]
+  description: >
+    Client unique identifier
+
+file: lib/martirc.js
+
+---
+id: "MartIrc#removeClientById"
+parent_id: "MartIrc"
+type: instance method
+line_number: 214
+description: |
+  Remove a client from the client list
+
+signatures:
+ -
+  signature: "MartIrc#removeClientById(clientSessionId)"
+  return_value: "null"
+arguments:
+ -
+  name: clientSessionId
+  types: [String]
+  description: >
+    Client unique identifier
+
+file: lib/martirc.js
+
+---
+id: "MartIrc#findClientById"
+parent_id: "MartIrc"
+type: instance method
+line_number: 235
+description: |
+  Find a client from the client list
+
+signatures:
+ -
+  signature: "MartIrc#findClientById(clientSessionId)"
+  return_value: "null"
+arguments:
+ -
+  name: clientSessionId
+  types: [String]
+  description: >
+    Client unique identifier
+
+file: lib/martirc.js
+
+---
+id: "MartIrc#sendMessageFromServerChannelToClient"
+parent_id: "MartIrc"
+type: instance method
+line_number: 260
+description: |
+  Send a message comming from an IRC server to the client
+
+signatures:
+ -
+  signature: "MartIrc#sendMessageFromServerChannelToClient(server, channel, from, message)"
+  return_value: "null"
+arguments:
+ -
+  name: channel
+  types: [String]
+  description: >
+    The channel to send the message to
+
+ -
+  name: from
+  types: [String]
+  description: >
+    The message owner
+
+ -
+  name: message
+  types: [String]
+  description: >
+    The message to send
+
+ -
+  name: server
+  types: [IRC]
+  description: >
+    Server object
+
+file: lib/martirc.js
