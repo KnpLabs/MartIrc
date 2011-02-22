@@ -13,7 +13,6 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
     git submodule init
     git submodule update
 
-    npm install express
     npm install coloured
     npm install log
 
