@@ -4,8 +4,9 @@ var socket = null;
 function update(msg) 
 {
     for(i in channelList) {
+        console.log(msg.channel);
         if(channelList[i].toLowerCase() == msg.channel.toLowerCase())
-            $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.message)+"<br/>");
+            $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.content)+"<br/>");
 
         scroll(i);
     }
@@ -88,6 +89,18 @@ function createChannels(list)
     });
 }
 
+function parseIncomingMessage(incomingMessage) {
+    
+    console.log('message received: ' + incomingMessage.content);
+
+    var message = {
+        channel: 'server',
+        content: incomingMessage.content
+    }
+
+    return message;
+}
+
 function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname, channels)
 {
     socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
@@ -105,15 +118,14 @@ function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, ni
 
     socket.send(data);
 
-    socket.on('message', function(msg) {
-        console.log('message received: ' + msg.content);
-        if(msg.channels != null) {
-            channelList = msg.channels;
-            createChannels(msg.channels);
-            updateAll(msg.msgs);
-        } else {
-            update(msg);
-        }
+    channelList = ['server'];
+    createChannels(channelList);
+
+    socket.on('message', function(incomingMessage) {
+
+        var message = parseIncomingMessage(incomingMessage);
+        update(message);
+
     });
 }
 
