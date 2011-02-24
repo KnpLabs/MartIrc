@@ -4,7 +4,6 @@ var socket = null;
 function update(msg) 
 {
     for(i in channelList) {
-        console.log(msg.channel);
         if(channelList[i].toLowerCase() == msg.channel.toLowerCase())
             $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.content)+"<br/>");
 
@@ -99,7 +98,9 @@ function parseIncomingMessage(incomingMessage) {
     }
 
     var compiler = new Compiler();
-    console.log(compiler.compile(message.content));
+    var compiledMessage = compiler.compile(message.content);
+
+    $(this).trigger('irc.'+compiledMessage.command, compiledMessage);
 
     return message;
 }
@@ -123,6 +124,22 @@ function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, ni
 
     channelList = ['server'];
     createChannels(channelList);
+
+    $(this).bind('irc.notice',function(event, data) { 
+
+    });
+
+    $(this).bind('irc.ping',function(event, data) { 
+        var data = {
+            type: 'message', data:
+            {
+                message:'PONG ' + ':' + data.params[0]
+            }
+        };
+
+        console.log(data);
+        socket.send(data);
+    });
 
     socket.on('message', function(incomingMessage) {
 
