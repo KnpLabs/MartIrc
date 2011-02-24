@@ -106,6 +106,7 @@ function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, ni
     socket.send(data);
 
     socket.on('message', function(msg) {
+        console.log('message received: ' + msg.content);
         if(msg.channels != null) {
             channelList = msg.channels;
             createChannels(msg.channels);
