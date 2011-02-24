@@ -98,6 +98,9 @@ function parseIncomingMessage(incomingMessage) {
         content: incomingMessage.content
     }
 
+    var compiler = new Compiler();
+    console.log(compiler.compile(message.content));
+
     return message;
 }
 
