@@ -1,5 +1,6 @@
 var channelList = [];
 var socket = null;
+var ircConnection = null;
 
 function update(msg) 
 {
@@ -88,64 +89,20 @@ function createChannels(list)
     });
 }
 
-function parseIncomingMessage(incomingMessage) {
-    
-    console.log('message received: ' + incomingMessage.content);
-
-    var message = {
-        channel: 'server',
-        content: incomingMessage.content
-    }
-
-    var compiler = new Compiler();
-    var compiledMessage = compiler.compile(message.content);
-
-    $(this).trigger('irc.'+compiledMessage.command, compiledMessage);
-
-    return message;
-}
 
 function doPage(nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname, channels)
 {
-    socket = new io.Socket(nodeServerHost, {port: nodeServerPort});
-    socket.connect();
-
-    var data = {
-        type: 'connect', data: 
-        {
-            ircHost:ircServerHost, 
-            ircPort:ircServerPort, 
-            nick:nickname,
-            channels:channels
-        }
-    };
-
-    socket.send(data);
-
-    channelList = ['server'];
-    createChannels(channelList);
-
-    $(this).bind('irc.notice',function(event, data) { 
-
+    ircConnection = new IrcConnection({
+        nodeServerHost: nodeServerHost
+        , nodeServerPort: nodeServerPort
+        , ircServerHost: ircServerHost
+        , ircServerPort: ircServerPort
+        , nickname: nickname
     });
 
-    $(this).bind('irc.ping',function(event, data) { 
-        var data = {
-            type: 'message', data:
-            {
-                message:'PONG ' + ':' + data.params[0]
-            }
-        };
+    $(ircConnection).bind('irc.notice',function(event, data) { 
 
-        console.log(data);
-        socket.send(data);
-    });
-
-    socket.on('message', function(incomingMessage) {
-
-        var message = parseIncomingMessage(incomingMessage);
-        update(message);
-
+        console.log('Notice: ' + data.raw);
     });
 }
 
@@ -154,24 +111,5 @@ $(document).ready(function() {
         window.location = "error.html";
     }
 
-    $('#connectButton').click(function() {
-
-        if(socket && socket.connected){
-            socket.disconnect();
-        }
-
-        //Basic input cleaning
-        var channels = $('#channels').val().split("\n");
-        for(i in channels.size) {
-            channels[i] = $.trim(channels[i]);
-        }
-
-        doPage(
-            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
-            $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
-            $('#nickname').val(),
-            channels
-            );
-    });
-
+    var martIrcClient = new MartIrcClient();
 });
