@@ -30,23 +30,16 @@ MartIrcClient.prototype.init = function() {
             self.ircConnection.disconnect();
         }
 
-        //Basic input cleaning
-        var channels = $('#channels').val().split("\n");
-        for(i in channels.size) {
-            channels[i] = $.trim(channels[i]);
-        }
-
         self.doPage(
-            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val()),
-            $('#ircServerHost').val(),parseInt($('#ircServerPort').val()),
-            $('#nickname').val(),
-            channels
+            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val())
+            , $('#ircServerHost').val(),parseInt($('#ircServerPort').val())
+            , $('#nickname').val()
             );
     });
 };
 
 
-MartIrcClient.prototype.doPage = function (nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname, channels)
+MartIrcClient.prototype.doPage = function (nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
 {
     self.ircConnection = new IrcConnection({
         nodeServerHost: nodeServerHost
