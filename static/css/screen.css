@@ -11,14 +11,14 @@ body {
 
 #tabs {
     margin-left: 15px;
-    width: 760px;
+    width: 900px;
 }
 
 .messages {
     padding-left: 5px;
     padding-right: 5px;
     border: 1px solid black;
-    width: 700px;
+    width: 840px;
     height: 400px;
     overflow: auto;
     overflow-x:hidden;

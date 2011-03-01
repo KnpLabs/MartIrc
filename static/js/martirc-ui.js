@@ -75,6 +75,10 @@ MartIrcUi.prototype.drawBasicClient = function() {
 
     $('#tab_wrapper').html(str);
 
+    $('#tabs').tabs({selected: 0, show: function() {
+        scroll(0);
+    }});
+
     $('.input-message').each(function() {
        $(this).keypress(function(e)
         {
