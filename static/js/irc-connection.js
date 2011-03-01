@@ -87,15 +87,7 @@ IrcConnection.prototype.bindEvents = function () {
 
     //Basic client to keep the connection alive
     $(this).bind('irc.ping',function(event, data) { 
-        var data = {
-            type: 'message', data:
-            {
-                message:'PONG ' + ':' + data.params[0]
-            }
-        };
-
-        console.log(data);
-        self.socket.send(data);
+        self.pong(data.params[0]);
     });
 }
 
@@ -110,4 +102,99 @@ IrcConnection.prototype.disconnect = function() {
     var self = this;
 
     self.socket.disconnect();
+}
+
+/************** Convenience methods ***************/
+
+IrcConnection.prototype.sendMessage = function(message) {
+    var self = this;
+
+    var data = {
+        type: 'message', data:
+        {
+            message: message
+        }
+    };
+
+    console.log(data);
+    self.socket.send(data);
+
+}
+
+IrcConnection.prototype.pong = function(server) {
+    var self = this;
+    self.sendMessage('PONG ' + ':' + server);
+}
+
+/**
+ * IrcConnection#quit( [message] ) -> self
+ * - message ( String ): Quit message
+ * 
+ * Quit the server, passing an optional message.
+ * 
+ * ### Examples
+ * 
+ *     irc_instance.quit(); // Quit without a message
+ *     irc_instance.quit( 'LOLeaving!' ); // Quit with a hilarious exit message
+ **/
+IrcConnection.prototype.quit = function( message ) {
+    var self = this;
+    // 4.1.6
+    this.sendMessage( 'QUIT' + self.if_exists( message, null, ' :' ) );
+    return this;
+}
+
+/**
+ * IrcConnection#join( channel[, key] ) -> self
+ * - channel ( String ): Channel to join
+ * - key ( String ): Channel key
+ * 
+ * Start listening for messages from a given channel.
+ * 
+ * ### Examples
+ * 
+ *     irc_instance.join( '#asl' ); // Join the channel `#asl`
+ *     irc_instance.join( '#asxxxl', 'lol123' ); // Join the channel `#asxxl` with the key `lol123`
+ **/
+IrcConnection.prototype.join = function ( channel, key ) {
+    var self = this;
+    // 4.2.1
+    return self.sendMessage( 'JOIN' + self.param( channel ) + self.if_exists( key ) )
+}
+
+
+/**
+ * IRC#part( channel ) -> self
+ * - channel ( String ): Channel to part
+ * 
+ * Stop listening for messages from a given channel
+ * 
+ * ### Examples
+ * 
+ *     irc_instance.part( '#asl' ); // You've had your fill of `#asl` for the day
+ **/
+IrcConnection.prototype.part = function( channel ) {
+    var self = this;
+    // 4.2.2
+    return self.sendMessage( 'PART' + self.param( channel ) )
+  }
+
+
+IrcConnection.prototype.part = function privmsg ( receiver, msg ) {
+    var self = this;
+
+    self.sendMessage( 'PRIVMSG' + self.param( receiver ) + ' ' + self.param( msg || '', null, ':' ) )
+}
+
+/* ------------------------------ MISCELLANEOUS ------------------------------ */
+IrcConnection.prototype.if_exists = function ( data, no_pad, pad_char ) {
+  return data ? param( data, no_pad, pad_char ) : ''
+}
+
+IrcConnection.prototype.param = function ( data, no_pad, pad_char ) {
+  return ( no_pad ? '' : ( pad_char ? pad_char : ' ' ) ) + data.toString()
+}
+
+IrcConnection.prototype.not_blank = function ( item ) {
+  return ( !!item && item.toString().replace( /\s/g, '' ) != '' )
 }
