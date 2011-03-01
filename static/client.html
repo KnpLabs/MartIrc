@@ -13,6 +13,7 @@
         <script type="text/javascript" src="js/compiler.js"></script>
         <script type="text/javascript" src="js/irc-connection.js"></script>
         <script type="text/javascript" src="js/martirc-client.js"></script>
+        <script type="text/javascript" src="js/martirc-ui.js"></script>
         <script type="text/javascript" src="js/client.js"></script>
     </head>
     <body>
@@ -22,24 +23,28 @@
                 <a href="http://www.knplabs.com"><img src="images/logo-site.png" alt="Logo knp" /></a>
             </div>
             <div class="text textWrapper">
-                <fieldset id="nodeServer">
-                    <legend>Node server informations</legend>
-                    <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
-                    <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
-                </fieldset>
-                <fieldset id="ircServer">
-                    <legend>Irc server informations</legend>
-                    <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
-                    <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
-                </fieldset>
-                <fieldset id="connectionInformations">
-                    <legend>Connection informations</legend>
-                    <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
-                    <label for="channels" style="display:block;">Channel list, one per line</label>
-                    <textarea name="channels" id="channels">#knplabs
-#martirc</textarea>
-                </fieldset>
-                <input type="submit" value="Connect" id="connectButton"/>
+                <div id="connection-informations">
+                    <fieldset id="nodeServer">
+                        <legend>Node server informations</legend>
+                        <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
+                        <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
+                    </fieldset>
+                    <fieldset id="ircServer">
+                        <legend>Irc server informations</legend>
+                        <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
+                        <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
+                    </fieldset>
+                    <fieldset id="connectionInformations">
+                        <legend>Connection informations</legend>
+                        <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
+                        <!--
+                        <label for="channels" style="display:block;">Channel list, one per line</label>
+                        <textarea name="channels" id="channels">#knplabs
+    #martirc</textarea>
+-->
+                    </fieldset>
+                    <input type="submit" value="Connect" id="connectButton"/>
+                </div>
 
                 <div id="tab_wrapper">
                 </div>

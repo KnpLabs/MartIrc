@@ -24,23 +24,17 @@ MartIrcClient = function(options) {
 MartIrcClient.prototype.init = function() {
     var self = this;
 
-    $('#connectButton').click(function() {
-
-        if(self.ircConnection && self.ircConnection.connected()){
-            self.ircConnection.disconnect();
-        }
-
-        self.doPage(
-            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val())
-            , $('#ircServerHost').val(),parseInt($('#ircServerPort').val())
-            , $('#nickname').val()
-            );
-    });
 };
 
 
-MartIrcClient.prototype.doPage = function (nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
+MartIrcClient.prototype.connect = function (nodeServerHost, nodeServerPort, ircServerHost, ircServerPort, nickname)
 {
+    var self = this;
+
+    if(self.ircConnection && self.ircConnection.connected()){
+        self.ircConnection.disconnect();
+    }
+
     self.ircConnection = new IrcConnection({
         nodeServerHost: nodeServerHost
         , nodeServerPort: nodeServerPort
@@ -49,9 +43,10 @@ MartIrcClient.prototype.doPage = function (nodeServerHost, nodeServerPort, ircSe
         , nickname: nickname
     });
 
-    $(self.ircConnection).bind('irc.notice',function(event, data) { 
-
-        console.log('Notice: ' + data.raw);
+    $(self.ircConnection).bind('irc.server',function(event, data) { 
+        console.log(data.raw);
+        //@TODO: see how to rethrow a message automatically
+        $(self).trigger('irc.server', data);
     });
 
 }

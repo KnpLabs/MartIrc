@@ -63,7 +63,6 @@ IrcConnection.prototype.init = function() {
 IrcConnection.prototype.parseIncomingMessage = function (incomingMessage) {
     var self = this;
 
-    console.log('message received: ' + incomingMessage.content);
 
     var message = {
         channel: 'server'
@@ -74,6 +73,7 @@ IrcConnection.prototype.parseIncomingMessage = function (incomingMessage) {
     var compiledMessage = compiler.compile(message.content);
 
     $(this).trigger('irc.'+compiledMessage.command, compiledMessage);
+    $(this).trigger('irc.server', compiledMessage);
 
     return message;
 }

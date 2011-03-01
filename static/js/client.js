@@ -4,4 +4,5 @@ $(document).ready(function() {
     }
 
     var martIrcClient = new MartIrcClient();
+    var martIrcUi = new MartIrcUi({ircClient: martIrcClient});
 });

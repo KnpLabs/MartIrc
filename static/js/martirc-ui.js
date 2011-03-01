@@ -1,59 +1,62 @@
-var channelList = [];
-var socket = null;
-var ircConnection = null;
-
-function update(msg) 
-{
-    for(i in channelList) {
-        if(channelList[i].toLowerCase() == msg.channel.toLowerCase())
-            $("#messages"+i).append("&lt;"+msg.from+"&gt; "+scanMsg(msg.content)+"<br/>");
-
-        scroll(i);
+/**
+* Main ui constructor
+*
+* @contructor
+*
+*/
+MartIrcUi = function(options) {
+    if (! (this instanceof arguments.callee)) {
+        return new arguments.callee(arguments);
     }
 
+    var self = this;
+
+    self.ircClient = options.ircClient;
+
+    self.init();
+};
+
+
+/**
+* MartIrcUi init
+*
+*/
+MartIrcUi.prototype.init = function() {
+    var self = this;
+
+
+    $('#connectButton').click(function() {
+
+        self.ircClient.connect(
+            $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val())
+            , $('#ircServerHost').val(),parseInt($('#ircServerPort').val())
+            , $('#nickname').val()
+            );
+
+        $('#connection-informations').hide();
+        self.drawBasicClient();
+
+    });
+
+    $(self.ircClient).bind('irc.server',function(event, data) { 
+        self.displayServerMessage(data.raw);
+    });
+};
+
+MartIrcUi.prototype.displayServerMessage = function(message) {
+    var self = this;
+
+    console.log('Notice: ' + message);
+
+    $("#messages0").append(self.scanMsg(message)+"<br/>");
+    self.scroll(0);
 }
 
-function updateAll(list)
-{
-    for(i in list) {
-        for(j in channelList) {
-            if(channelList[j].toLowerCase() == list[i].channel.toLowerCase())
-                $("#messages"+j).append("&lt;"+list[i].from+"&gt; "+scanMsg(list[i].msg)+"<br/>");
-        }
-    }
+MartIrcUi.prototype.drawBasicClient = function() {
+    var self = this;
 
-    for(i in channelList)
-        scroll(i);
-}
+    var list = ['Server'];
 
-function scanMsg(msg) 
-{
-    var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
-
-    return msg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
-}
-
-function sendMsgToActiveChannel(msg)
-{
-    var activeChannel = $.trim($('#tabs>ul>li.ui-state-active>a').html());
-    var data = {
-        type: 'privmsg', data:
-        {
-            channel:activeChannel,
-            message:msg
-        }
-    };
-
-    socket.send(data);
-}
-
-function scroll(i) 
-{
-    $("#messages"+i).scrollTop(9999999);
-}
-
-function createChannels(list) 
-{
     str = '<div id="tabs"><ul>';
 
     for(i in list) {
@@ -72,21 +75,28 @@ function createChannels(list)
 
     $('#tab_wrapper').html(str);
 
-    $('#tabs').tabs({selected: 0, show: function() {
-        for(i in channelList) 
-        scroll(i);
-    }});
-
     $('.input-message').each(function() {
        $(this).keypress(function(e)
         {
             code= (e.keyCode ? e.keyCode : e.which);
             if (code == 13) {
-                sendMsgToActiveChannel($(this).val());
+                //sendMsgToActiveChannel($(this).val());
                 $(this).val('');
             }
         });
     });
 }
 
+
+MartIrcUi.prototype.scanMsg = function(msg) 
+{
+    var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
+
+    return msg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
+}
+
+MartIrcUi.prototype.scroll = function(i) 
+{
+    $("#messages"+i).scrollTop(9999999);
+}
 
