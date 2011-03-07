@@ -22,9 +22,7 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
 
 # Connecting to the server with you browser
 
-Open `static/client.html` in your browser. The application will try to connect to the node server on `localhost:3000`.  
-Then you should be connected to `#martirc` and `#knplabs` on Freenode`.`
-
+Open `static/client.html` in your browser. The application will try by default to connect to the node server on `localhost:3000`.
 You can send and receive (raw) messages. There is no channel management for the moment, just the server tab.
 
 To join a channel :
@@ -46,4 +44,4 @@ To talk in private :
 
 # Credits
 
-This work was started by [Abronte](https://github.com/abronte/WebIRC).
+MartIrc has been inspired by the work of [Abronte](https://github.com/abronte/WebIRC) and [Gf3](https://github.com/gf3/IRC-js), thanks to them!
