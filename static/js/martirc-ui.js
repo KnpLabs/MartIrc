@@ -48,7 +48,7 @@ MartIrcUi.prototype.displayServerMessage = function(message) {
 
     console.log('Notice: ' + message);
 
-    $("#messages0").append(self.scanMsg(message)+"<br/>");
+    $("#messages0").append(self.scanMessage(message)+"<br/>");
     self.scroll(0);
 }
 
@@ -84,7 +84,7 @@ MartIrcUi.prototype.drawBasicClient = function() {
         {
             code= (e.keyCode ? e.keyCode : e.which);
             if (code == 13) {
-                //sendMsgToActiveChannel($(this).val());
+                self.sendMessage($(this).val());
                 $(this).val('');
             }
         });
@@ -92,11 +92,23 @@ MartIrcUi.prototype.drawBasicClient = function() {
 }
 
 
-MartIrcUi.prototype.scanMsg = function(msg) 
+MartIrcUi.prototype.scanMessage = function(message) 
 {
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
-    return msg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
+    return message.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
+}
+
+
+/*
+ * Sending raw messages only for the moment
+ */
+
+MartIrcUi.prototype.sendMessage = function(message) 
+{
+    var self = this;
+
+    self.ircClient.sendRawMessage(message);
 }
 
 MartIrcUi.prototype.scroll = function(i) 

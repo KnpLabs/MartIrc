@@ -50,3 +50,14 @@ MartIrcClient.prototype.connect = function (nodeServerHost, nodeServerPort, ircS
     });
 
 }
+
+
+/**
+* MartIrc sendRawMessage
+*
+*/
+MartIrcClient.prototype.sendRawMessage = function(message) {
+    var self = this;
+
+    self.ircConnection.sendMessage(message);
+};
