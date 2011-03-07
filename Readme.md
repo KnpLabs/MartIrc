@@ -25,7 +25,23 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
 Open `static/client.html` in your browser. The application will try to connect to the node server on `localhost:3000`.  
 Then you should be connected to `#martirc` and `#knplabs` on Freenode`.`
 
-You can send and receive messages.
+You can send and receive (raw) messages. There is no channel management for the moment, just the server tab.
+
+To join a channel :
+
+    join #channel
+
+To change your nick :
+
+    nick mynewnick
+
+To talk to a channel :
+
+    privmsg #channel My beautiful message
+
+To talk in private :
+
+    privmsg targetNick Hi bro!
 
 
 # Credits
