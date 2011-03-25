@@ -1,0 +1,61 @@
+.container
+{
+    background-color: #dadada;
+}
+
+.header
+{
+    width: 100%;
+    text-align: center;
+}
+
+.header .title
+{
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.channel, .users, .chat
+{
+    height: 200px;
+}
+
+.channels div, .users div
+{
+    width: 130px;
+    height: 195px;
+    background-color: #ffffff;
+    margin-left: 10px;
+    resize: none;
+}
+
+.chat div
+{
+    width: 630;
+    height: 195px;
+    background-color: #ffffff;
+    resize: none;
+}
+
+.prompt button
+{
+    margin-left: 8px;
+    margin-top: 9px;
+}
+
+.chat div
+{
+    overflow: auto;
+    overflow-x: visible;
+}
+
+.chat div .msg
+{
+    display: block;
+}
+
+.chat div .current-user
+{
+    color: #ff0000;
+}
