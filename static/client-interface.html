@@ -2,50 +2,84 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>MartIrc</title>
-    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
-    <!--[if lt IE 8]>
-	<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
-	<![endif]-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="js/interface.js"></script>
-  </head>
-  <body>
-    <div class="container">
+      <title>MartIrc</title>
+      <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+      <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+      <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+      <!--[if lt IE 8]>
+	  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+	    <![endif]-->
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+      <script type="text/javascript" src="js/interface.js"></script>
+    </head>
+    <body>
+      <div class="container">
 
-      <div class="span-24 header">
-	<span class="title">MartIrc : Web Browser Irc Implementation</span>
-      </div>
-
-      <hr class="space" />
-
-      <div class="span-4 channels">
-	<span class="title large">Channels:</span>
-	<div>
+	<div class="span-24 header">
+	  <span class="title">MartIrc : Web Browser Irc Implementation</span>
 	</div>
-      </div>
 
-      <div class="span-16 chat">
-	<span class="title large">Chat:</span>
-	<div>
+	<hr class="space" />
+
+	<div class="span-4 channels">
+	  <span class="title large">Channels:</span>
+	  <div>
+	    <a id="channel_1" class="active channel">#Channel 1</a>
+	    <a id="channel_2" class="channel">#Channel 2</a>
+	    <a id="channel_3" class="channel">#Channel 3</a>
+	    <a id="channel_4" class="channel">#Channel 4</a>
+	    <a id="channel_5" class="channel">#Channel 5</a>
+	    <a id="channel_6" class="channel">#Channel 6</a>
+	    <a id="channel_7" class="channel">#Channel 7</a>
+	    <a id="channel_8" class="channel">#Channel 8</a>
+	  </div>
 	</div>
-      </div>
 
-      <div class="span-3 users last">
-	<span class="title large">Users:</span>
-	<div>
+	<div class="span-16 chat">
+	  <span class="title large">Chat:</span>
+	  <div class="channel_1 active">Channel 1</div>
+	  <div class="channel_2">Channel 2</div>
+	  <div class="channel_3">Channel 3</div>
+	  <div class="channel_4">Channel 4</div>
+	  <div class="channel_5">Channel 5</div>
+	  <div class="channel_6">Channel 6</div>
+	  <div class="channel_7">Channel 7</div>
+	  <div class="channel_8">Channel 8</div>
 	</div>
-      </div>
 
-      <div class="span-16 prepend-4 append-4 prompt">
-	<form action="" method="post">
-	  <input class="span-14 text" />
-	  <button type="submit" class="span-2 last">Send</button>
-	</form>
-      </div>
+	<div class="span-3 users last">
+	  <span class="title large">Users:</span>
+	  <div class="list channel_1 active">
+	    <a class="user_14465">John</a>
+	    <a class="user_2545">Mike</a>
+	    <a class="user_35466">Ted</a>
+	  </div>
+	  <div class="list channel_2">
+	    <a class="user_155445">Casy</a>
+	    <a class="user_24545">Ruddie</a>
+	  </div>
+	  <div class="list channel_3">
+	    <a class="user_144456">Emmy</a>
+	  </div>
+	  <div class="list channel_4">
+	  </div>
+	  <div class="list channel_5">
+	  </div>
+	  <div class="list channel_6">
+	  </div>
+	  <div class="list channel_7">
+	  </div>
+	  <div class="list channel_8">
+	  </div>
+	</div>
 
-    </div>
-  </body>
-</html>
+	<div class="span-16 prepend-4 append-4 prompt">
+	  <form action="" method="post">
+	    <input class="span-14 text" />
+	    <button type="submit" class="span-2 last">Send</button>
+	  </form>
+	</div>
+
+      </div>
+    </body>
+  </html>
