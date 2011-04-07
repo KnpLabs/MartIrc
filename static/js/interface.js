@@ -8,6 +8,10 @@ $('document').ready(function(){
 			$('.channels div a.user').live('click', focusOnUser);
 
 			$('.users .list.active a').live('click', focusOnUser);
+
+			$("#menu .prefs").click(function(){
+						    $("#connection-informations").toggle('slow');
+						});
 		    });
 
 function sendMsg()
