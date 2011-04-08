@@ -3,25 +3,30 @@
     background-color: #c9c9c9;
 }
 
-.header
+#header
 {
     width: 100%;
     text-align: center;
 }
 
-.header .title
+#header .title
 {
     display: block;
     margin-top: 20px;
     font-size: 16px;
 }
 
-.channels div, .users div, .chat div
+#menu
+{
+    margin-left : 10px;
+}
+
+#channels div, #users div
 {
     height: 500px;
 }
 
-.channels div, .users div
+#channels div, #users div
 {
     width: 130px;
     background-color: #ffffff;
@@ -31,7 +36,7 @@
     overflow-x: visible;
 }
 
-.chat div
+#chat div
 {
     width: 630;
     background-color: #ffffff;
@@ -40,65 +45,65 @@
     overflow-x: visible;
 }
 
-.prompt button
+#prompt button
 {
     margin-left: 8px;
     margin-top: 9px;
 }
 
-.chat div, .users div
+#chat div, #users div
 {
     display: none;
 }
 
-.chat .active, .users .list.active
+#chat .active, #users .list.active
 {
     display: block;
 }
 
-.chat div .msg
+#chat div .msg
 {
     display: block;
 }
 
-.chat div .current-user
+#chat div .current-user
 {
     color: #ff0000;
 }
 
-.channels div a, .users .list *
+#channels div a, #users .list *
 {
     display: block;
     text-decoration: none;
     color: #000000;
 }
 
-.channels div a
+#channels div a
 {
     text-align: center;
     padding: 5px;
 }
 
-.users .list *
+#users .list *
 {
     text-align: right;
     padding-right: 5px;
 }
 
-.channels div a:hover
+#channels div a:hover
 {
     background-color: #ffa500;
     color: #ffffff;
     font-weight: bold;
 }
 
-.users .list a:hover
+#users .list a:hover
 {
     color: #ee9a00;
     font-weight: bold;
 }
 
-.channels div a.active
+#channels div a.active
 {
     background-color: #7ccd7c;
     color: #000000;
