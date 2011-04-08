@@ -3,11 +3,8 @@ $('document').ready(function(){
 
 			$('#prompt form input').focus();
 
-			$('#channels div a.channel').live('click', focusOnChannel);
 
-			$('#channels div a.user').live('click', focusOnUser);
-
-			$('#users .list.active a').live('click', focusOnUser);
+			$('#channels div a.channel, #channels div a.user, #users .list.active a').live('click', focusOnChat);
 
 			$("#menu .prefs").click(function(){
 						    $("#connection-informations").toggle('slow');
@@ -59,63 +56,67 @@ function displayUsersTab(display){
     }
 }
 
-function focusOnChannel()
+function focusOnChat()
 {
     var self = $(this);
 
-    var id = self.attr('id');
-    var channelToDisable = $('#channels .active');
-    var chatAndUsersToDisable = $('#chat .active, #users .list.active');
-
-    displayUsersTab(true);
-
-    chatAndUsersToDisable.hide();
-    channelToDisable.removeClass('active');
-    chatAndUsersToDisable.removeClass('active');
-
-    var chatAndUsersToEnable = $('#chat .'+id+', #users .list.'+id).addClass('active');
-    chatAndUsersToEnable.show();
-
-    $("#chat .current-title span").text('Channel : '+self.text());
-
-    $('#'+id).addClass('active');
-
-    focusOnPrompt();
+    displayChat(self);
 }
 
-function focusOnUser()
+function displayChat(self)
 {
-    var self = $(this);
-
     var id;
+    var isPrivate = false;
+    var chatTitle;
 
     if(self.attr('id')){
 	id = self.attr('id');
+
+	if(id == 'users' || self.is('.user')){
+	    isPrivate = true;
+	}
+
     } else {
 	id = self.attr('class');
+
+	isPrivate = true;
     }
 
     var channelToDisable = $('#channels .active');
     var chatAndUsersToDisable = $('#chat .active, #users .list.active');
 
-    displayUsersTab(false);
+    if(isPrivate){
 
-    if(!$('#channels div a#'+id).get(0)){
-	var user = $('<a>').attr('id', id).attr('class', 'user').text(self.text());
-	$('#channels div').append(user);
+	displayUsersTab(false);
 
-	var userChat = $('<div>').attr('class', id);
-	$('#chat').append(userChat);
+	if(!$('#channels div a#'+id).get(0)){
+	    var user = $('<a>').attr('id', id).attr('class', 'user').text(self.text());
+	    $('#channels div').append(user);
+
+	    var userChat = $('<div>').attr('class', id);
+	    $('#chat').append(userChat);
+	}
+    } else {
+	displayUsersTab(true);
     }
 
     chatAndUsersToDisable.hide();
     channelToDisable.removeClass('active');
     chatAndUsersToDisable.removeClass('active');
 
-    var chatToEnable = $('#chat .'+id).addClass('active');
-    chatToEnable.show();
+    if(isPrivate){
+	chatTitle = 'Private : '+self.text();
 
-    $("#chat .current-title span").text('User : '+self.text());
+	var chatToEnable = $('#chat .'+id).addClass('active');
+	chatToEnable.show();
+    } else {
+	chatTitle = 'Public : '+self.text();
+
+	var chatAndUsersToEnable = $('#chat .'+id+', #users .list.'+id).addClass('active');
+	chatAndUsersToEnable.show();
+    }
+
+    $("#chat .current-title span").text(chatTitle);
 
     $('#'+id).addClass('active');
 
