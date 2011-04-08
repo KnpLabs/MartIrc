@@ -66,6 +66,19 @@
     display: block;
 }
 
+#chat .current-title
+{
+    height: 30px;
+    display: block;
+    background-color: #fff8dc;
+    text-align: center;
+}
+
+#chat .current-title span
+{
+    font-weight: bold;
+}
+
 #chat div .current-user
 {
     color: #ff0000;

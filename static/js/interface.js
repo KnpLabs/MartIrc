@@ -76,6 +76,8 @@ function focusOnChannel()
     var chatAndUsersToEnable = $('#chat .'+id+', #users .list.'+id).addClass('active');
     chatAndUsersToEnable.show();
 
+    $("#chat .current-title span").text('Channel : '+self.text());
+
     $('#'+id).addClass('active');
 
     focusOnPrompt();
@@ -112,6 +114,8 @@ function focusOnUser()
 
     var chatToEnable = $('#chat .'+id).addClass('active');
     chatToEnable.show();
+
+    $("#chat .current-title span").text('User : '+self.text());
 
     $('#'+id).addClass('active');
 
