@@ -21,6 +21,17 @@
     margin-left : 10px;
 }
 
+#connection-informations
+{
+    background-color: #d4d4d4;
+    display: none;
+}
+
+#connection-informations fieldset, #connection-informations input
+{
+    margin: 10px 10px 10px 10px;
+}
+
 #channels div, #users div
 {
     height: 500px;
