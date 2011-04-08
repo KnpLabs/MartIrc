@@ -90,6 +90,15 @@
     font-weight: bold;
 }
 
+#chat .current-title img
+{
+    width: 15px;
+    height: 15px;
+    padding-top: 5px;
+    padding-right: 5px;
+    float: right;
+}
+
 #chat div .current-user
 {
     color: #ff0000;

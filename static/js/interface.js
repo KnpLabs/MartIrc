@@ -3,6 +3,7 @@ $('document').ready(function(){
 
 			$('#prompt form input').focus();
 
+			$('#chat .current-title img').live('click', removeChat);
 
 			$('#channels div a.channel, #channels div a.user, #users .list.active a').live('click', focusOnChat);
 
@@ -121,4 +122,15 @@ function displayChat(self)
     $('#'+id).addClass('active');
 
     focusOnPrompt();
+}
+
+function removeChat()
+{
+    var self = $(this);
+
+    var id = $('#channels .active').attr('id');
+
+    $('#channels  #'+id+', #chat .'+id).remove();
+
+    displayChat($('#channels div a').last());
 }
