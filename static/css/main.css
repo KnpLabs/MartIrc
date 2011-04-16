@@ -32,14 +32,13 @@
     margin: 10px 10px 10px 10px;
 }
 
-#channels div, #users div
+#channels, #users
 {
     height: 500px;
 }
 
-#channels div, #users div
+#channels, #users
 {
-    width: 130px;
     background-color: #ffffff;
     margin-left: 10px;
     resize: none;
@@ -56,18 +55,23 @@
     overflow-x: visible;
 }
 
+#prompt
+{
+    margin-left: 10px;
+}
+
 #prompt button
 {
     margin-left: 8px;
     margin-top: 9px;
 }
 
-#chat div, #users div
+#chat div, #users
 {
     display: none;
 }
 
-#chat .active, #users .list.active
+#chat .active
 {
     display: block;
 }
@@ -116,14 +120,14 @@
     font-weight: bold;
 }
 
-#channels div a, #users .list *
+#channels  a, #users .list *
 {
     display: block;
     text-decoration: none;
     color: #000000;
 }
 
-#channels div a
+#channels  a
 {
     text-align: center;
     padding: 5px;
@@ -135,7 +139,7 @@
     padding-right: 5px;
 }
 
-#channels div a:hover
+#channels a:hover
 {
     background-color: #ffa500;
     color: #ffffff;
@@ -148,7 +152,7 @@
     font-weight: bold;
 }
 
-#channels div a.active
+#channels a.active
 {
     background-color: #7ccd7c;
     color: #000000;

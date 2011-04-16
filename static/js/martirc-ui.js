@@ -43,16 +43,16 @@ MartIrcUi.prototype.init = function() {
 					   self.removeChat();
 				       });
 
-    $('#channels div a.channel').live('click', function(event){
+    $('#channels a.channel').live('click', function(event){
 					  self.focusOnPublicChat($(this));
 				      });
 
-    $('#channels div a.user, #users .list.active a').live('click', function(event){
+    $('#channels a.user, #users .list.active a').live('click', function(event){
 							      self.focusOnPrivateChat($(this));
 							  });
 
-    $('#channels div a.server').live('click', function(event){
-					self.focusOnServer($(this)); 
+    $('#channels a.server').live('click', function(event){
+					self.focusOnServer($(this));
 				     });
 
     $(self.ircClient).bind('irc.server',function(event, data) { 
@@ -148,9 +148,9 @@ MartIrcUi.prototype.focusOnPrivateChat = function(channel) {
     self.displayUsersTab(false);
     self.displayCloseIcon(true);
 
-    if(!$('#channels div a#'+id).get(0)){
+    if(!$('#channels a#'+id).get(0)){
 	var user = $('<a>').attr('id', id).attr('class', 'user').text(channel.text());
-	$('#channels div').append(user);
+	$('#channels').append(user);
 
 	var userChat = $('<div>').attr('class', id);
 	$('#chat').append(userChat);
@@ -207,7 +207,7 @@ MartIrcUi.prototype.removeChat = function() {
 	$('#users .'+id).remove();
     }
 
-    var lastChannel = $('#channels div a').last();
+    var lastChannel = $('#channels a').last();
 
     if(lastChannel.attr('class') == 'channel') {
 	self.focusOnPublicChat(lastChannel);
