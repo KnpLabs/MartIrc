@@ -11,7 +11,7 @@ MartIrcUi = function() {
 
     var self = this;
 
-    self.ircClient = new MartIrcClient();
+    self.ircConnection = null;
 
     self.init();
 };
@@ -26,11 +26,27 @@ MartIrcUi.prototype.init = function() {
 
     $('#connectButton').click(function() {
 
-				  self.ircClient.connect(
-				      $('#nodeServerHost').val(),parseInt($('#nodeServerPort').val())
-				      , $('#ircServerHost').val(),parseInt($('#ircServerPort').val())
-				      , $('#nickname').val()
-				  );
+				  if(self.ircConnection && self.ircConnection.connected()){
+				      self.ircConnection.disconnect();
+
+				      self.ircConnection = null;
+				  }
+
+				  self.ircConnection = new IrcConnection({
+								nodeServerHost : $('#nodeServerHost').val(),
+								nodeServerPort : parseInt($('#nodeServerPort').val()),
+								ircServerHost : $('#ircServerHost').val(),
+								ircServerPort : parseInt($('#ircServerPort').val()),
+								nickname : $('#nickname').val()
+							    });
+
+				  $(self.ircConnection).bind('irc.server',function(event, data) {
+								 console.log(data.raw);
+
+								 $(self).trigger('irc.server', data);
+
+								 self.displayServerMessage(data.raw);
+							     });
 			      });
 
     $('#prompt form').submit(function(event){
@@ -54,10 +70,6 @@ MartIrcUi.prototype.init = function() {
     $('#channels a.server').live('click', function(event){
 					self.focusOnServer($(this));
 				     });
-
-    $(self.ircClient).bind('irc.server',function(event, data) { 
-    			       self.displayServerMessage(data.raw);
-    			   });
 
     $('#prompt form input').focus();
 };
@@ -100,7 +112,7 @@ MartIrcUi.prototype.sendMessage = function() {
     if($('#chat .active').hasClass('server')) {
 	msg.append($('<span>').addClass("command").text('Command : '));
 	msg.append($('<span>').addClass('txt').text(rawMsg));
-	self.ircClient.sendRawMessage(rawMsg);
+	self.ircConnection.sendMessage(rawMsg);
     } else {
 	msg.append($('<span>').addClass("current-user nick").text($('#nickname').val()+' : '));
 	msg.append($('<span>').addClass('txt').text(self.scanMessage(rawMsg)));
