@@ -3,11 +3,10 @@ $(document).ready(function() {
 			  window.location = "error.html";
 		      }
 
-		      var martIrcClient = new MartIrcClient();
-		      var martIrcUi = new MartIrcUi({ircClient: martIrcClient});
+		      new MartIrcUi();
 
 		      $("#menu .prefs").click(function(){
-		      				  $("#connection-informations").toggle('slow');
-		      			      });
+						  $("#connection-informations").toggle('slow');
+					      });
 
 		  });
