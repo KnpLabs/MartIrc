@@ -1,9 +1,9 @@
 /**
-* Main client constructor
-*
-* @contructor
-*
-*/
+ * Main client constructor
+ *
+ * @contructor
+ *
+ */
 MartIrcClient = function(options) {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -18,9 +18,9 @@ MartIrcClient = function(options) {
 
 
 /**
-* MartIrc init
-*
-*/
+ * MartIrc init
+ *
+ */
 MartIrcClient.prototype.init = function() {
     var self = this;
 
@@ -36,26 +36,26 @@ MartIrcClient.prototype.connect = function (nodeServerHost, nodeServerPort, ircS
     }
 
     self.ircConnection = new IrcConnection({
-        nodeServerHost: nodeServerHost
-        , nodeServerPort: nodeServerPort
-        , ircServerHost: ircServerHost
-        , ircServerPort: ircServerPort
-        , nickname: nickname
-    });
+					       nodeServerHost: nodeServerHost
+					       , nodeServerPort: nodeServerPort
+					       , ircServerHost: ircServerHost
+					       , ircServerPort: ircServerPort
+					       , nickname: nickname
+					   });
 
     $(self.ircConnection).bind('irc.server',function(event, data) { 
-        console.log(data.raw);
-        //@TODO: see how to rethrow a message automatically
-        $(self).trigger('irc.server', data);
-    });
+				   console.log(data.raw);
+				   //@TODO: see how to rethrow a message automatically
+				   $(self).trigger('irc.server', data);
+			       });
 
-}
+};
 
 
 /**
-* MartIrc sendRawMessage
-*
-*/
+ * MartIrc sendRawMessage
+ *
+ */
 MartIrcClient.prototype.sendRawMessage = function(message) {
     var self = this;
 

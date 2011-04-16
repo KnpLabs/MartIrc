@@ -104,6 +104,18 @@
     color: #ff0000;
 }
 
+#chat div .server-msg
+{
+    color: #228b22;
+    font-weight: bold;
+}
+
+#chat div .command
+{
+    color: #191970;
+    font-weight: bold;
+}
+
 #channels div a, #users .list *
 {
     display: block;

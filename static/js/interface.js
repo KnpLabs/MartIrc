@@ -132,5 +132,10 @@ function removeChat()
 
     $('#channels  #'+id+', #chat .'+id).remove();
 
+    if($('#channels .active').hasClass('channel')){
+	$('#users .'+id).remove();
+	alert($('#users .'+id));
+    }
+
     displayChat($('#channels div a').last());
 }
