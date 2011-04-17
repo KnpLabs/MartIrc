@@ -31,11 +31,11 @@ Obviously you should first install [node.JS](https://github.com/ry/node). Really
 
 # Running the server
 
-    node server.js
+    node server/server.js
 
 # Connecting to the server with you browser
 
-Open `static/client.html` in your browser. The application will try by default to connect to the node server on `localhost:3000`.
+Open `client/client.html` in your browser. The application will try by default to connect to the node server on `localhost:3000`.
 You can send and receive (raw) messages. There is no channel management for the moment, just the server tab.
 
 To join a channel :
