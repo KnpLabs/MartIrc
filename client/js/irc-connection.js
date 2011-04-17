@@ -180,7 +180,7 @@ IrcConnection.prototype.part = function( channel ) {
 }
 
 
-IrcConnection.prototype.part = function privmsg ( receiver, msg ) {
+IrcConnection.prototype.privmsg = function ( receiver, msg ) {
     var self = this;
 
     self.sendMessage( 'PRIVMSG' + self.param( receiver ) + ' ' + self.param( msg || '', null, ':' ) );
