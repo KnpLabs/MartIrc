@@ -57,7 +57,7 @@ MartIrcUi.prototype.bindEvents = function() {
     $('#prompt form').submit(function(event){
 				 event.preventDefault();
 
-				 self.sendMessage();
+				 self.parseIncomingMessage();
 			     });
 
     $('#chat .current-title img').live('click', function(event){
@@ -101,16 +101,34 @@ MartIrcUi.prototype.scanMessage = function(rawMsg) {
     return rawMsg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
 };
 
-
-/*
- * Sending raw messages only for the moment
- */
-MartIrcUi.prototype.sendMessage = function() {
+MartIrcUi.prototype.parseIncomingMessage = function() {
     var self = this;
+
+    var extractCommand = new RegExp("^:(\\w) ([\\S]+)", "");
 
     var rawMsg = $('#prompt form input').val();
 
     $('#prompt form input').val('');
+
+    var matches = rawMsg.match(extractCommand);
+
+    if(!matches) {
+	self.sendMessage(rawMsg);
+    }
+
+    switch(matches[1]){
+    case 'c':
+	self.ircConnection.join(matches[2]);
+	self.createPublicChat(matches[2]);
+	break;
+    }
+};
+
+/*
+ * Sending raw messages only for the moment
+ */
+MartIrcUi.prototype.sendMessage = function(rawMsg) {
+    var self = this;
 
     var msg = $('<span>').addClass('msg');
 
