@@ -121,6 +121,7 @@ MartIrcUi.prototype.sendMessage = function() {
     } else {
 	msg.append($('<span>').addClass("current-user nick").text($('#nickname').val()+' : '));
 	msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
+	self.ircConnection.privmsg($('#channels .active').text(), rawMsg);
     }
 
     $('#chat .active').append(msg);
