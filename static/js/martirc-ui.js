@@ -14,6 +14,7 @@ MartIrcUi = function() {
     self.ircConnection = null;
 
     self.init();
+    self.bindEvents();
 };
 
 
@@ -22,6 +23,10 @@ MartIrcUi = function() {
  *
  */
 MartIrcUi.prototype.init = function() {
+    var self = this;
+};
+
+MartIrcUi.prototype.bindEvents = function() {
     var self = this;
 
     $('#connectButton').click(function() {
