@@ -23,22 +23,22 @@ Compiler.prototype.init = function() {
     var self = this;
 
     self.walkerRules = 
-        { Message:  function( node, children ){ var msg = self.merge( children ); msg.raw = node.text(); return msg }
+        { Message:  function( node, children ){ var msg = self.merge( children ); msg.raw = node.text(); return msg; }
 
-        , Prefix:   function( node, children ){ return children[0] }
+        , Prefix:   function( node, children ){ return children[0]; }
 
-        , Server:   function( node ){ return { server: node.text().trim() } }
+        , Server:   function( node ){ return { server: node.text().trim() }; }
 
-        , Person:   function( node, children ){ return { person: self.merge( children ) } }
-        , Nick:     function( node ){ return { nick: node.text().trim() } }
-        , User:     function( node ){ return { user: node.text().slice(1).trim() } }
-        , Host:     function( node ){ return { host: node.text().slice(1).trim() } }
+        , Person:   function( node, children ){ return { person: self.merge( children ) }; }
+        , Nick:     function( node ){ return { nick: node.text().trim() }; }
+        , User:     function( node ){ return { user: node.text().slice(1).trim() }; }
+        , Host:     function( node ){ return { host: node.text().slice(1).trim() }; }
 
-        , Command:  function( node ){ return { command: node.text().toLowerCase() } }
+        , Command:  function( node ){ return { command: node.text().toLowerCase() }; }
 
-        , Params:   function( node, children ){ return { params: children } }
-        , Middle:   function( node ){ return node.text().trim() }
-        , Trailing: function( node ){ return node.text().slice(1) }
+        , Params:   function( node, children ){ return { params: children }; }
+        , Middle:   function( node ){ return node.text().trim(); }
+        , Trailing: function( node ){ return node.text().slice(1); }
         };
 };
 
@@ -59,6 +59,7 @@ Compiler.prototype.merge = function ( objects ) { var obj;
   objects.forEach( function( o ){ var key, keys, i, length;
     for (i = 0, keys = Object.keys( o ), length = keys.length; i < length; i++)
       key = keys[i], obj[key] = o[key];
-  })
+  });
+
   return obj;
-}
+};

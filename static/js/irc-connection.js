@@ -1,9 +1,9 @@
 /**
-* Irc-connection constructor
-*
-* @contructor
-*
-*/
+ * Irc-connection constructor
+ *
+ * @contructor
+ *
+ */
 IrcConnection = function(options) {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -27,9 +27,9 @@ IrcConnection = function(options) {
 
 
 /**
-* Irc connection init
-*
-*/
+ * Irc connection init
+ *
+ */
 IrcConnection.prototype.init = function() {
     var self = this;
 
@@ -50,8 +50,8 @@ IrcConnection.prototype.init = function() {
     self.socket.send(data);
 
     self.socket.on('message', function(incomingMessage) {
-        self.parseIncomingMessage(incomingMessage);
-    });
+		       self.parseIncomingMessage(incomingMessage);
+		   });
 };
 
 
@@ -67,7 +67,7 @@ IrcConnection.prototype.parseIncomingMessage = function (incomingMessage) {
     var message = {
         channel: 'server'
         , content: incomingMessage.content
-    }
+    };
 
     var compiler = new Compiler();
     var compiledMessage = compiler.compile(message.content);
@@ -87,8 +87,8 @@ IrcConnection.prototype.bindEvents = function () {
 
     //Basic client to keep the connection alive
     $(this).bind('irc.ping',function(event, data) { 
-        self.pong(data.params[0]);
-    });
+		     self.pong(data.params[0]);
+		 });
 }
 
 IrcConnection.prototype.connected = function() {
@@ -176,25 +176,25 @@ IrcConnection.prototype.join = function ( channel, key ) {
 IrcConnection.prototype.part = function( channel ) {
     var self = this;
     // 4.2.2
-    return self.sendMessage( 'PART' + self.param( channel ) )
-  }
+    return self.sendMessage( 'PART' + self.param( channel ) );
+}
 
 
 IrcConnection.prototype.part = function privmsg ( receiver, msg ) {
     var self = this;
 
-    self.sendMessage( 'PRIVMSG' + self.param( receiver ) + ' ' + self.param( msg || '', null, ':' ) )
+    self.sendMessage( 'PRIVMSG' + self.param( receiver ) + ' ' + self.param( msg || '', null, ':' ) );
 }
 
 /* ------------------------------ MISCELLANEOUS ------------------------------ */
 IrcConnection.prototype.if_exists = function ( data, no_pad, pad_char ) {
-  return data ? param( data, no_pad, pad_char ) : ''
+    return data ? param( data, no_pad, pad_char ) : '';
 }
 
 IrcConnection.prototype.param = function ( data, no_pad, pad_char ) {
-  return ( no_pad ? '' : ( pad_char ? pad_char : ' ' ) ) + data.toString()
+    return ( no_pad ? '' : ( pad_char ? pad_char : ' ' ) ) + data.toString();
 }
 
 IrcConnection.prototype.not_blank = function ( item ) {
-  return ( !!item && item.toString().replace( /\s/g, '' ) != '' )
+    return ( !!item && item.toString().replace( /\s/g, '' ) != '' );
 }
