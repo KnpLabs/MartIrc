@@ -129,6 +129,18 @@ MartIrcUi.prototype.sendMessage = function() {
     self.focusOnPrompt();
 };
 
+MartIrcUi.prototype.createPublicChat = function(name) {
+    var self = this;
+
+    var id = 'channel-'+new Date().getTime();
+
+    $('#channels').append($('<a>').attr('id', id).addClass('channel').text(name));
+    $('#chat').append($('<div>').addClass(id));
+    $("#users").append($('<div>').addClass('list '+id));
+
+    self.focusOnPublicChat($('#channels a#'+id));
+};
+
 MartIrcUi.prototype.focusOnPrompt = function() {
     var self = this;
 
