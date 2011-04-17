@@ -1,9 +1,9 @@
-[submodule "vendor/Socket.IO-node"]
-	path = vendor/Socket.IO-node
+[submodule "server/lib/Socket.IO-node"]
+	path = server/lib/Socket.IO-node
 	url = git://github.com/LearnBoost/Socket.IO-node.git
-[submodule "vendor/IRC-js"]
-	path = vendor/IRC-js
+[submodule "server/lib/IRC-js"]
+	path = server/lib/IRC-js
 	url = git://github.com/gf3/IRC-js.git
-[submodule "vendor/coloured-log"]
-	path = vendor/coloured-log
+[submodule "server/lib/coloured-log"]
+	path = server/lib/coloured-log
 	url = git://github.com/bentruyman/coloured-log.git
