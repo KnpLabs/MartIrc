@@ -110,7 +110,7 @@ MartIrcUi.prototype.scanMessage = function(rawMsg) {
 MartIrcUi.prototype.parseIncomingMessage = function() {
     var self = this;
 
-    var extractCommand = new RegExp("^:(\\w) ([\\S]+)", "");
+    var extractCommand = new RegExp("^:(\\w)(?: ([\\S]+))*", "");
 
     var rawMsg = $('#prompt form input').val();
 
