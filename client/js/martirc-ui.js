@@ -162,8 +162,20 @@ MartIrcUi.prototype.createPublicChat = function(name) {
     $('#chat').append($('<div>').addClass(id));
     $("#users").append($('<div>').addClass('list '+id));
 
-    self.focusOnPublicChat($('#channels a#'+id));
+    return id;
 };
+
+MartIrcUi.prototype.createPrivateChat = function(name) {
+    var self = this;
+
+    var id = 'user-'+new Date().getTime();
+
+    $('#channels').append($('<a>').attr('id', id).addClass('user').text(name));
+    $('#chat').append($('<div>').addClass(id));
+
+    return id;
+};
+
 
 MartIrcUi.prototype.focusOnPrompt = function() {
     var self = this;
