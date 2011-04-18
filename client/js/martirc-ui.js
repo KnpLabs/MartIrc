@@ -30,28 +30,7 @@ MartIrcUi.prototype.bindEvents = function() {
     var self = this;
 
     $('#connectButton').click(function() {
-
-				  if(self.ircConnection && self.ircConnection.connected()){
-				      self.ircConnection.disconnect();
-
-				      self.ircConnection = null;
-				  }
-
-				  self.ircConnection = new IrcConnection({
-								nodeServerHost : $('#nodeServerHost').val(),
-								nodeServerPort : parseInt($('#nodeServerPort').val()),
-								ircServerHost : $('#ircServerHost').val(),
-								ircServerPort : parseInt($('#ircServerPort').val()),
-								nickname : $('#nickname').val()
-							    });
-
-				  $(self.ircConnection).bind('irc.server',function(event, data) {
-								 console.log(data.raw);
-
-								 $(self).trigger('irc.server', data);
-
-								 self.displayServerMessage(data.raw);
-							     });
+				  self.connect();
 			      });
 
     $('#prompt form').submit(function(event){
@@ -77,6 +56,33 @@ MartIrcUi.prototype.bindEvents = function() {
 				     });
 
     $('#prompt form input').focus();
+};
+
+MartIrcUi.prototype.connect = function() {
+    var self = this;
+
+    if(self.ircConnection && self.ircConnection.connected()){
+	self.ircConnection.disconnect();
+
+	self.ircConnection = null;
+    }
+
+    self.ircConnection = new IrcConnection({
+					       nodeServerHost : $('#nodeServerHost').val(),
+					       nodeServerPort : parseInt($('#nodeServerPort').val()),
+					       ircServerHost : $('#ircServerHost').val(),
+					       ircServerPort : parseInt($('#ircServerPort').val()),
+					       nickname : $('#nickname').val()
+					   });
+
+    $(self.ircConnection).bind('irc.server',function(event, data) {
+				   console.log(data.raw);
+
+				   $(self).trigger('irc.server', data);
+
+				   self.displayServerMessage(data.raw);
+			       });
+
 };
 
 MartIrcUi.prototype.displayServerMessage = function(rawMsg) {
