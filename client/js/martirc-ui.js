@@ -124,8 +124,21 @@ MartIrcUi.prototype.parseIncomingMessage = function() {
 
     switch(matches[1]){
     case 'c':
+	self.connect();
+	break;
+    case 'j':
 	self.ircConnection.join(matches[2]);
-	self.createPublicChat(matches[2]);
+
+	if(matches[2][0] === '#'){
+	    var id = self.createPublicChat(matches[2]);
+
+	    self.focusOnPublicChat($('#channels a#'+id));
+	} else {
+	    var id = self.createPrivateChat(matches[2]);
+
+	    self.displayUsersTab(false);
+	    self.focusOnPrivateChat($('#channels a#'+id));
+	}
 	break;
     }
 };
