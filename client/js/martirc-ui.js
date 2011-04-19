@@ -130,6 +130,8 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 
     if(!matches) {
 	self.sendMessage(rawMsg);
+
+	return;
     }
 
     switch(matches[1]){
