@@ -52,7 +52,7 @@ MartIrcUi.prototype.bindEvents = function() {
 							  });
 
     $('#channels a.server').live('click', function(event){
-					self.focusOnServer($(this));
+					self.focusOnServer();
 				     });
 
     $('#prompt form input').focus();
@@ -151,6 +151,7 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 	    self.displayUsersTab(false);
 	    self.focusOnPrivateChat($('#channels a#'+id));
 	}
+
 	break;
     }
 };
@@ -221,10 +222,10 @@ MartIrcUi.prototype.focusOnPrompt = function() {
     $('#prompt form input').focus();
 };
 
-MartIrcUi.prototype.focusOnServer = function(channel) {
+MartIrcUi.prototype.focusOnServer = function() {
     var self = this;
 
-    self.changeActiveChat(channel.attr('id'), 'Server');
+    self.changeActiveChat('server', 'Server');
 
     self.displayUsersTab(false);
     self.displayCloseIcon(false);
