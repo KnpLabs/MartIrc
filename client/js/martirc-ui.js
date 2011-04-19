@@ -146,11 +146,20 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 	self.ircConnection.join(matches[2]);
 
 	if(matches[2][0] === '#'){
-	    var id = self.createPublicChat(matches[2]);
+
+	    var id = $('#channels a:contains("'+matches[2]+'")').attr('id');
+
+	    if(!id){
+		id = self.createPublicChat(matches[2]);
+	    }
 
 	    self.focusOnPublicChat($('#channels a#'+id));
 	} else {
-	    var id = self.createPrivateChat(matches[2]);
+	    var id = $('#channels a:contains("'+matches[2]+'")').attr('id');
+
+	    if(!id){
+		id = self.createPrivateChat(matches[2]);
+	    }
 
 	    self.displayUsersTab(false);
 	    self.focusOnPrivateChat($('#channels a#'+id));
