@@ -165,6 +165,13 @@ MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
 
     var id = $('#channels a:contains("'+chat+'")').attr('id');
 
+    if(!id){
+	id = self.createPrivateChat(chat);
+
+	self.displayUsersTab(false);
+	self.focusOnPrivateChat($('#channels a#'+id));
+    }
+
     $('#chat .'+id).append(msg);
 
     self.focusOnPrompt();
