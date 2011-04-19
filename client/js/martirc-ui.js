@@ -311,9 +311,9 @@ MartIrcUi.prototype.removeChat = function() {
 
     var lastChannel = $('#channels a').last();
 
-    if(lastChannel.attr('class') == 'channel') {
+    if(lastChannel.hasClass('channel')) {
 	self.focusOnPublicChat(lastChannel);
-    } else if(lastChannel.attr('class') == 'user') {
+    } else if(lastChannel.hasClass('user')) {
 	self.focusOnPrivateChat(lastChannel);
     } else {
 	self.focusOnServer();
