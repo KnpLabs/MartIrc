@@ -36,7 +36,7 @@ MartIrcUi.prototype.bindEvents = function() {
     $('#prompt form').submit(function(event){
 				 event.preventDefault();
 
-				 self.parseIncomingMessage();
+				 self.parseOutgoingMessage();
 			     });
 
     $('#chat .current-title img').live('click', function(event){
@@ -107,7 +107,7 @@ MartIrcUi.prototype.scanMessage = function(rawMsg) {
     return rawMsg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
 };
 
-MartIrcUi.prototype.parseIncomingMessage = function() {
+MartIrcUi.prototype.parseOutgoingMessage = function() {
     var self = this;
 
     var extractCommand = new RegExp("^:(\\w)(?: ([\\S]+))*", "");
