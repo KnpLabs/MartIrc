@@ -76,11 +76,11 @@ MartIrcUi.prototype.connect = function() {
 					   });
 
     $(self.ircConnection).bind('irc.server',function(event, data) {
-				   console.log(data.raw);
-
 				   $(self).trigger('irc.server', data);
 
 				   self.displayServerMessage(data.raw);
+
+				   self.parseIncomingMessage(data);
 			       });
 
 };
@@ -105,6 +105,16 @@ MartIrcUi.prototype.scanMessage = function(rawMsg) {
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
     return rawMsg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
+};
+
+MartIrcUi.prototype.parseIncomingMessage = function(data) {
+    var self = this;
+
+    switch(data.command){
+	case 'privmsg':
+	self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
+	break;
+    }
 };
 
 MartIrcUi.prototype.parseOutgoingMessage = function() {
@@ -143,9 +153,20 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
     }
 };
 
-/*
- * Sending raw messages only for the moment
- */
+MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
+    var self = this;
+
+    var msg = $('<span>').addClass('msg');
+    msg.append($('<span>').addClass("nick").text(nickname +' : '));
+    msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
+
+    var id = $('#channels a:contains("'+chat+'")').attr('id');
+
+    $('#chat .'+id).append(msg);
+
+    self.focusOnPrompt();
+};
+
 MartIrcUi.prototype.sendMessage = function(rawMsg) {
     var self = this;
 
