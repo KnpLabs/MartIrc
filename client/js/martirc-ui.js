@@ -310,6 +310,11 @@ MartIrcUi.prototype.removeChat = function() {
     var self = this;
 
     var id = $('#channels .active').attr('id');
+    var name = $('#channels .active').text();
+
+    if(name[0] === '#'){
+	self.ircConnection.part(name);
+    }
 
     $('#channels  #'+id+', #chat .'+id).remove();
 
