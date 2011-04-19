@@ -153,6 +153,12 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 	}
 
 	break;
+    case 'k':
+	if($('#channels .active').attr('id') !== 'server'){
+	    self.removeChat();
+	}
+
+	break;
     }
 };
 
@@ -296,7 +302,7 @@ MartIrcUi.prototype.changeActiveChat = function(id, chatTitle) {
 
     var channelToDisable = $('#channels .active');
     var chatAndUsersToDisable = $('#chat .active, #users .list.active');
-    
+
     chatAndUsersToDisable.hide();
     channelToDisable.removeClass('active');
     chatAndUsersToDisable.removeClass('active');
