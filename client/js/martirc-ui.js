@@ -88,8 +88,6 @@ MartIrcUi.prototype.connect = function() {
 MartIrcUi.prototype.displayServerMessage = function(rawMsg) {
     var self = this;
 
-    //console.log('Notice: ' + message);
-
     var msg = $('<span>').addClass('msg');
     msg.append($('<span>').addClass('server-msg').text('Server : '));
     msg.append($('<span>').addClass('txt').text(rawMsg));
@@ -113,6 +111,12 @@ MartIrcUi.prototype.parseIncomingMessage = function(data) {
     switch(data.command){
 	case 'privmsg':
 	self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
+	break;
+	case '353':
+	var users = data.params[3].split(' ');
+	for(i in users){
+	    self.addUserToChannel(data.params[2], users[i]);
+	}
 	break;
     }
 };
@@ -226,6 +230,13 @@ MartIrcUi.prototype.createPrivateChat = function(name) {
     return id;
 };
 
+MartIrcUi.prototype.addUserToChannel = function(channel, name) {
+    var self = this;
+
+    var id = $('#channels a:contains("'+channel+'")').attr('id');
+
+    $('#users .'+id).append($('<a>').text(name));
+};
 
 MartIrcUi.prototype.focusOnPrompt = function() {
     var self = this;

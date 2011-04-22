@@ -160,7 +160,7 @@ IrcConnection.prototype.join = function ( channel, key ) {
     var self = this;
     // 4.2.1
     return self.sendMessage( 'JOIN' + self.param( channel ) + self.if_exists( key ) )
-}
+};
 
 
 /**
@@ -178,6 +178,12 @@ IrcConnection.prototype.part = function( channel ) {
     // 4.2.2
     return self.sendMessage( 'PART' + self.param( channel ) );
 }
+
+IrcConnection.prototype.names = function ( channel ) {
+    var self = this;
+    // 4.2.1
+    return self.sendMessage( 'NAMES' + self.param( channel ));
+};
 
 
 IrcConnection.prototype.privmsg = function ( receiver, msg ) {
