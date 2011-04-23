@@ -99,8 +99,7 @@ MartIrcUi.prototype.displayServerMessage = function(rawMsg) {
 MartIrcUi.prototype.scanMessage = function(rawMsg) {
     var self = this;
 
-    // escape html
-    msg = self.escape(rawMsg);
+    var msg = self.escape(rawMsg);
 
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
@@ -180,11 +179,12 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
     var self = this;
 
-    var msg = $('<span>').addClass('msg');
-    msg.append($('<span>').addClass("nick").text(nickname + ' : '));
-    msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
+    var id = $('#channels a:contains("'+chat+'")').attr('id');
+    var userClass = $('#users .'+id+' a:contains("'+nickname+'")').attr('class');
 
-    var id = $('#channels a:contains("' + chat + '")').attr('id');
+    var msg = $('<span>').addClass('msg');
+    msg.append($('<span>').addClass(userClass+" nick").text(nickname +' : ').css('color', $('#users .'+id+' .'+userClass).css('color')));
+    msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
 
     if (!id) {
         id = self.createPrivateChat(chat);
@@ -244,9 +244,13 @@ MartIrcUi.prototype.createPrivateChat = function(name) {
 MartIrcUi.prototype.addUserToChannel = function(channel, name) {
     var self = this;
 
-    var id = $('#channels a:contains("' + channel + '")').attr('id');
+    var id = $('#channels a:contains("'+channel+'")').attr('id');
 
-    $('#users .' + id).append($('<a>').text(name));
+    var userClass = 'channelUser-'+new Date().getTime();
+
+    $('#users .'+id).append($('<a>').addClass(userClass).text(name));
+
+    $('.'+userClass).css('color', 'rgb('+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+')');
 };
 
 MartIrcUi.prototype.focusOnPrompt = function() {
@@ -404,4 +408,4 @@ MartIrcUi.prototype.displayCloseIcon = function(display) {
  */
 MartIrcUi.prototype.escape = function(html) {
     return $('<div/>').text(html).html();
-}
+};

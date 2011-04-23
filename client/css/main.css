@@ -81,6 +81,11 @@
     display: block;
 }
 
+#chat div .msg .nick
+{
+    font-weight: bold;
+}
+
 #chat .current-title
 {
     height: 30px;
@@ -125,17 +130,17 @@
     font-weight: bold;
 }
 
-#channels  a, #users .list *
+#channels a, #users .list *
 {
     display: block;
     text-decoration: none;
-    color: #000000;
 }
 
-#channels  a
+#channels a
 {
     text-align: center;
     padding: 5px;
+    color: #000000;
 }
 
 #users .list *
