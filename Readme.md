@@ -1,6 +1,6 @@
 # Overview
 
-NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a browser supporting websockets. It's just a POC for now.
+NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a browser supporting websockets. 
 
 # The elevator pitch
 
@@ -14,24 +14,24 @@ How you should be able to explain what is MartIRC to your boss, in 30 seconds.
 **unlike** JAVA applets that requires the JAVA plugin or basic IRC clients that require installation and configuration
 **our software** will allow users to connect to IRC through their browser in one click. No third-party plugin needed, fully web based interface and a chat relying on a well known and opensource chat network: IRC.
 
-
 # Requirements
 
 Obviously you should first install [node.JS](https://github.com/ry/node). Really, this will help. Then you will need to install [npm](http://npmjs.org/), the node package manager.
+
+Both may be available from your OS package manager.
 
 # Installation
 
     git clone git://github.com/knplabs/MartIrc.git
     cd MartIrc
-    git submodule init
-    git submodule update
+    git submodule update --init
 
     npm install coloured
     npm install log
 
 # Running the server
 
-    node server/server.js
+    sudo node server/server.js
 
 # Connecting to the server with you browser
 
@@ -53,7 +53,6 @@ To talk to a channel :
 To talk in private :
 
     privmsg targetNick Hi bro!
-
 
 # Credits
 
