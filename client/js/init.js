@@ -1,12 +1,11 @@
 $(document).ready(function() {
-		      if(!"WebSocket" in window) {
-			  window.location = "error.html";
-		      }
+    if (!"WebSocket" in window) {
+        window.location = "error.html";
+    }
 
-		      new MartIrcUi();
+    new MartIrcUi();
 
-		      $("#menu .prefs").click(function(){
-						  $("#connection-informations").toggle('slow');
-					      });
-
-		  });
+    $("#menu .prefs").click(function() {
+        $("#connection-informations").toggle('slow');
+    });
+});

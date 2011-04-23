@@ -17,7 +17,6 @@ MartIrcUi = function() {
     self.bindEvents();
 };
 
-
 /**
  * MartIrcUi init
  *
@@ -30,30 +29,30 @@ MartIrcUi.prototype.bindEvents = function() {
     var self = this;
 
     $('#connectButton').click(function() {
-				  self.connect();
-			      });
+        self.connect();
+    });
 
-    $('#prompt form').submit(function(event){
-				 event.preventDefault();
+    $('#prompt form').submit(function(event) {
+        event.preventDefault();
 
-				 self.parseOutgoingMessage();
-			     });
+        self.parseOutgoingMessage();
+    });
 
-    $('#chat .current-title img').live('click', function(event){
-					   self.removeChat();
-				       });
+    $('#chat .current-title img').live('click', function(event) {
+        self.removeChat();
+    });
 
-    $('#channels a.channel').live('click', function(event){
-					  self.focusOnPublicChat($(this));
-				      });
+    $('#channels a.channel').live('click', function(event) {
+        self.focusOnPublicChat($(this));
+    });
 
-    $('#channels a.user, #users .list.active a').live('click', function(event){
-							      self.focusOnPrivateChat($(this));
-							  });
+    $('#channels a.user, #users .list.active a').live('click', function(event) {
+        self.focusOnPrivateChat($(this));
+    });
 
-    $('#channels a.server').live('click', function(event){
-					self.focusOnServer();
-				     });
+    $('#channels a.server').live('click', function(event) {
+        self.focusOnServer();
+    });
 
     $('#prompt form input').focus();
 };
@@ -61,27 +60,27 @@ MartIrcUi.prototype.bindEvents = function() {
 MartIrcUi.prototype.connect = function() {
     var self = this;
 
-    if(self.ircConnection && self.ircConnection.connected()){
-	self.ircConnection.disconnect();
+    if (self.ircConnection && self.ircConnection.connected()) {
+        self.ircConnection.disconnect();
 
-	self.ircConnection = null;
+        self.ircConnection = null;
     }
 
     self.ircConnection = new IrcConnection({
-					       nodeServerHost : $('#nodeServerHost').val(),
-					       nodeServerPort : parseInt($('#nodeServerPort').val()),
-					       ircServerHost : $('#ircServerHost').val(),
-					       ircServerPort : parseInt($('#ircServerPort').val()),
-					       nickname : $('#nickname').val()
-					   });
+        nodeServerHost: $('#nodeServerHost').val(),
+        nodeServerPort: parseInt($('#nodeServerPort').val()),
+        ircServerHost: $('#ircServerHost').val(),
+        ircServerPort: parseInt($('#ircServerPort').val()),
+        nickname: $('#nickname').val()
+    });
 
-    $(self.ircConnection).bind('irc.server',function(event, data) {
-				   $(self).trigger('irc.server', data);
+    $(self.ircConnection).bind('irc.server', function(event, data) {
+        $(self).trigger('irc.server', data);
 
-				   self.displayServerMessage(data.raw);
+        self.displayServerMessage(data.raw);
 
-				   self.parseIncomingMessage(data);
-			       });
+        self.parseIncomingMessage(data);
+    });
 
 };
 
@@ -102,22 +101,22 @@ MartIrcUi.prototype.scanMessage = function(rawMsg) {
 
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
-    return rawMsg.replace(regex," <a href=\"$&\" target=\"_blank\">$&</a> ");
+    return rawMsg.replace(regex, " <a href=\"$&\" target=\"_blank\">$&</a> ");
 };
 
 MartIrcUi.prototype.parseIncomingMessage = function(data) {
     var self = this;
 
-    switch(data.command){
-	case 'privmsg':
-	self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
-	break;
-	case '353':
-	var users = data.params[3].split(' ');
-	for(i in users){
-	    self.addUserToChannel(data.params[2], users[i]);
-	}
-	break;
+    switch (data.command) {
+    case 'privmsg':
+        self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
+        break;
+    case '353':
+        var users = data.params[3].split(' ');
+        for (i in users) {
+            self.addUserToChannel(data.params[2], users[i]);
+        }
+        break;
     }
 };
 
@@ -132,46 +131,46 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 
     var matches = rawMsg.match(extractCommand);
 
-    if(!matches) {
-	self.sendMessage(rawMsg);
+    if (!matches) {
+        self.sendMessage(rawMsg);
 
-	return;
+        return;
     }
 
-    switch(matches[1]){
+    switch (matches[1]) {
     case 'c':
-	self.connect();
-	break;
+        self.connect();
+        break;
     case 'j':
-	self.ircConnection.join(matches[2]);
+        self.ircConnection.join(matches[2]);
 
-	if(matches[2][0] === '#'){
+        if (matches[2][0] === '#') {
 
-	    var id = $('#channels a:contains("'+matches[2]+'")').attr('id');
+            var id = $('#channels a:contains("' + matches[2] + '")').attr('id');
 
-	    if(!id){
-		id = self.createPublicChat(matches[2]);
-	    }
+            if (!id) {
+                id = self.createPublicChat(matches[2]);
+            }
 
-	    self.focusOnPublicChat($('#channels a#'+id));
-	} else {
-	    var id = $('#channels a:contains("'+matches[2]+'")').attr('id');
+            self.focusOnPublicChat($('#channels a#' + id));
+        } else {
+            var id = $('#channels a:contains("' + matches[2] + '")').attr('id');
 
-	    if(!id){
-		id = self.createPrivateChat(matches[2]);
-	    }
+            if (!id) {
+                id = self.createPrivateChat(matches[2]);
+            }
 
-	    self.displayUsersTab(false);
-	    self.focusOnPrivateChat($('#channels a#'+id));
-	}
+            self.displayUsersTab(false);
+            self.focusOnPrivateChat($('#channels a#' + id));
+        }
 
-	break;
+        break;
     case 'k':
-	if($('#channels .active').attr('id') !== 'server'){
-	    self.removeChat();
-	}
+        if ($('#channels .active').attr('id') !== 'server') {
+            self.removeChat();
+        }
 
-	break;
+        break;
     }
 };
 
@@ -179,19 +178,19 @@ MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
     var self = this;
 
     var msg = $('<span>').addClass('msg');
-    msg.append($('<span>').addClass("nick").text(nickname +' : '));
+    msg.append($('<span>').addClass("nick").text(nickname + ' : '));
     msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
 
-    var id = $('#channels a:contains("'+chat+'")').attr('id');
+    var id = $('#channels a:contains("' + chat + '")').attr('id');
 
-    if(!id){
-	id = self.createPrivateChat(chat);
+    if (!id) {
+        id = self.createPrivateChat(chat);
 
-	self.displayUsersTab(false);
-	self.focusOnPrivateChat($('#channels a#'+id));
+        self.displayUsersTab(false);
+        self.focusOnPrivateChat($('#channels a#' + id));
     }
 
-    $('#chat .'+id).append(msg);
+    $('#chat .' + id).append(msg);
 
     self.focusOnPrompt();
 };
@@ -201,14 +200,14 @@ MartIrcUi.prototype.sendMessage = function(rawMsg) {
 
     var msg = $('<span>').addClass('msg');
 
-    if($('#chat .active').hasClass('server')) {
-	msg.append($('<span>').addClass("command").text('Command : '));
-	msg.append($('<span>').addClass('txt').text(rawMsg));
-	self.ircConnection.sendMessage(rawMsg);
+    if ($('#chat .active').hasClass('server')) {
+        msg.append($('<span>').addClass("command").text('Command : '));
+        msg.append($('<span>').addClass('txt').text(rawMsg));
+        self.ircConnection.sendMessage(rawMsg);
     } else {
-	msg.append($('<span>').addClass("current-user nick").text($('#nickname').val()+' : '));
-	msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
-	self.ircConnection.privmsg($('#channels .active').text(), rawMsg);
+        msg.append($('<span>').addClass("current-user nick").text($('#nickname').val() + ' : '));
+        msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
+        self.ircConnection.privmsg($('#channels .active').text(), rawMsg);
     }
 
     $('#chat .active').append(msg);
@@ -219,11 +218,11 @@ MartIrcUi.prototype.sendMessage = function(rawMsg) {
 MartIrcUi.prototype.createPublicChat = function(name) {
     var self = this;
 
-    var id = 'channel-'+new Date().getTime();
+    var id = 'channel-' + new Date().getTime();
 
     $('#channels').append($('<a>').attr('id', id).addClass('channel').text(name));
     $('#chat').append($('<div>').addClass(id));
-    $("#users").append($('<div>').addClass('list '+id));
+    $("#users").append($('<div>').addClass('list ' + id));
 
     return id;
 };
@@ -231,7 +230,7 @@ MartIrcUi.prototype.createPublicChat = function(name) {
 MartIrcUi.prototype.createPrivateChat = function(name) {
     var self = this;
 
-    var id = 'user-'+new Date().getTime();
+    var id = 'user-' + new Date().getTime();
 
     $('#channels').append($('<a>').attr('id', id).addClass('user').text(name));
     $('#chat').append($('<div>').addClass(id));
@@ -242,15 +241,17 @@ MartIrcUi.prototype.createPrivateChat = function(name) {
 MartIrcUi.prototype.addUserToChannel = function(channel, name) {
     var self = this;
 
-    var id = $('#channels a:contains("'+channel+'")').attr('id');
+    var id = $('#channels a:contains("' + channel + '")').attr('id');
 
-    $('#users .'+id).append($('<a>').text(name));
+    $('#users .' + id).append($('<a>').text(name));
 };
 
 MartIrcUi.prototype.focusOnPrompt = function() {
     var self = this;
 
-    $("#chat .active").attr({ scrollTop: $("#chat .active").attr("scrollHeight") });
+    $("#chat .active").attr({
+        scrollTop: $("#chat .active").attr("scrollHeight")
+    });
 
     $('#prompt form input').focus();
 };
@@ -273,28 +274,28 @@ MartIrcUi.prototype.focusOnPrivateChat = function(channel) {
     var self = this;
     var id;
 
-    if(channel.attr('id')){
-	id = channel.attr('id');
+    if (channel.attr('id')) {
+        id = channel.attr('id');
     } else {
-	id = channel.attr('class');
+        id = channel.attr('class');
     }
 
-    self.changeActiveChat(id, 'Private : '+channel.text());
+    self.changeActiveChat(id, 'Private : ' + channel.text());
 
     self.displayUsersTab(false);
     self.displayCloseIcon(true);
 
-    if(!$('#channels a#'+id).get(0)){
-	var user = $('<a>').attr('id', id).attr('class', 'user').text(channel.text());
-	$('#channels').append(user);
+    if (!$('#channels a#' + id).get(0)) {
+        var user = $('<a>').attr('id', id).attr('class', 'user').text(channel.text());
+        $('#channels').append(user);
 
-	var userChat = $('<div>').attr('class', id);
-	$('#chat').append(userChat);
+        var userChat = $('<div>').attr('class', id);
+        $('#chat').append(userChat);
     }
 
-    var chatTitle = 'Private : '+channel.text();
+    var chatTitle = 'Private : ' + channel.text();
 
-    var chatToEnable = $('#chat .'+id).addClass('active');
+    var chatToEnable = $('#chat .' + id).addClass('active');
     chatToEnable.show();
 
     self.focusOnPrompt();
@@ -304,14 +305,14 @@ MartIrcUi.prototype.focusOnPublicChat = function(channel) {
     var self = this;
     var id = channel.attr('id');
 
-    self.changeActiveChat(id, 'Public : '+channel.text());
+    self.changeActiveChat(id, 'Public : ' + channel.text());
 
     self.displayUsersTab(true);
     self.displayCloseIcon(true);
 
-    var chatTitle = 'Public : '+channel.text();
+    var chatTitle = 'Public : ' + channel.text();
 
-    var chatAndUsersToEnable = $('#chat .'+id+', #users .list.'+id).addClass('active');
+    var chatAndUsersToEnable = $('#chat .' + id + ', #users .list.' + id).addClass('active');
     chatAndUsersToEnable.show();
 
     self.focusOnPrompt();
@@ -329,7 +330,7 @@ MartIrcUi.prototype.changeActiveChat = function(id, chatTitle) {
 
     $("#chat .current-title span").text(chatTitle);
 
-    $('#'+id).addClass('active');
+    $('#' + id).addClass('active');
 };
 
 MartIrcUi.prototype.removeChat = function() {
@@ -338,59 +339,60 @@ MartIrcUi.prototype.removeChat = function() {
     var id = $('#channels .active').attr('id');
     var name = $('#channels .active').text();
 
-    if(name[0] === '#'){
-	self.ircConnection.part(name);
+    if (name[0] === '#') {
+        self.ircConnection.part(name);
     }
 
-    $('#channels  #'+id+', #chat .'+id).remove();
+    $('#channels  #' + id + ', #chat .' + id).remove();
 
-    if($('#channels .active').hasClass('channel')){
-	$('#users .'+id).remove();
+    if ($('#channels .active').hasClass('channel')) {
+        $('#users .' + id).remove();
     }
 
     var lastChannel = $('#channels a').last();
 
-    if(lastChannel.hasClass('channel')) {
-	self.focusOnPublicChat(lastChannel);
-    } else if(lastChannel.hasClass('user')) {
-	self.focusOnPrivateChat(lastChannel);
+    if (lastChannel.hasClass('channel')) {
+        self.focusOnPublicChat(lastChannel);
+    } else if (lastChannel.hasClass('user')) {
+        self.focusOnPrivateChat(lastChannel);
     } else {
-	self.focusOnServer();
+        self.focusOnServer();
     }
 };
 
 MartIrcUi.prototype.displayUsersTab = function(display) {
     var self = this;
 
-    if(display){
-	$('#chat, #prompt').removeClass('span-19');
-	$('#chat, #prompt').addClass('span-16');
-	$('#prompt').removeClass('append-1');
-	$('#prompt').addClass('append-4');
-	$('#prompt .text').addClass('span-14');
-	$('#prompt .text').removeClass('span-17');
-	$('#users').removeClass('last');
-	$('#chat').addClass('last');
-	$('#users').show();
+    if (display) {
+        $('#chat, #prompt').removeClass('span-19');
+        $('#chat, #prompt').addClass('span-16');
+        $('#prompt').removeClass('append-1');
+        $('#prompt').addClass('append-4');
+        $('#prompt .text').addClass('span-14');
+        $('#prompt .text').removeClass('span-17');
+        $('#users').removeClass('last');
+        $('#chat').addClass('last');
+        $('#users').show();
     } else {
-	$('#chat, #prompt').removeClass('span-16');
-	$('#chat, #prompt').addClass('span-19');
-	$('#prompt').removeClass('append-4');
-	$('#prompt').addClass('append-1');
-	$('#prompt .text').removeClass('span-14');
-	$('#prompt .text').addClass('span-17');
-	$('#users').addClass('last');
-	$('#chat').removeClass('last');
-	$('#users').hide();
+        $('#chat, #prompt').removeClass('span-16');
+        $('#chat, #prompt').addClass('span-19');
+        $('#prompt').removeClass('append-4');
+        $('#prompt').addClass('append-1');
+        $('#prompt .text').removeClass('span-14');
+        $('#prompt .text').addClass('span-17');
+        $('#users').addClass('last');
+        $('#chat').removeClass('last');
+        $('#users').hide();
     }
 };
 
 MartIrcUi.prototype.displayCloseIcon = function(display) {
     var self = this;
 
-    if(display){
-	$('#chat .current-title img').css('visibility', 'visible');
+    if (display) {
+        $('#chat .current-title img').css('visibility', 'visible');
     } else {
-	$('#chat .current-title img').css('visibility', 'hidden');
+        $('#chat .current-title img').css('visibility', 'hidden');
     }
 };
+
