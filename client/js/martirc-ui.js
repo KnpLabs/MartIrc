@@ -99,9 +99,12 @@ MartIrcUi.prototype.displayServerMessage = function(rawMsg) {
 MartIrcUi.prototype.scanMessage = function(rawMsg) {
     var self = this;
 
+    // escape html
+    msg = self.escape(rawMsg);
+
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
-    return rawMsg.replace(regex, " <a href=\"$&\" target=\"_blank\">$&</a> ");
+    return msg.replace(regex, " <a href=\"$&\" target=\"_blank\">$&</a> ");
 };
 
 MartIrcUi.prototype.parseIncomingMessage = function(data) {
@@ -396,3 +399,9 @@ MartIrcUi.prototype.displayCloseIcon = function(display) {
     }
 };
 
+/**
+ * Converts HTML to safe text
+ */
+MartIrcUi.prototype.escape = function(html) {
+    return $('<div/>').text(html).html();
+}
