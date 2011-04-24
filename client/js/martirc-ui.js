@@ -179,6 +179,10 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
 MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
     var self = this;
 
+    if(chat === self.ircConnection.settings.nickname){
+	chat = nickname;
+    }
+
     var id = $('#channels a:contains("'+chat+'")').attr('id');
     var userClass = $('#users .'+id+' a:contains("'+nickname+'")').attr('class');
 
