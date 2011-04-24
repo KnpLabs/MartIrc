@@ -324,7 +324,7 @@ MartIrcUi.prototype.focusOnPrivateChat = function(channel) {
 
     var chatTitle = 'Private : ' + channel.text();
 
-    var chatToEnable = $('#chat .' + id).addClass('active');
+    var chatToEnable = $('#channels #' + id + ', #chat .' + id).addClass('active');
     chatToEnable.show();
 
     self.focusOnPrompt();
