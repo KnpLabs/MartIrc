@@ -124,7 +124,9 @@ MartIrcUi.prototype.parseIncomingMessage = function(data) {
     case '353':
         var users = data.params[3].split(' ');
         for (i in users) {
-            self.addUserToChannel(data.params[2], users[i]);
+	    if(users[i] != self.ircConnection.settings.nickname){
+		self.addUserToChannel(data.params[2], users[i]);
+	    }
         }
         break;
     }
