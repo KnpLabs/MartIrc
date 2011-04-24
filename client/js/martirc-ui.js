@@ -154,9 +154,8 @@ MartIrcUi.prototype.parseOutgoingMessage = function() {
         self.connect();
         break;
     case 'j':
-        self.ircConnection.join(matches[2]);
-
         if (matches[2][0] === '#') {
+	    self.ircConnection.join(matches[2]);
 
             var id = $('#channels a:contains("' + matches[2] + '")').attr('id');
 
