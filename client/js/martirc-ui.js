@@ -111,8 +111,16 @@ MartIrcUi.prototype.parseIncomingMessage = function(data) {
 
     switch (data.command) {
     case 'privmsg':
-        self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
-        break;
+	self.receiveMessage(data.params[0], data.person.nick, data.params[1]);
+	break;
+    case 'join':
+	    if(data.person.nick != self.ircConnection.settings.nickname){
+		self.addUserToChannel(data.params[0], data.person.nick);
+	    }
+	break;
+    case 'part':
+	self.removeUserFromChannel(data.params[0], data.person.nick);
+	break;
     case '353':
         var users = data.params[3].split(' ');
         for (i in users) {
@@ -255,6 +263,14 @@ MartIrcUi.prototype.addUserToChannel = function(channel, name) {
     $('#users .'+id).append($('<a>').addClass(userClass).text(name));
 
     $('.'+userClass).css('color', 'rgb('+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+')');
+};
+
+MartIrcUi.prototype.removeUserFromChannel = function(channel, name) {
+    var self = this;
+
+    var id = $('#channels a:contains("'+channel+'")').attr('id');
+
+    $('#users .'+id+' a:contains("'+name+'")').remove();
 };
 
 MartIrcUi.prototype.focusOnPrompt = function() {
