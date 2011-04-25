@@ -263,7 +263,7 @@ MartIrcUi.prototype.addUserToChannel = function(channel, name) {
 
     $('#users .'+id).append($('<a>').addClass(userClass).text(name));
 
-    $('.'+userClass).css('color', 'rgb('+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+','+Math.floor((Math.random()*255))+')');
+    $('.'+userClass).css('color', 'rgb('+Math.floor((Math.random()*220))+','+Math.floor((Math.random()*220))+','+Math.floor((Math.random()*220))+')');
 };
 
 MartIrcUi.prototype.removeUserFromChannel = function(channel, name) {
