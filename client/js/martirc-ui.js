@@ -11,6 +11,7 @@ MartIrcUi = function() {
 
     var self = this;
 
+    self.color = 1;
     self.ircConnection = null;
 
     self.init();
@@ -193,10 +194,10 @@ MartIrcUi.prototype.receiveMessage = function(chat, nickname, rawMsg) {
     }
 
     var id = $('#channels a:contains("'+chat+'")').attr('id');
-    var userClass = $('#users .'+id+' a:contains("'+nickname+'")').attr('class');
+    var userClasses = $('#users .'+id+' a:contains("'+nickname+'")').attr('class');
 
     var msg = $('<span>').addClass('msg');
-    msg.append($('<span>').addClass(userClass+" nick").text(nickname +' : ').css('color', $('#users .'+id+' .'+userClass).css('color')));
+    msg.append($('<span>').text(nickname +' : ').attr('class', userClasses+' nick'));
     msg.append($('<span>').addClass('txt').append(self.scanMessage(rawMsg)));
 
     if (!id) {
@@ -263,7 +264,9 @@ MartIrcUi.prototype.addUserToChannel = function(channel, name) {
 
     $('#users .'+id).append($('<a>').addClass(userClass).text(name));
 
-    $('.'+userClass).css('color', 'rgb('+Math.floor((Math.random()*220))+','+Math.floor((Math.random()*220))+','+Math.floor((Math.random()*220))+')');
+    $('.'+userClass).addClass('color-'+self.color);
+
+    self.color++;
 };
 
 MartIrcUi.prototype.removeUserFromChannel = function(channel, name) {

@@ -108,11 +108,6 @@
     float: right;
 }
 
-#chat div .nick
-{
-    color: #8b008b;
-}
-
 #chat div .nick.current-user
 {
     color: #ff0000;
