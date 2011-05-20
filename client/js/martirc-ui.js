@@ -13,6 +13,7 @@ MartIrcUi = function() {
 
     self.color = 1;
     self.ircConnection = null;
+    self.utils = new Utils();
 
     self.init();
     self.bindEvents();
@@ -100,7 +101,7 @@ MartIrcUi.prototype.displayServerMessage = function(rawMsg) {
 MartIrcUi.prototype.scanMessage = function(rawMsg) {
     var self = this;
 
-    var msg = self.escape(rawMsg);
+    var msg = self.utils.escape(rawMsg);
 
     var regex = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i;
 
@@ -235,7 +236,7 @@ MartIrcUi.prototype.sendMessage = function(rawMsg) {
 MartIrcUi.prototype.createPublicChat = function(name) {
     var self = this;
 
-    var id = 'channel-'+self.createUUID();
+    var id = 'channel-'+self.utils.createUUID();
 
     $('#channels').append($('<a>').attr('id', id).addClass('channel').text(name));
     $('#chat').append($('<div>').addClass(id));
@@ -247,7 +248,7 @@ MartIrcUi.prototype.createPublicChat = function(name) {
 MartIrcUi.prototype.createPrivateChat = function(name) {
     var self = this;
 
-    var id = 'user-'+self.createUUID();
+    var id = 'user-'+self.utils.createUUID();
 
     $('#channels').append($('<a>').attr('id', id).addClass('user').text(name));
     $('#chat').append($('<div>').addClass(id));
@@ -260,7 +261,7 @@ MartIrcUi.prototype.addUserToChannel = function(channel, name) {
 
     var id = $('#channels a:contains("'+channel+'")').attr('id');
 
-    var userClass = 'channelUser-'+self.createUUID();
+    var userClass = 'channelUser-'+self.utils.createUUID();
 
     $('#users .'+id).append($('<a>').addClass(userClass).text(name));
 
@@ -435,24 +436,4 @@ MartIrcUi.prototype.displayCloseIcon = function(display) {
     } else {
         $('#chat .current-title img').css('visibility', 'hidden');
     }
-};
-
-MartIrcUi.prototype.createUUID = function() {
-    var s = [];
-    var hexDigits = "0123456789ABCDEF";
-    for (var i = 0; i < 32; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-    }
-    s[12] = "4";
-    s[16] = hexDigits.substr((s[16] & 0x3) | 0x8, 1);
-
-    var uuid = s.join("");
-    return uuid;
-};
-
-/**
- * Converts HTML to safe text
- */
-MartIrcUi.prototype.escape = function(html) {
-    return $('<div/>').text(html).html();
 };
