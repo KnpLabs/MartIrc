@@ -308,7 +308,13 @@ MartIrcUi.prototype.focusOnPrivateChat = function(channel) {
     if (channel.attr('id')) {
         id = channel.attr('id');
     } else {
-        id = channel.attr('class');
+	channel.attr('class').split(' ').map(function(element){
+						      var reg = new RegExp("^channelUser-[0-9A-F]+", "g");
+
+						      if(reg.test(element)){
+							  id = element;
+						      }
+						  });
     }
 
     self.changeActiveChat(id, 'Private : ' + channel.text());
