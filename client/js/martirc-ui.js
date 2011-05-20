@@ -267,6 +267,10 @@ MartIrcUi.prototype.addUserToChannel = function(channel, name) {
     $('.'+userClass).addClass('color-'+self.color);
 
     self.color++;
+
+    if(self.color > 48800){
+	self.color = 1;
+    }
 };
 
 MartIrcUi.prototype.removeUserFromChannel = function(channel, name) {
