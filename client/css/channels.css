@@ -1,0 +1,31 @@
+#channels
+{
+    height: 500px;
+    background-color: #ffffff;
+    resize: none;
+    overflow: auto;
+    overflow-x: visible;
+}
+
+#channels a
+{
+    text-align: center;
+    padding: 5px;
+    color: #000000;
+    display: block;
+    text-decoration: none;
+}
+
+#channels a:hover
+{
+    background-color: #ffa500;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#channels a.active
+{
+    background-color: #7ccd7c;
+    color: #000000;
+    font-weight: bold;
+}

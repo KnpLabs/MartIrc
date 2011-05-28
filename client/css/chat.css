@@ -1,0 +1,72 @@
+#chat div
+{
+    height: 470px;
+    background-color: #ffffff;
+    display: none;
+    resize: none;
+    overflow: auto;
+    overflow-y: visible;
+}
+
+#chat .active
+{
+    display: block;
+}
+
+#chat .msg
+{
+    display: block;
+}
+
+#chat .nick, #chat .nick-server, #chat .nick-command
+{
+    display: block;
+    float: left;
+    font-weight: bold;
+    border-right: 1px solid #d3d3d3;
+    margin-right: 2px;
+}
+
+#chat .txt
+{
+    display: block;
+    white-space: nowrap;
+}
+
+#chat .nick-server
+{
+    color: #228b22;
+}
+
+#chat .nick-command
+{
+    color: #191970;
+}
+
+#chat .nick.current-user
+{
+    color: #ff0000;
+}
+
+#chat .current-title
+{
+    height: 30px;
+    display: block;
+    background-color: #fff8dc;
+    text-align: center;
+}
+
+#chat .current-title span
+{
+    font-weight: bold;
+}
+
+#chat .current-title img
+{
+    width: 15px;
+    height: 15px;
+    padding-top: 5px;
+    padding-right: 5px;
+    float: right;
+    display: none;
+}

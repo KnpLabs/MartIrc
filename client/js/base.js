@@ -58,14 +58,14 @@ Base.prototype.hideActiveElements = function(){
 Base.prototype.showUsersTab = function(){
     var self = this;
 
-    $('#chat, #prompt').removeClass('span-19');
+    $('#chat, #prompt').removeClass('span-20');
     $('#chat, #prompt').addClass('span-16');
     $('#prompt').removeClass('append-1');
     $('#prompt').addClass('append-4');
     $('#prompt .text').addClass('span-14');
     $('#prompt .text').removeClass('span-17');
-    $('#users').removeClass('last');
-    $('#chat').addClass('last');
+    $('#users').addClass('last');
+    $('#chat').removeClass('last');
     $('#users').show();
 };
 
@@ -73,13 +73,13 @@ Base.prototype.hideUsersTab = function(){
     var self = this;
 
     $('#chat, #prompt').removeClass('span-16');
-    $('#chat, #prompt').addClass('span-19');
+    $('#chat, #prompt').addClass('span-20');
     $('#prompt').removeClass('append-4');
     $('#prompt').addClass('append-1');
     $('#prompt .text').removeClass('span-14');
     $('#prompt .text').addClass('span-17');
-    $('#users').addClass('last');
-    $('#chat').removeClass('last');
+    $('#users').removeClass('last');
+    $('#chat').addClass('last');
     $('#users').hide();
 };
 

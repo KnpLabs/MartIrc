@@ -1,0 +1,22 @@
+#users
+{
+    height: 500px;
+    display: none;
+    background-color: #ffffff;
+    resize: none;
+    overflow: auto;
+    overflow-y: visible;
+}
+
+#users .list a:hover
+{
+    color: #ee9a00;
+    font-weight: bold;
+}
+
+#users .list a
+{
+    text-align: right;
+    display: block;
+    text-decoration: none;
+}
