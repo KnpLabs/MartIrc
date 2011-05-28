@@ -113,13 +113,13 @@
     color: #ff0000;
 }
 
-#chat div .server-msg
+#chat div .nick-server
 {
     color: #228b22;
     font-weight: bold;
 }
 
-#chat div .command
+#chat div .nick-command
 {
     color: #191970;
     font-weight: bold;

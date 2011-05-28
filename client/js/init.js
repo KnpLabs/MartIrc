@@ -3,7 +3,7 @@ $(document).ready(function() {
         window.location = "error.html";
     }
 
-    new MartIrcUi();
+    new MartIrc();
 
     $("#menu .prefs").click(function() {
         $("#connection-informations").toggle('slow');

@@ -13,6 +13,8 @@ Utils = function() {
 };
 
 Utils.prototype.createUUID = function() {
+    var self = this;
+
     var s = [];
     var hexDigits = "0123456789ABCDEF";
     for (var i = 0; i < 32; i++) {
@@ -29,5 +31,7 @@ Utils.prototype.createUUID = function() {
  * Converts HTML to safe text
  */
 Utils.prototype.escape = function(html) {
+    var self = this;
+
     return $('<div/>').text(html).html();
 };
