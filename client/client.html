@@ -40,6 +40,10 @@
                     <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
                 </fieldset>
                 <input type="submit" value="Connect" id="connectButton"/>
+                <fieldset id="options">
+                    <legend>Options</legend>
+                    <label for="connectOnStartup">Connect on startup</label> : <input type="checkbox" name="connectOnStartup" id="connectOnStartup" />
+                </fieldset>
             </div>
 
             <hr class="space" />
@@ -68,6 +72,7 @@
 
         </div>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.cookies.2.2.0.min.js"></script>
         <script type="text/javascript" src="js/lib/parser.js"></script>
         <script type="text/javascript" src="js/lib/PanPG_util.js"></script>
         <script type="text/javascript" src="js/lib/socket.io.js"></script>
@@ -80,6 +85,7 @@
         <script type="text/javascript" src="js/server.js"></script>
         <script type="text/javascript" src="js/init.js"></script>
         <script type="text/javascript" src="js/martirc.js"></script>
+        <script type="text/javascript" src="js/storage.js"></script>
         <script type="text/javascript" src="js/url-driver.js"></script>
     </body>
 </html>

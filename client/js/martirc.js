@@ -15,6 +15,7 @@ MartIrc = function() {
     self.channels = new Array();
 
     self.ircConnection = null;
+    self.storage = new Storage();
     self.utils = new Utils();
 
     self.init();
@@ -27,6 +28,16 @@ MartIrc = function() {
  */
 MartIrc.prototype.init = function() {
     var self = this;
+
+    if(self.storage.getNickname()){
+	$('#nickname').val(self.storage.getNickname());
+    }
+
+    $('input[name=connectOnStartup]').attr('checked', self.storage.getConnectOnStartup());
+
+    if(self.storage.getConnectOnStartup()){
+	self.connect();
+    }
 };
 
 MartIrc.prototype.bindEvents = function() {
@@ -36,6 +47,14 @@ MartIrc.prototype.bindEvents = function() {
         self.connect();
     });
 
+    $('#connectOnStartup').click(function(event) {
+	self.storage.setConnectOnStartup($('input[name=connectOnStartup]').is(':checked'));
+    });
+
+    $('#nickname').change(function(event) {
+	self.storage.setNickname($('#nickname').val());
+    });
+
     $('#prompt form').submit(function(event) {
         event.preventDefault();
 
@@ -43,19 +62,15 @@ MartIrc.prototype.bindEvents = function() {
     });
 
     $('#chat .current-title img').live('click', function(event) {
-        self.removeChannel();
+        self.removeChannel(null);
     });
 
-    $('#channels a.channel').live('click', function(event) {
-        self.focusOnPublicChannel($(this));
-    });
-
-    $('#channels a.user, #users .list.active a').live('click', function(event) {
-        self.focusOnPrivateChannel($(this));
+    $('#channels a.user, #channels a.channel, #users .list.active a').live('click', function(event) {
+        self.createChannel($(this).text());
     });
 
     $('#channels a.server').live('click', function(event) {
-        self.focusOnServerChannel();
+        self.server.focus();
     });
 
     $('#prompt form input').focus();
@@ -159,6 +174,23 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
 	    }
         }
         break;
+    case '376':
+	self.channels = self.storage.getChannels(self.ircConnection.settings.ircServerHost);
+
+	if(!Object.keys(self.channels).length){
+	    return;
+	}
+
+	for(name in self.channels){
+	    if(self.channels[name] instanceof Channel){
+		self.ircConnection.join(name);
+	    }
+
+	    self.channels[name].create();
+	}
+
+	self.channels[Object.keys(self.channels).pop()].focus();
+	break;
     }
 };
 
@@ -187,29 +219,13 @@ MartIrc.prototype.parseOutgoingMessage = function() {
         self.connect();
         break;
     case 'j':
-	var name = argument;
-	var channel = self.channels[name];
-
-	if(!channel){
-	    if (name[0] === '#') {
-		self.ircConnection.join(name);
-
-		channel = new Channel(name);
-	    }
-	    else
-	    {
-		channel = new User(name);
-	    }
-
-	    channel.create();
-
-	    self.channels[name] = channel;
-	}
-
-	channel.focus();
+	self.createChannel(argument);
         break;
     case 'k':
-        self.removeChannel();
+        self.removeChannel(argument);
+        break;
+    case 's':
+        self.server.focus();
         break;
     }
 };
@@ -237,7 +253,7 @@ MartIrc.prototype.sendMessage = function(rawMsg) {
 
     var channel = $('#channels .active').text();
 
-    if ($('#chat .active').hasClass('server')) {
+    if (self.server.isActive()) {
 	self.server.addCommand(rawMsg);
 
 	if(!rawMsg){
@@ -256,36 +272,38 @@ MartIrc.prototype.sendMessage = function(rawMsg) {
     }
 };
 
-MartIrc.prototype.focusOnServerChannel = function() {
+MartIrc.prototype.createChannel = function(name) {
     var self = this;
 
-    self.server.focus();
-};
+    var channel = self.channels[name];
 
-MartIrc.prototype.focusOnPublicChannel = function(channel) {
-    var self = this;
+    if(!channel){
 
-    self.channels[channel.text()].focus();
-};
+	if (name[0] === '#') {
+	    self.ircConnection.join(name);
 
-MartIrc.prototype.focusOnPrivateChannel = function(channel) {
-    var self = this;
+	    channel = new Channel(name);
+	}
+	else
+	{
+	    channel = new User(name);
+	}
 
-    var user = self.channels[channel.text()];
+	channel.create();
 
-    if(!user){
-	user = new User(channel.text());
-	user.create();
-	self.channels[channel.text()] = user;
+	self.channels[name] = channel;
+	self.storage.addChannel(name, self.ircConnection.settings.ircServerHost);
     }
 
-    user.focus();
+    channel.focus();
 };
 
-MartIrc.prototype.removeChannel = function() {
+MartIrc.prototype.removeChannel = function(name) {
     var self = this;
 
-    if ($('#channels .active').attr('id') === 'server') {
+    var channelName = name ? name : $('#channels .active').text();
+
+    if(!(channelName in self.channels) || self.server.isActive()){
 	return;
     }
 
@@ -294,6 +312,7 @@ MartIrc.prototype.removeChannel = function() {
     }
 
     self.channels[channelName].destroy();
+    self.storage.removeChannel(channelName,self.ircConnection.settings.ircServerHost);
     delete self.channels[channelName];
 
     if(!Object.keys(self.channels).length){
