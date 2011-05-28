@@ -106,12 +106,16 @@ Base.prototype.addMessage = function(id, nickname, message, msgClasses, txtClass
     $("#chat ."+id).append(messageBlock);
 };
 
-Base.prototype.focusOnPrompt = function(){
+Base.prototype.scrollAtTheEnd = function(){
     var self = this;
 
-    $("#chat .active").attr({
-        scrollTop: $("#chat .active").attr("scrollHeight")
+    $("#chat ."+self.id).attr({
+	scrollTop: $("#chat ."+self.id).attr("scrollHeight")
     });
+};
+
+Base.prototype.focusOnPrompt = function(){
+    var self = this;
 
     $('#prompt form input').focus();
 };

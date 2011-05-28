@@ -49,6 +49,9 @@ Channel.prototype.focus = function(){
     self.showClosingIcon();
 
     $("#chat .current-title span").text('Public channel : '+self.name);
+
+    self.scrollAtTheEnd();
+    self.focusOnPrompt();
 };
 
 Channel.prototype.addUser = function(user){

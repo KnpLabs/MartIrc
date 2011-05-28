@@ -107,6 +107,8 @@ MartIrc.prototype.connect = function() {
 
         self.server.addMessage(data.raw);
 
+        self.server.scrollAtTheEnd();
+
         self.parseIncomingMessage(data);
     });
 
@@ -254,7 +256,7 @@ MartIrc.prototype.receiveMessage = function(channel, nickname, rawMsg) {
 
     self.channels[channel].addMessage(nickname, self.scanMessage(rawMsg));
 
-    self.channels[channel].focusOnPrompt();
+    self.channels[channel].scrollAtTheEnd();
 };
 
 MartIrc.prototype.sendMessage = function(rawMsg) {
@@ -271,12 +273,14 @@ MartIrc.prototype.sendMessage = function(rawMsg) {
 
         self.ircConnection.sendMessage(rawMsg);
 
+	self.server.scrollAtTheEnd();
 	self.server.focusOnPrompt();
     } else {
 	self.channels[channel].addMessage(self.ircConnection.settings.nickname, rawMsg);
 
         self.ircConnection.privmsg(channel, rawMsg);
 
+	self.channels[channel].scrollAtTheEnd();
 	self.channels[channel].focusOnPrompt();
     }
 };

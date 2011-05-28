@@ -28,6 +28,7 @@ Server.prototype.focus = function(){
 
     $("#chat .current-title span").text("Server");
 
+    self.scrollAtTheEnd();
     self.focusOnPrompt();
 };
 

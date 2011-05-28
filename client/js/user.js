@@ -53,6 +53,7 @@ User.prototype.focus = function(){
 
     $("#chat .current-title span").text('Chat with '+self.nickname);
 
+    self.scrollAtTheEnd();
     self.focusOnPrompt();
 };
 
