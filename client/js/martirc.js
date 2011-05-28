@@ -82,6 +82,15 @@ MartIrc.prototype.connect = function() {
     if (self.ircConnection && self.ircConnection.connected()) {
         self.ircConnection.disconnect();
 
+	for(name in self.channels){
+	    self.channels[name].destroy();
+	}
+
+	self.channels = new Array();
+	self.users = new Array();
+
+	self.server.focus();
+
         self.ircConnection = null;
     }
 
