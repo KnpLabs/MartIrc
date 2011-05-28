@@ -53,6 +53,8 @@ MartIrc.prototype.bindEvents = function() {
 
     $('#nickname').change(function(event) {
 	self.storage.setNickname($('#nickname').val());
+
+	self.changeNickname($('#nickname').val());
     });
 
     $('#prompt form').submit(function(event) {
@@ -158,6 +160,28 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
 
 	self.channels[channelName].removeUser(nickname);
 	break;
+    case 'nick':
+	var oldNickname = data.person.nick;
+	var newNickname = data.params[0];
+
+	for(name in self.channels){
+
+	    if(self.channels[name] instanceof Channel){
+		if(self.channels[name].hasUser(oldNickname)){
+		    self.channels[name].renameUser(oldNickname, newNickname);
+		}
+	    } else {
+
+		if(name == oldNickname){
+		    self.channels[newNickname] = self.channels[oldNickname];
+		    self.channels[newNickname].rename(newNickname);
+
+		    delete self.channels[oldNickname];
+		}
+	    }
+	}
+
+	break;
     case '353':
         users = data.params[3].split(' ');
 	channelName = data.params[2];
@@ -221,6 +245,9 @@ MartIrc.prototype.parseOutgoingMessage = function() {
         break;
     case 'k':
         self.removeChannel(argument);
+        break;
+    case 'n':
+	self.changeNickname(argument);
         break;
     case 's':
         self.server.focus();
@@ -322,4 +349,15 @@ MartIrc.prototype.removeChannel = function(name) {
     }
 
     self.channels[Object.keys(self.channels).pop()].focus();
+};
+
+MartIrc.prototype.changeNickname = function(nickname){
+    var self = this;
+
+    if (!self.ircConnection || !self.ircConnection.connected()) {
+	return;
+    }
+
+    self.ircConnection.nick(nickname)
+    self.ircConnection.settings.nickname = nickname;
 };

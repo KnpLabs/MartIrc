@@ -74,6 +74,21 @@ Channel.prototype.removeUser = function(nickname) {
     delete self.users[nickname];
 };
 
+Channel.prototype.hasUser = function(nickname) {
+    var self = this;
+
+    return self.users[nickname] ? true : false;
+};
+
+Channel.prototype.renameUser = function(oldNickname, newNickname) {
+    var self = this;
+
+    self.users[newNickname] = self.users[oldNickname];
+    self.users[newNickname].rename(newNickname);
+
+    delete self.users[oldNickname];
+};
+
 Channel.prototype.destroy = function(){
     var self = this;
 

@@ -37,7 +37,7 @@ IrcConnection.prototype.init = function() {
     self.socket.connect();
 
     var data = {
-        type: 'connect', data: 
+        type: 'connect', data:
         {
             ircHost: self.settings.ircServerHost
             , ircPort: self.settings.ircServerPort
@@ -50,8 +50,8 @@ IrcConnection.prototype.init = function() {
     self.socket.send(data);
 
     self.socket.on('message', function(incomingMessage) {
-		       self.parseIncomingMessage(incomingMessage);
-		   });
+	self.parseIncomingMessage(incomingMessage);
+    });
 };
 
 
@@ -86,9 +86,9 @@ IrcConnection.prototype.bindEvents = function () {
     var self = this;
 
     //Basic client to keep the connection alive
-    $(this).bind('irc.ping',function(event, data) { 
-		     self.pong(data.params[0]);
-		 });
+    $(this).bind('irc.ping',function(event, data) {
+	self.pong(data.params[0]);
+    });
 }
 
 IrcConnection.prototype.connected = function() {
@@ -129,11 +129,11 @@ IrcConnection.prototype.pong = function(server) {
 /**
  * IrcConnection#quit( [message] ) -> self
  * - message ( String ): Quit message
- * 
+ *
  * Quit the server, passing an optional message.
- * 
+ *
  * ### Examples
- * 
+ *
  *     irc_instance.quit(); // Quit without a message
  *     irc_instance.quit( 'LOLeaving!' ); // Quit with a hilarious exit message
  **/
@@ -148,11 +148,11 @@ IrcConnection.prototype.quit = function( message ) {
  * IrcConnection#join( channel[, key] ) -> self
  * - channel ( String ): Channel to join
  * - key ( String ): Channel key
- * 
+ *
  * Start listening for messages from a given channel.
- * 
+ *
  * ### Examples
- * 
+ *
  *     irc_instance.join( '#asl' ); // Join the channel `#asl`
  *     irc_instance.join( '#asxxxl', 'lol123' ); // Join the channel `#asxxl` with the key `lol123`
  **/
@@ -166,18 +166,18 @@ IrcConnection.prototype.join = function ( channel, key ) {
 /**
  * IRC#part( channel ) -> self
  * - channel ( String ): Channel to part
- * 
+ *
  * Stop listening for messages from a given channel
- * 
+ *
  * ### Examples
- * 
+ *
  *     irc_instance.part( '#asl' ); // You've had your fill of `#asl` for the day
  **/
 IrcConnection.prototype.part = function( channel ) {
     var self = this;
     // 4.2.2
     return self.sendMessage( 'PART' + self.param( channel ) );
-}
+};
 
 IrcConnection.prototype.names = function ( channel ) {
     var self = this;
@@ -190,7 +190,24 @@ IrcConnection.prototype.privmsg = function ( receiver, msg ) {
     var self = this;
 
     self.sendMessage( 'PRIVMSG' + self.param( receiver ) + ' ' + self.param( msg || '', null, ':' ) );
-}
+};
+
+/**
+ * IRC#nick( nickname ) -> self
+ * - nickname ( String ): Desired nick name.
+ *
+ * Used to set or change a user's nick name.
+ *
+ * ### Examples
+ *
+ *     irc_instance.nick( 'Jeff' ) // Set user's nickname to `Jeff`
+ **/
+IrcConnection.prototype.nick = function( nickname ) {
+    var self = this;
+    // 4.1.2
+    self.sendMessage( ( self.settings.nickname === undefined ? '' : ':' + self.settings.nickname + ' ' ) + 'NICK' + self.param( nickname ) );
+};
+
 
 /* ------------------------------ MISCELLANEOUS ------------------------------ */
 IrcConnection.prototype.if_exists = function ( data, no_pad, pad_char ) {
