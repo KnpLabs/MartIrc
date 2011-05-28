@@ -35,7 +35,7 @@ Channel.prototype.addMessage = function(nickname, message){
 	color = self.users[nickname].color;
     }
 
-    Base.prototype.addMessage.call(self,nickname, message, self.id, color+' nick');
+    Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-16', 'span-14', color+' nick');
 };
 
 Channel.prototype.focus = function(){
@@ -58,7 +58,7 @@ Channel.prototype.addUser = function(user){
 
     $('#users .'+self.id).append($('<a>').addClass(user.id).text(user.nickname));
 
-    $('.'+user.id).addClass(user.color);
+    $('#users .'+user.id).addClass(user.color);
 };
 
 Channel.prototype.removeUser = function(nickname) {

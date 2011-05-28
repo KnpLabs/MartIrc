@@ -1,91 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>MartIrc</title>
-        <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
-        <!--[if lt IE 8]>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>MartIrc</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <!--[if lt IE 8]>
         <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
         <![endif]-->
-        <link rel="stylesheet" href="css/channels.css" type="text/css" media="screen, projection" />
-        <link rel="stylesheet" href="css/chat.css" type="text/css" media="screen, projection" />
-        <link rel="stylesheet" href="css/colors.css" type="text/css" media="screen, projection" />
-        <link rel="stylesheet" href="css/users.css" type="text/css" media="screen, projection" />
-    </head>
-    <body>
-        <div class="container">
+    <link rel="stylesheet" href="css/channels.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/chat.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/colors.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/prompt.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/users.css" type="text/css" media="screen, projection" />
+  </head>
+  <body>
+    <div class="container">
 
-            <div id="header" class="span-24 last">
-                <span class="title">MartIrc : Web Browser Irc Implementation</span>
-            </div>
+      <div id="header" class="span-24 last">
+        <span class="title large">MartIrc : Web Based Irc Client</span>
+      </div>
 
-            <div id="menu" class="span-24 last">
-                <a href="#" class="prefs">Préférences</a>
-            </div>
+      <div id="menu" class="span-24 last">
+	<a class="userInformations">User Informations</a>
+	<a class="connectionInformations">Connection Informations</a>
+        <a class="options">Options</a>
+      </div>
 
-            <div id="connection-informations" class="span-24 last">
-                <fieldset id="nodeServer">
-                    <legend>Node server informations</legend>
-                    <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
-                    <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
-                </fieldset>
-                <fieldset id="ircServer">
-                    <legend>Irc server informations</legend>
-                    <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
-                    <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
-                </fieldset>
-                <fieldset id="connectionInformations">
-                    <legend>Connection informations</legend>
-                    <label for="nickname">Nickname</label> : <input type="text" value="MartIrcTest" name="nickname" id="nickname" />
-                </fieldset>
-                <input type="submit" value="Connect" id="connectButton"/>
-                <fieldset id="options">
-                    <legend>Options</legend>
-                    <label for="connectOnStartup">Connect on startup</label> : <input type="checkbox" name="connectOnStartup" id="connectOnStartup" />
-                </fieldset>
-            </div>
+      <div id="menu-item">
+	<div id="userInformations" class="span-24 last">
+          <fieldset>
+	    <legend>User Informations</legend>
+	    <label for="nickname">Nickname</label> : <input type="text" value="JeanLuc45678998" name="nickname" id="nickname" />
+          </fieldset>
+	  <input type="button" value="Close" class="close" />
+	</div>
 
-            <hr class="space" />
+	<div id="connectionInformations" class="span-24 last">
+          <fieldset>
+	    <legend>Node server informations</legend>
+	    <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
+	    <label for="nodeServerPort">Port</label>: <input type="text" value="3000" id="nodeServerPort" name="nodeServerPort" />
+          </fieldset>
+          <fieldset>
+	    <legend>Irc server informations</legend>
+	    <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
+	    <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
+          </fieldset>
+          <input type="submit" value="Connect" id="connectButton" />
+	  <input type="button" value="Close" class="close" />
+	</div>
 
-            <div id="channels" class="span-4">
-                <span class="title large"></span>
-                <a id="server" class="server active">Server</a>
-            </div>
+	<div id="options" class="span-24 last">
+          <fieldset>
+	    <legend>Options</legend>
+	    <label for="connectOnStartup">Connect on startup</label> : <input type="checkbox" name="connectOnStartup" id="connectOnStartup" />
+          </fieldset>
+	  <input type="button" value="Close" class="close" />
+	</div>
 
-            <div id="chat" class="span-20 last">
-                <span class="title large"></span>
-                <div class="current-title"><span>Server</span><img src="images/close-button.png" /></div>
-                <div class="server active"></div>
-            </div>
+      </div>
 
-            <div id="users" class="span-4">
-                <span class="title large"></span>
-            </div>
+      <hr class="space" />
 
-            <div id="prompt" class="span-19 prepend-4 last">
-                <form action="" method="post">
-                    <input class="span-17 text" />
-                    <button type="submit" class="span-2 last">Send</button>
-                </form>
-            </div>
+      <div id="channels" class="span-4">
+        <span class="title large"></span>
+        <a id="server" class="server active">Server</a>
+      </div>
 
-        </div>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="js/lib/jquery.cookies.2.2.0.min.js"></script>
-        <script type="text/javascript" src="js/lib/parser.js"></script>
-        <script type="text/javascript" src="js/lib/PanPG_util.js"></script>
-        <script type="text/javascript" src="js/lib/socket.io.js"></script>
-        <script type="text/javascript" src="js/compiler.js"></script>
-        <script type="text/javascript" src="js/irc-connection.js"></script>
-        <script type="text/javascript" src="js/utils.js"></script>
-        <script type="text/javascript" src="js/base.js"></script>
-        <script type="text/javascript" src="js/channel.js"></script>
-        <script type="text/javascript" src="js/user.js"></script>
-        <script type="text/javascript" src="js/server.js"></script>
-        <script type="text/javascript" src="js/init.js"></script>
-        <script type="text/javascript" src="js/martirc.js"></script>
-        <script type="text/javascript" src="js/storage.js"></script>
-        <script type="text/javascript" src="js/url-driver.js"></script>
-    </body>
+      <div id="chat" class="span-20 last">
+        <span class="title large"></span>
+        <div class="current-title"><span>Server</span><img src="images/close-button.png" /></div>
+        <div class="server active"></div>
+      </div>
+
+      <div id="users" class="span-4">
+        <span class="title large"></span>
+      </div>
+
+      <hr class="space" />
+
+      <div id="prompt" class="span-20 prepend-4 last">
+        <form action="" method="post">
+          <input class="span-18 text" />
+          <button type="submit" class="span-2 last">Send</button>
+        </form>
+      </div>
+
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.cookies.2.2.0.min.js"></script>
+    <script type="text/javascript" src="js/lib/parser.js"></script>
+    <script type="text/javascript" src="js/lib/PanPG_util.js"></script>
+    <script type="text/javascript" src="js/lib/socket.io.js"></script>
+    <script type="text/javascript" src="js/compiler.js"></script>
+    <script type="text/javascript" src="js/irc-connection.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/channel.js"></script>
+    <script type="text/javascript" src="js/user.js"></script>
+    <script type="text/javascript" src="js/server.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/martirc.js"></script>
+    <script type="text/javascript" src="js/storage.js"></script>
+    <script type="text/javascript" src="js/url-driver.js"></script>
+  </body>
 </html>

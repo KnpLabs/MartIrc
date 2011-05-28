@@ -1,8 +1,8 @@
 #users
 {
     height: 500px;
+    background-color: #fbfbfb;
     display: none;
-    background-color: #ffffff;
     resize: none;
     overflow: auto;
     overflow-y: visible;
@@ -10,13 +10,16 @@
 
 #users .list a:hover
 {
-    color: #ee9a00;
     font-weight: bold;
+    color: #ffffff;
+    background-color: #000000;
 }
 
 #users .list a
 {
-    text-align: right;
+    text-align: left;
     display: block;
     text-decoration: none;
+    padding-left: 2px;
+    font-weight: bold;
 }

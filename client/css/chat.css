@@ -1,19 +1,14 @@
 #chat div
 {
     height: 470px;
-    background-color: #ffffff;
+    background-color: #fbfbfb;
     display: none;
     resize: none;
-    overflow: auto;
-    overflow-y: visible;
+    overflow-y: auto;
+    overflow-x: none;
 }
 
-#chat .active
-{
-    display: block;
-}
-
-#chat .msg
+#chat .active, #chat .msg, #chat .text
 {
     display: block;
 }
@@ -23,19 +18,14 @@
     display: block;
     float: left;
     font-weight: bold;
-    border-right: 1px solid #d3d3d3;
-    margin-right: 2px;
-}
-
-#chat .txt
-{
-    display: block;
-    white-space: nowrap;
+    padding-left: 2px;
+    padding-right: 2px;
+    word-wrap: break-word;
 }
 
 #chat .nick-server
 {
-    color: #228b22;
+    color: #171717;
 }
 
 #chat .nick-command
@@ -48,25 +38,38 @@
     color: #ff0000;
 }
 
+#chat .txt
+{
+    display: block;
+    float: left;
+    border-left: 1px solid #d3d3d3;
+    padding-left: 2px;
+    padding-right: 2px;
+    word-wrap: break-word;
+}
+
 #chat .current-title
 {
     height: 30px;
     display: block;
-    background-color: #fff8dc;
+    background-color: #1462c1;
     text-align: center;
 }
 
 #chat .current-title span
 {
+    color: #ffffff;
     font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
 }
 
 #chat .current-title img
 {
     width: 15px;
     height: 15px;
-    padding-top: 5px;
-    padding-right: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
     float: right;
     display: none;
 }

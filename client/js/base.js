@@ -63,7 +63,7 @@ Base.prototype.showUsersTab = function(){
     $('#prompt').removeClass('append-1');
     $('#prompt').addClass('append-4');
     $('#prompt .text').addClass('span-14');
-    $('#prompt .text').removeClass('span-17');
+    $('#prompt .text').removeClass('span-18');
     $('#users').addClass('last');
     $('#chat').removeClass('last');
     $('#users').show();
@@ -77,7 +77,7 @@ Base.prototype.hideUsersTab = function(){
     $('#prompt').removeClass('append-4');
     $('#prompt').addClass('append-1');
     $('#prompt .text').removeClass('span-14');
-    $('#prompt .text').addClass('span-17');
+    $('#prompt .text').addClass('span-18');
     $('#users').removeClass('last');
     $('#chat').addClass('last');
     $('#users').hide();
@@ -96,12 +96,12 @@ Base.prototype.hideClosingIcon = function(){
 };
 
 
-Base.prototype.addMessage = function(nickname, message, id, classes){
+Base.prototype.addMessage = function(id, nickname, message, msgClasses, txtClasses, nickClasses){
     var self = this;
 
-    var messageBlock = $('<span>').addClass('msg');
-    messageBlock.append($('<span>').addClass(classes).text(nickname));
-    messageBlock.append($('<span>').addClass('txt').append(message));
+    var messageBlock = $('<span>').addClass('msg '+msgClasses+' clear');
+    messageBlock.append($('<span>').addClass(nickClasses+' span-2').text(nickname));
+    messageBlock.append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 
     $("#chat ."+id).append(messageBlock);
 };
