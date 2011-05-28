@@ -10,7 +10,7 @@ Channel = function(name){
 
     var self = this;
 
-    self.id = 'channel-'+self.utils.createUUID();
+    self.id = 'channel-'+$.sha1(name);
     self.name = name;
     self.users = new Array();
 };

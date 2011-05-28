@@ -87,7 +87,6 @@ MartIrc.prototype.connect = function() {
 	}
 
 	self.channels = new Array();
-	self.users = new Array();
 
 	self.server.focus();
 
@@ -146,13 +145,7 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
 	nickname = data.person.nick;
 
 	if(nickname != self.ircConnection.settings.nickname){
-	    user = self.channels[nickname];
-
-	    if(!user){
-		user = new User(nickname);
-	    }
-
-	    self.channels[channelName].addUser(user);
+	    self.channels[channelName].addUser(new User(nickname));
 	}
 	break;
     case 'part':
@@ -175,13 +168,7 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
 
         for (i in users) {
 	    if(users[i] != self.ircConnection.settings.nickname){
-		user = self.channels[users[i]];
-
-		if(!user){
-		    user = new User(users[i]);
-		}
-
-		self.channels[channelName].addUser(user);
+		self.channels[channelName].addUser(new User(users[i]));
 	    }
         }
         break;

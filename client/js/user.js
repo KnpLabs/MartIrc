@@ -12,7 +12,7 @@ User = function(nickname){
 
     User.color = User.color > 48800 || typeof User.color == 'undefined' ? 1 : User.color+1;
 
-    self.id = 'user-'+self.utils.createUUID();
+    self.id = 'user-'+$.sha1(nickname);
     self.nickname = nickname;
     self.color = 'color-'+User.color;
 };
