@@ -1,8 +1,8 @@
 /*
- * Channel constructor
- *
- * @constructor
- */
+* Channel constructor
+*
+* @constructor
+*/
 Channel = function(name){
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -32,7 +32,7 @@ Channel.prototype.addMessage = function(nickname, message){
     var color = 'current-user';
 
     if(self.users[nickname]){
-	color = self.users[nickname].color;
+        color = self.users[nickname].color;
     }
 
     Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-16', 'span-14', color+' nick');
@@ -93,7 +93,7 @@ Channel.prototype.destroy = function(){
     var self = this;
 
     if(!self.id){
-	return;
+        return;
     }
 
     $('#channels  #' + self.id + ', #chat .' + self.id + ', #users .' + self.id).remove();

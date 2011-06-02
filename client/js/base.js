@@ -1,9 +1,9 @@
 /**
- * Base ui constructor
- *
- * @contructor
- *
- */
+* Base ui constructor
+*
+* @contructor
+*
+*/
 Base = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -33,7 +33,7 @@ Base.prototype.setActiveElements = function(){
     $('#channels #' + self.id + ', #chat .' + self.id).addClass('active');
 
     if($('#users .'+self.id).get(0)){
-	$('#users .'+self.id).addClass('active');
+        $('#users .'+self.id).addClass('active');
     }
 };
 
@@ -110,7 +110,7 @@ Base.prototype.scrollAtTheEnd = function(){
     var self = this;
 
     $("#chat ."+self.id).attr({
-	scrollTop: $("#chat ."+self.id).attr("scrollHeight")
+        scrollTop: $("#chat ."+self.id).attr("scrollHeight")
     });
 };
 

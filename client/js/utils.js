@@ -1,9 +1,9 @@
 /**
- * Utils constructor
- *
- * @contructor
- *
- */
+* Utils constructor
+*
+* @contructor
+*
+*/
 Utils = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -13,8 +13,8 @@ Utils = function() {
 };
 
 /**
- * Converts HTML to safe text
- */
+* Converts HTML to safe text
+*/
 Utils.prototype.escape = function(html) {
     var self = this;
 

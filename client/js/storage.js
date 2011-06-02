@@ -1,9 +1,9 @@
 /**
- * Storage constructor
- *
- * @contructor
- *
- */
+* Storage constructor
+*
+* @contructor
+*
+*/
 Storage = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -12,8 +12,8 @@ Storage = function() {
     var self = this;
 
     if(!$.cookies.get('martirc')){
-	$.cookies.setOptions({expiresAt: new Date( 2013, 1, 1 )});
-	$.cookies.set('martirc', new Object());
+        $.cookies.setOptions({expiresAt: new Date( 2013, 1, 1 )});
+        $.cookies.set('martirc', new Object());
     }
 };
 
@@ -23,14 +23,14 @@ Storage.prototype.addChannel = function(name, ircServerHost){
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData['channels']){
-	cookieData['channels'] = new Object();
+        cookieData['channels'] = new Object();
     }
 
     cookieData['channels'][ircServerHost] = cookieData['channels'].hasOwnProperty(ircServerHost) ? cookieData['channels'][ircServerHost] : new Array();
 
     if(jQuery.inArray(name, cookieData['channels'][ircServerHost]) == -1){
-	cookieData['channels'][ircServerHost].push(name);
-	$.cookies.set('martirc', cookieData);
+        cookieData['channels'][ircServerHost].push(name);
+        $.cookies.set('martirc', cookieData);
     }
 };
 
@@ -40,7 +40,7 @@ Storage.prototype.removeChannel = function(name, ircServerHost) {
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData['channels'] || !cookieData['channels'][ircServerHost]){
-	return;
+        return;
     }
 
     cookieData['channels'][ircServerHost].splice(cookieData['channels'][ircServerHost].indexOf(name), 1);
@@ -55,18 +55,18 @@ Storage.prototype.getChannels = function(ircServerHost) {
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData['channels'] || !cookieData['channels'][ircServerHost]){
-	return channels;
+        return channels;
     }
 
     var names = cookieData['channels'][ircServerHost];
 
     for(i in names){
 
-	if(names[i][0] === '#'){
-	    channels[names[i]] = new Channel(names[i]);
-	} else {
-	    channels[names[i]] = new User(names[i]);
-	}
+        if(names[i][0] === '#'){
+            channels[names[i]] = new Channel(names[i]);
+        } else {
+            channels[names[i]] = new User(names[i]);
+        }
     }
 
     return channels;
@@ -87,7 +87,7 @@ Storage.prototype.getConnectOnStartup = function(connect) {
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData['connect']){
-	return false;
+        return false;
     }
 
     return cookieData['connect'];
@@ -108,7 +108,7 @@ Storage.prototype.getNickname = function() {
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData['nickname']){
-	return null;
+        return null;
     }
 
     return cookieData['nickname'];

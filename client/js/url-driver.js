@@ -1,17 +1,17 @@
 /**
- * The url driver will parse the request url
- * and configure the client
- *
- * Available request parameter:
- *  bool connect: connect to the server
- *  string join: join a room when connected
- *
- *  Example usage:
- *  client.html?connect=1&nick=superdupont&join=knplabs
- *
- *  Connect to a server without SASL, for 3G or Tor users:
- *  client.html?connect=1&server=irc.quakenode.net&join=linux
- */
+* The url driver will parse the request url
+* and configure the client
+*
+* Available request parameter:
+*  bool connect: connect to the server
+*  string join: join a room when connected
+*
+*  Example usage:
+*  client.html?connect=1&nick=superdupont&join=knplabs
+*
+*  Connect to a server without SASL, for 3G or Tor users:
+*  client.html?connect=1&server=irc.quakenode.net&join=linux
+*/
 MartIrcUrlDriver = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -24,8 +24,8 @@ MartIrcUrlDriver = function() {
 };
 
 /**
- * Default configuration
- */
+* Default configuration
+*/
 MartIrcUrlDriver.prototype.defaults = {
     'connect': false,
     'server': 'irc.freenode.net',
@@ -34,8 +34,8 @@ MartIrcUrlDriver.prototype.defaults = {
 };
 
 /**
- * Run the configured actions
- */
+* Run the configured actions
+*/
 MartIrcUrlDriver.prototype.run = function() {
     if (this.options['server']) {
         this.configureServerHost(this.options['server']);
@@ -52,31 +52,31 @@ MartIrcUrlDriver.prototype.run = function() {
 };
 
 /**
- * Selects a server host
- */
+* Selects a server host
+*/
 MartIrcUrlDriver.prototype.configureServerHost = function(server) {
     $('#ircServerHost').val(server);
 }
 
 /**
- * Changes the nickname
- */
+* Changes the nickname
+*/
 MartIrcUrlDriver.prototype.configureNick = function(nick) {
     $('#nickname').val(nick);
 }
 
 /**
- * Connects to the server
- */
+* Connects to the server
+*/
 MartIrcUrlDriver.prototype.connect = function() {
     $('#connectButton').click();
 };
 
 /**
- * Joins a channel
- * Waits for the greeting string to be displayed on the server window
- * before attempting to join the channel
- */
+* Joins a channel
+* Waits for the greeting string to be displayed on the server window
+* before attempting to join the channel
+*/
 MartIrcUrlDriver.prototype.join = function(chan, nick) {
     var greetingString = 'MODE '+nick;
     var joinInterval = setInterval(function() {
@@ -86,13 +86,13 @@ MartIrcUrlDriver.prototype.join = function(chan, nick) {
             clearInterval(joinInterval);
         }
     },
-    500);
+500);
 };
 
 /**
- * Parses the url query string and returns
- * an array of query parameters
- */
+* Parses the url query string and returns
+* an array of query parameters
+*/
 MartIrcUrlDriver.prototype.parseUrl = function(url) {
     var result = {},
     queryString = url.substring(1),
@@ -106,8 +106,8 @@ MartIrcUrlDriver.prototype.parseUrl = function(url) {
 }
 
 /**
- * Validates the options
- */
+* Validates the options
+*/
 MartIrcUrlDriver.prototype.validateOptions = function() {
     if (this.options.connect && ! this.options.nick) {
         alert('A nick is required to autoconnect. ?connect=1&nick=superdupont');

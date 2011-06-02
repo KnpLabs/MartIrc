@@ -1,9 +1,9 @@
 /**
- * Irc-connection constructor
- *
- * @contructor
- *
- */
+* Irc-connection constructor
+*
+* @contructor
+*
+*/
 IrcConnection = function(options) {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -27,9 +27,9 @@ IrcConnection = function(options) {
 
 
 /**
- * Irc connection init
- *
- */
+* Irc connection init
+*
+*/
 IrcConnection.prototype.init = function() {
     var self = this;
 
@@ -50,15 +50,15 @@ IrcConnection.prototype.init = function() {
     self.socket.send(data);
 
     self.socket.on('message', function(incomingMessage) {
-	self.parseIncomingMessage(incomingMessage);
+        self.parseIncomingMessage(incomingMessage);
     });
 };
 
 
 /**
- * Parsing incoming messages
- * Using Pan_PG Parser/Walker
- */
+* Parsing incoming messages
+* Using Pan_PG Parser/Walker
+*/
 
 IrcConnection.prototype.parseIncomingMessage = function (incomingMessage) {
     var self = this;
@@ -79,15 +79,15 @@ IrcConnection.prototype.parseIncomingMessage = function (incomingMessage) {
 }
 
 /**
- * Bind built-in events
- */
+* Bind built-in events
+*/
 
 IrcConnection.prototype.bindEvents = function () {
     var self = this;
 
     //Basic client to keep the connection alive
     $(this).bind('irc.ping',function(event, data) {
-	self.pong(data.params[0]);
+        self.pong(data.params[0]);
     });
 }
 
@@ -127,16 +127,16 @@ IrcConnection.prototype.pong = function(server) {
 }
 
 /**
- * IrcConnection#quit( [message] ) -> self
- * - message ( String ): Quit message
- *
- * Quit the server, passing an optional message.
- *
- * ### Examples
- *
- *     irc_instance.quit(); // Quit without a message
- *     irc_instance.quit( 'LOLeaving!' ); // Quit with a hilarious exit message
- **/
+* IrcConnection#quit( [message] ) -> self
+* - message ( String ): Quit message
+*
+* Quit the server, passing an optional message.
+*
+* ### Examples
+*
+*     irc_instance.quit(); // Quit without a message
+*     irc_instance.quit( 'LOLeaving!' ); // Quit with a hilarious exit message
+**/
 IrcConnection.prototype.quit = function( message ) {
     var self = this;
     // 4.1.6
@@ -145,17 +145,17 @@ IrcConnection.prototype.quit = function( message ) {
 }
 
 /**
- * IrcConnection#join( channel[, key] ) -> self
- * - channel ( String ): Channel to join
- * - key ( String ): Channel key
- *
- * Start listening for messages from a given channel.
- *
- * ### Examples
- *
- *     irc_instance.join( '#asl' ); // Join the channel `#asl`
- *     irc_instance.join( '#asxxxl', 'lol123' ); // Join the channel `#asxxl` with the key `lol123`
- **/
+* IrcConnection#join( channel[, key] ) -> self
+* - channel ( String ): Channel to join
+* - key ( String ): Channel key
+*
+* Start listening for messages from a given channel.
+*
+* ### Examples
+*
+*     irc_instance.join( '#asl' ); // Join the channel `#asl`
+*     irc_instance.join( '#asxxxl', 'lol123' ); // Join the channel `#asxxl` with the key `lol123`
+**/
 IrcConnection.prototype.join = function ( channel, key ) {
     var self = this;
     // 4.2.1
@@ -164,15 +164,15 @@ IrcConnection.prototype.join = function ( channel, key ) {
 
 
 /**
- * IRC#part( channel ) -> self
- * - channel ( String ): Channel to part
- *
- * Stop listening for messages from a given channel
- *
- * ### Examples
- *
- *     irc_instance.part( '#asl' ); // You've had your fill of `#asl` for the day
- **/
+* IRC#part( channel ) -> self
+* - channel ( String ): Channel to part
+*
+* Stop listening for messages from a given channel
+*
+* ### Examples
+*
+*     irc_instance.part( '#asl' ); // You've had your fill of `#asl` for the day
+**/
 IrcConnection.prototype.part = function( channel ) {
     var self = this;
     // 4.2.2
@@ -193,15 +193,15 @@ IrcConnection.prototype.privmsg = function ( receiver, msg ) {
 };
 
 /**
- * IRC#nick( nickname ) -> self
- * - nickname ( String ): Desired nick name.
- *
- * Used to set or change a user's nick name.
- *
- * ### Examples
- *
- *     irc_instance.nick( 'Jeff' ) // Set user's nickname to `Jeff`
- **/
+* IRC#nick( nickname ) -> self
+* - nickname ( String ): Desired nick name.
+*
+* Used to set or change a user's nick name.
+*
+* ### Examples
+*
+*     irc_instance.nick( 'Jeff' ) // Set user's nickname to `Jeff`
+**/
 IrcConnection.prototype.nick = function( nickname ) {
     var self = this;
     // 4.1.2

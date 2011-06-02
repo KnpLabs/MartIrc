@@ -1,8 +1,8 @@
 /*
- * User constructor
- *
- * @constructor
- */
+* User constructor
+*
+* @constructor
+*/
 User = function(nickname){
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -33,9 +33,9 @@ User.prototype.addMessage = function(nickname, message){
     var color = null;
 
     if(nickname !== self.nickname){
-	color = 'current-user';
+        color = 'current-user';
     } else{
-	color = self.color;
+        color = self.color;
     }
 
     Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-20', 'span-18', color+' nick');
@@ -50,19 +50,19 @@ User.prototype.rename = function(nickname){
     self.id = 'user-'+$.sha1(nickname);
 
     if($('#channels #'+oldId).get(0)){
-	$('#channels #'+oldId).text(self.nickname);
-	$('#channels #'+oldId).attr('id', self.id);
-	$('#chat .'+oldId).removeClass(self.id);
-	$('#chat .'+oldId).addClass(self.id);
+        $('#channels #'+oldId).text(self.nickname);
+        $('#channels #'+oldId).attr('id', self.id);
+        $('#chat .'+oldId).removeClass(self.id);
+        $('#chat .'+oldId).addClass(self.id);
 
-	if(self.isActive()){
-	    $("#chat .current-title span").text('Chat with '+self.nickname);
-	}
+        if(self.isActive()){
+            $("#chat .current-title span").text('Chat with '+self.nickname);
+        }
     };
 
     if($('#users .'+oldId).get(0)){
-	$('#users .'+oldId).text(self.nickname);
-	$('#users .'+oldId).attr('id', self.id);
+        $('#users .'+oldId).text(self.nickname);
+        $('#users .'+oldId).attr('id', self.id);
     }
 };
 
@@ -86,7 +86,7 @@ User.prototype.destroy = function(){
     var self = this;
 
     if(!self.id){
-	return;
+        return;
     }
 
     $('#channels  #' + self.id + ', #chat .' + self.id).remove();
