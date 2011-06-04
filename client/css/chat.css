@@ -1,4 +1,4 @@
-#chat div
+#chat > .chat-area
 {
     height: 470px;
     background-color: #fbfbfb;

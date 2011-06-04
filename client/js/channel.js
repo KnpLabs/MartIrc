@@ -22,7 +22,7 @@ Channel.prototype.create = function(){
     var self = this;
 
     $('#channels').append($('<a>').attr('id', self.id).addClass('channel').text(self.name));
-    $('#chat').append($('<div>').addClass(self.id));
+    $('#chat').append($('<div class="chat-area">').addClass(self.id));
     $("#users").append($('<div>').addClass('list ' + self.id));
 };
 
