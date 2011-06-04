@@ -3,11 +3,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>MartIrc</title>
-    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/blueprint/src/reset.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/blueprint/src/typography.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/blueprint/plugins/liquid.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/blueprint/src/forms.css" type="text/css" media="screen, projection" />
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
     <![endif]-->
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/channels.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="css/chat.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="css/colors.css" type="text/css" media="screen, projection" />
@@ -18,18 +21,18 @@
   <body>
     <div class="container">
 
-      <div id="header" class="span-24 last">
+      <div id="header" class="column span-24 last">
         <span class="title large">MartIrc : Web Based Irc Client</span>
       </div>
 
-      <div id="menu" class="span-24 last">
+      <div id="menu" class="column span-24 last">
         <a class="userInformations">User Informations</a>
         <a class="connectionInformations">Connection Informations</a>
         <a class="options">Options</a>
       </div>
 
       <div id="menu-item">
-        <div id="userInformations" class="span-24 last">
+        <div id="userInformations" class="column span-24 last">
           <fieldset>
             <legend>User Informations</legend>
             <label for="nickname">Nickname</label> : <input type="text" value="JeanLuc45678998" name="nickname" id="nickname" />
@@ -37,7 +40,7 @@
           <input type="button" value="Close" class="close" />
         </div>
 
-        <div id="connectionInformations" class="span-24 last">
+        <div id="connectionInformations" class="column span-24 last">
           <fieldset>
             <legend>Node server informations</legend>
             <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
@@ -52,7 +55,7 @@
           <input type="button" value="Close" class="close" />
         </div>
 
-        <div id="options" class="span-24 last">
+        <div id="options" class="column span-24 last">
           <fieldset>
             <legend>Options</legend>
             <label for="connectOnStartup">Connect on startup</label> : <input type="checkbox" name="connectOnStartup" id="connectOnStartup" />
@@ -64,28 +67,32 @@
 
       <hr class="space" />
 
-      <div id="channels" class="span-4">
-        <span class="title large"></span>
-        <a id="server" class="server active">Server</a>
+      <div id="channels-wrapper" class="column span-4">
+        <div id="channels">
+          <span class="title large"></span>
+          <a id="server" class="server active">Server</a>
+        </div>
       </div>
 
-      <div id="chat" class="span-20 last">
+      <div id="chat" class="column span-20 last">
         <span class="title large"></span>
         <div class="current-title"><span>Server</span><img src="images/close-button.png" /></div>
-        <div class="server active"></div>
+        <div class="chat-area server active"></div>
       </div>
 
-      <div id="users" class="span-4">
+      <div id="users" class="column span-4">
         <span class="title large"></span>
       </div>
 
       <hr class="space" />
 
       <div id="prompt" class="span-20 prepend-4 last">
-        <form action="" method="post">
-          <input class="span-18 text" />
-          <button type="submit" class="span-2 last">Send</button>
-        </form>
+        <div>
+          <form action="" method="post">
+            <input id="user_input" />
+            <button type="submit">Send</button>
+          </form>
+        </div>
       </div>
 
     </div>

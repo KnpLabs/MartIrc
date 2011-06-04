@@ -99,8 +99,8 @@ Base.prototype.hideClosingIcon = function(){
 Base.prototype.addMessage = function(id, nickname, message, msgClasses, txtClasses, nickClasses){
     var self = this;
 
-    var messageBlock = $('<span>').addClass('msg '+msgClasses+' clear');
-    messageBlock.append($('<span>').addClass(nickClasses+' span-2').text(nickname));
+    var messageBlock = $('<div class="column">').addClass('msg '+msgClasses+' clear');
+    messageBlock.append($('<span>').addClass(nickClasses+' span-4').text(nickname));
     messageBlock.append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 
     $("#chat ."+id).append(messageBlock);

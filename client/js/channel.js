@@ -22,7 +22,7 @@ Channel.prototype.create = function(){
     var self = this;
 
     $('#channels').append($('<a>').attr('id', self.id).addClass('channel').text(self.name));
-    $('#chat').append($('<div>').addClass(self.id));
+    $('#chat').append($('<div class="chat-area">').addClass(self.id));
     $("#users").append($('<div>').addClass('list ' + self.id));
 };
 
@@ -35,7 +35,7 @@ Channel.prototype.addMessage = function(nickname, message){
         color = self.users[nickname].color;
     }
 
-    Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-16', 'span-14', color+' nick');
+    Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-24', 'span-18', color+' nick');
 };
 
 Channel.prototype.focus = function(){

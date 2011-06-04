@@ -1,4 +1,9 @@
 #prompt button
 {
     margin-left: 10px;
+    width:16%;
+}
+
+#user_input {
+    width:80%;
 }
