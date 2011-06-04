@@ -86,13 +86,13 @@ Base.prototype.hideUsersTab = function(){
 Base.prototype.showClosingIcon = function(){
     var self = this;
 
-    $('#chat .current-title img').show();
+    $('.close_channel_button').show();
 };
 
 Base.prototype.hideClosingIcon = function(){
     var self = this;
 
-    $('#chat .current-title img').hide();
+    $('.close_channel_button').hide();
 };
 
 
