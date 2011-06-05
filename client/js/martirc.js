@@ -90,8 +90,6 @@ MartIrc.prototype.connect = function() {
 
         self.channels = new Array();
 
-        self.server.focus();
-
         self.ircConnection = null;
     }
 
@@ -102,6 +100,10 @@ MartIrc.prototype.connect = function() {
         ircServerPort: parseInt($('#ircServerPort').val()),
         nickname: $('#nickname').val()
     });
+
+    // set the name of the server in the title bar
+    self.server.name = self.ircConnection.settings.ircServerHost;
+    self.server.focus();
 
     $(self.ircConnection).bind('irc.server', function(event, data) {
         $(self).trigger('irc.server', data);

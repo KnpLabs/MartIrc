@@ -11,6 +11,7 @@ Server = function(){
     var self = this;
 
     self.id = 'server';
+    self.name = 'Server';
 };
 
 Server.prototype = new Base();
@@ -26,7 +27,7 @@ Server.prototype.focus = function(){
     self.hideUsersTab();
     self.hideClosingIcon();
 
-    $("#chat .current-title span").text("Server");
+    $("#chat .current-title span").text(self.name);
 
     self.scrollAtTheEnd();
     self.focusOnPrompt();
