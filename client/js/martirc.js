@@ -360,6 +360,6 @@ MartIrc.prototype.changeNickname = function(nickname){
         return;
     }
 
-    self.ircConnection.nick(nickname)
+    self.ircConnection.nick(nickname);
     self.ircConnection.settings.nickname = nickname;
 };
