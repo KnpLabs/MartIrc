@@ -110,8 +110,8 @@ Base.prototype.addMessage = function(id, nickname, message, msgClasses, txtClass
 Base.prototype.scrollAtTheEnd = function(){
     var self = this;
 
-    $("#chat ."+self.id).attr({
-        scrollTop: $("#chat ."+self.id).attr("scrollHeight")
+    $("#chat ."+self.id).prop({
+        scrollTop: $("#chat ."+self.id).prop("scrollHeight")
     });
 };
 
