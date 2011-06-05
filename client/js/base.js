@@ -12,6 +12,7 @@ Base = function() {
     var self = this;
 
     self.id = null;
+    self.name = null;
     self.utils = new Utils();
 };
 
