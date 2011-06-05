@@ -33,7 +33,7 @@ MartIrc.prototype.init = function() {
         $('#nickname').val(self.storage.getNickname());
     }
 
-    $('input[name=connectOnStartup]').attr('checked', self.storage.getConnectOnStartup());
+    $('input[name=connectOnStartup]').prop('checked', self.storage.getConnectOnStartup());
 
     if(self.storage.getConnectOnStartup()){
         self.connect();

@@ -23,7 +23,7 @@ User.prototype.constructor = User;
 User.prototype.create = function(){
     var self = this;
 
-    $('#channels').append($('<a>').attr('id', self.id).addClass('user').text(self.nickname));
+    $('#channels').append($('<a>').prop('id', self.id).addClass('user').text(self.nickname));
     $('#chat').append($('<div>').addClass(self.id));
 };
 
@@ -51,7 +51,7 @@ User.prototype.rename = function(nickname){
 
     if($('#channels #'+oldId).get(0)){
         $('#channels #'+oldId).text(self.nickname);
-        $('#channels #'+oldId).attr('id', self.id);
+        $('#channels #'+oldId).prop('id', self.id);
         $('#chat .'+oldId).removeClass(self.id);
         $('#chat .'+oldId).addClass(self.id);
 
@@ -62,7 +62,7 @@ User.prototype.rename = function(nickname){
 
     if($('#users .'+oldId).get(0)){
         $('#users .'+oldId).text(self.nickname);
-        $('#users .'+oldId).attr('id', self.id);
+        $('#users .'+oldId).prop('id', self.id);
     }
 };
 
