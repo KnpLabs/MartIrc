@@ -64,7 +64,7 @@
     margin-top: 5px;
 }
 
-.close_channel_button
+#chat .close-channel-button
 {
     width: 15px;
     height: 15px;
@@ -73,7 +73,7 @@
     display: none;
 }
 
-.close_channel_button img
+#chat .close-channel-button img
 {
     width: 15px;
     height: 15px;
