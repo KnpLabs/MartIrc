@@ -18,26 +18,20 @@
   <body>
     <div class="container">
 
-      <div id="header" class="span-24 last">
-        <h1>MartIrc : Web Based Irc Client</h1>
+      <div id="header">
+        <div class="span-20"><h1>MartIrc : Web Based Irc Client</h1></div>
+        <div class="span-4 last" id="toolbar"><a id="userPreferencesLink" rel="#userPreferences">Preferences</a></div>
       </div>
 
-      <div id="menu" class="span-24 last">
-        <a class="userInformations">User Informations</a>
-        <a class="connectionInformations">Connection Informations</a>
-        <a class="options">Options</a>
-      </div>
-
-      <div id="menu-item">
-        <div id="userInformations" class="span-24 last">
+      <div id="userPreferences" class="span-12 overlay">
+        <div id="userInformations">
           <fieldset>
             <legend>User Informations</legend>
             <label for="nickname">Nickname</label> : <input type="text" value="JeanLuc45678998" name="nickname" id="nickname" />
           </fieldset>
-          <input type="button" value="Close" class="close" />
         </div>
 
-        <div id="connectionInformations" class="span-24 last">
+        <div id="connectionInformations">
           <fieldset>
             <legend>Node server informations</legend>
             <label for="nodeServerHost">Hostname</label>: <input type="text" value="localhost" name="nodeServerHost" id="nodeServerHost" />
@@ -48,17 +42,17 @@
             <label for="ircServerHost">Hostname</label> : <input type="text" value="irc.freenode.net" name="ircServerHost" id="ircServerHost" />
             <label for="ircServerPort">Port</label> : <input type="text" value="6667" id="ircServerPort" name="ircServerPort" />
           </fieldset>
-          <input type="submit" value="Connect" id="connectButton" />
-          <input type="button" value="Close" class="close" />
         </div>
 
-        <div id="options" class="span-24 last">
+        <div id="options">
           <fieldset>
             <legend>Options</legend>
             <label for="connectOnStartup">Connect on startup</label> : <input type="checkbox" name="connectOnStartup" id="connectOnStartup" />
           </fieldset>
-          <input type="button" value="Close" class="close" />
         </div>
+
+        <hr class="space" />
+        <input type="submit" value="Connect now!" id="connectButton" />
 
       </div>
 
@@ -95,6 +89,7 @@
     <script type="text/javascript" src="js/lib/parser.js"></script>
     <script type="text/javascript" src="js/lib/PanPG_util.js"></script>
     <script type="text/javascript" src="js/lib/socket.io.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.tools.min.js"></script>
     <script type="text/javascript" src="js/compiler.js"></script>
     <script type="text/javascript" src="js/irc-connection.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>
