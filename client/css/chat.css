@@ -1,11 +1,31 @@
-#chat > .chat-area
+#chat
 {
-    height: 470px;
+    height: 100%;
+}
+
+#chat .current-title
+{
+    height: 30px;
+    display: block;
+    background-color: #1462c1;
+    text-align: center;
+}
+
+#chat .current-title span
+{
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#chat > .server, #chat > .chat-area
+{
     background-color: #fbfbfb;
     display: none;
     resize: none;
     overflow-y: auto;
-    overflow-x: none;
+    overflow-x: hidden;
 }
 
 #chat .active, #chat .msg, #chat .text
@@ -46,22 +66,6 @@
     padding-left: 2px;
     padding-right: 2px;
     word-wrap: break-word;
-}
-
-#chat .current-title
-{
-    height: 30px;
-    display: block;
-    background-color: #1462c1;
-    text-align: center;
-}
-
-#chat .current-title span
-{
-    color: #ffffff;
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 5px;
 }
 
 .close_channel_button

@@ -1,6 +1,6 @@
 #channels
 {
-    height: 500px;
+    height: 100%;
     background-color: #fbfbfb;
     resize: none;
     overflow: auto;
@@ -11,10 +11,10 @@
 {
     background-color: #f2f2f2;
     color: #333333;
-    text-align: center;
-    padding: 5px;
     display: block;
+    padding: 5px;
     text-decoration: none;
+    text-align: center;
 }
 
 #channels a:hover

@@ -53,27 +53,24 @@
 
         <hr class="space" />
         <input type="submit" value="Connect now!" id="connectButton" />
-
       </div>
 
-      <hr class="space" />
+      <div id="chat-wrapper" class="span-24">
+        <div id="channels" class="span-4">
+          <span class="title large"></span>
+          <a id="server" class="server active">Server</a>
+        </div>
 
-      <div id="channels" class="span-4">
-        <span class="title large"></span>
-        <a id="server" class="server active">Server</a>
+        <div id="chat" class="span-20 last">
+          <span class="title large"></span>
+          <div class="current-title"><span>Server</span><a class="close_channel_button"><img src="images/close-button.png" /></a></div>
+          <div class="server active"></div>
+        </div>
+
+        <div id="users" class="span-4">
+          <span class="title large"></span>
+        </div>
       </div>
-
-      <div id="chat" class="span-20 last">
-        <span class="title large"></span>
-        <div class="current-title"><span>Server</span><a class="close_channel_button"><img src="images/close-button.png" /></a></div>
-        <div class="chat-area server active"></div>
-      </div>
-
-      <div id="users" class="span-4">
-        <span class="title large"></span>
-      </div>
-
-      <hr class="space" />
 
       <div id="prompt" class="span-20 prepend-4 last">
         <form action="" method="post">
