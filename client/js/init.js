@@ -7,25 +7,18 @@ $(document).ready(function() {
 
     $("#userPreferencesLink[rel]").overlay();
 
-    function computeChatWrapperHeight() {
-        return $(window).height() - $('#header').height() - $('#prompt').height();
-    };
-
-    function computeChatAreaHeight() {
-        return $('#chat').height() - $('#chat > .current-title').height();
-    };
-
-    function setHeight() {
-        $('#chat-wrapper').height(computeChatWrapperHeight());
-
-        // TODO: find a layout that permit to set the height of .chat-area in css
-        $('#chat > .server, #chat > .chat-area').height(computeChatAreaHeight());
+    /*
+    * Computes the height of main chat area (chat + channels + users)
+    * dynamically. This is useful to have the prompt always visible in the
+    * window.
+    */
+    function martIrcSetChatHeight() {
+        $('#chat-wrapper').height($(window).height() - $('#header').height() - $('#prompt').height());
     };
 
     $(window).resize(function () {
-        setHeight();
+        martIrcSetChatHeight();
     });
 
-    setHeight();
-
+    martIrcSetChatHeight();
 });
