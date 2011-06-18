@@ -1,8 +1,8 @@
 /*
-* Channel constructor
-*
-* @constructor
-*/
+ * Channel constructor
+ *
+ * @constructor
+ */
 Channel = function(name){
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
