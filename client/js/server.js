@@ -37,11 +37,11 @@ Server.prototype.focus = function(){
 Server.prototype.addMessage = function(message){
     var self = this;
 
-    Base.prototype.addMessage.call(self, 'server', 'Server', message, 'span-20', 'span-18', 'nick-server');
+    Base.prototype.addMessage.call(self, 'Server', message, 'span-20', 'span-18', 'nick-server');
 };
 
 Server.prototype.addCommand = function(command){
     var self = this;
 
-    Base.prototype.addMessage.call(self, 'server', 'Command', command, 'span-20', 'span-18', 'nick-command');
+    Base.prototype.addMessage.call(self, 'Command', command, 'span-20', 'span-18', 'nick-command');
 };

@@ -97,14 +97,14 @@ Base.prototype.hideClosingIcon = function(){
 };
 
 
-Base.prototype.addMessage = function(id, nickname, message, msgClasses, txtClasses, nickClasses){
+Base.prototype.addMessage = function(nickname, message, msgClasses, txtClasses, nickClasses){
     var self = this;
 
     var messageBlock = $('<div>').addClass('msg '+msgClasses+' clear');
     messageBlock.append($('<span>').addClass(nickClasses+' span-2').text(nickname));
     messageBlock.append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 
-    $("#chat ."+id).append(messageBlock);
+    $("#chat ."+self.id).append(messageBlock);
 };
 
 Base.prototype.scrollAtTheEnd = function(){

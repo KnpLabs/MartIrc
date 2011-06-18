@@ -38,7 +38,7 @@ User.prototype.addMessage = function(nickname, message){
         color = self.color;
     }
 
-    Base.prototype.addMessage.call(self, self.id, nickname, message, 'span-20', 'span-18', color+' nick');
+    Base.prototype.addMessage.call(self, nickname, message, 'span-20', 'span-18', color+' nick');
 };
 
 User.prototype.rename = function(nickname){
