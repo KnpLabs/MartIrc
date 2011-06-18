@@ -14,6 +14,8 @@ Base = function() {
     self.id = null;
     self.name = null;
     self.utils = new Utils();
+
+    self.lastMessageSender = null;
 };
 
 Base.prototype.isActive = function(){
@@ -105,6 +107,12 @@ Base.prototype.addMessage = function(nickname, message, msgClasses, txtClasses, 
     messageBlock.append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 
     $("#chat ."+self.id).append(messageBlock);
+};
+
+Base.prototype.appendToLastMessage = function(message, txtClasses){
+    var self = this;
+
+    $("#chat ."+self.id+' .msg').last().append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 };
 
 Base.prototype.scrollAtTheEnd = function(){

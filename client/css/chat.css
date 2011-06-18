@@ -41,7 +41,7 @@
 #chat .txt
 {
     display: block;
-    float: left;
+    float: right;
     border-left: 1px solid #d3d3d3;
     padding-left: 2px;
     padding-right: 2px;

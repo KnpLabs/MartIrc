@@ -37,11 +37,21 @@ Server.prototype.focus = function(){
 Server.prototype.addMessage = function(message){
     var self = this;
 
-    Base.prototype.addMessage.call(self, 'Server', message, 'span-20', 'span-18', 'nick-server');
+    if(self.lastMessageSender != 'Server'){
+	Base.prototype.addMessage.call(self, 'Server', message, 'span-20', 'span-18', 'nick-server');
+	self.lastMessageSender = 'Server';
+    } else {
+	self.appendToLastMessage(message, 'span-18');
+    }
 };
 
 Server.prototype.addCommand = function(command){
     var self = this;
 
-    Base.prototype.addMessage.call(self, 'Command', command, 'span-20', 'span-18', 'nick-command');
+    if(self.lastMessageSender != 'Command'){
+	Base.prototype.addMessage.call(self, 'Command', command, 'span-20', 'span-18', 'nick-command');
+	self.lastMessageSender = 'Command';
+    } else {
+	self.appendToLastMessage(message, 'span-18');
+    }
 };

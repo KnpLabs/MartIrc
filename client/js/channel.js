@@ -35,7 +35,13 @@ Channel.prototype.addMessage = function(nickname, message){
         color = self.users[nickname].color;
     }
 
+    if(self.lastMessageSender != nickname){
 	Base.prototype.addMessage.call(self, nickname, message, 'span-16', 'span-14', color+' nick');
+
+	self.lastMessageSender = nickname;
+    } else {
+	self.appendToLastMessage(message, 'span-14');
+    }
 };
 
 Channel.prototype.focus = function(){

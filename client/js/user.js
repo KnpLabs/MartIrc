@@ -38,7 +38,13 @@ User.prototype.addMessage = function(nickname, message){
         color = self.color;
     }
 
-    Base.prototype.addMessage.call(self, nickname, message, 'span-20', 'span-18', color+' nick');
+    if(self.lastMessageSender != nickname){
+	Base.prototype.addMessage.call(self, nickname, message, 'span-20', 'span-18', color+' nick');
+
+	self.lastMessageSender = nickname;
+    } else {
+	self.appendToLastMessage(message, 'span-18');
+    }
 };
 
 User.prototype.rename = function(nickname){
