@@ -63,9 +63,7 @@ Channel.prototype.addUser = function(user){
 
     self.users[user.nickname] = user;
 
-    $('#users .'+self.id).append($('<a>').addClass(user.id).text(user.nickname));
-
-    $('#users .'+user.id).addClass(user.color);
+    $('#users .'+self.id).append($('<a>').addClass(user.id + ' ' + user.color).text(user.nickname));
 };
 
 Channel.prototype.removeUser = function(nickname) {
