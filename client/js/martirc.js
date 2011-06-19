@@ -216,9 +216,9 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
             }
 
             self.channels[name].create();
+	    self.channels[name].focus();
         }
 
-        self.channels[Object.keys(self.channels).pop()].focus();
         break;
     }
 };
