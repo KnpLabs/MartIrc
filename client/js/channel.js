@@ -12,6 +12,7 @@ Channel = function(name){
 
     self.id = 'channel-'+$.sha1(name);
     self.name = name;
+    self.topic = null;
     self.users = new Array();
 };
 
@@ -52,6 +53,9 @@ Channel.prototype.focus = function(){
     self.showUsersTab();
     self.showClosingIcon();
 
+    if(self.topic){
+	$("#chat .current-title span").prop('title', self.topic);
+    }
 };
 
 Channel.prototype.addUser = function(user){

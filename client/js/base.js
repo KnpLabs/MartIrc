@@ -135,6 +135,7 @@ Base.prototype.focus = function(title){
     self.focusOnPrompt();
 
     $("#chat .current-title span").text(title);
+    $("#chat .current-title span").removeAttr('title');
 };
 
 Base.prototype.focusOnPrompt = function(){
