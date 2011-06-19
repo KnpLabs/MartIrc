@@ -5,7 +5,6 @@
     display: none;
     resize: none;
     overflow-y: auto;
-    overflow-x: none;
 }
 
 #chat .active, #chat .msg, #chat .text
