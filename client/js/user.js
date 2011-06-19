@@ -62,7 +62,7 @@ User.prototype.rename = function(nickname){
         $('#chat .'+oldId).addClass(self.id);
 
         if(self.isActive()){
-            $("#chat .current-title span").text('Chat with '+self.nickname);
+            $("#chat .current-info .title").text('Chat with '+self.nickname);
         }
     };
 

@@ -89,13 +89,13 @@ Base.prototype.hideUsersTab = function(){
 Base.prototype.showClosingIcon = function(){
     var self = this;
 
-    $('#chat .close-channel-button').show();
+    $('#chat .close-channel').show();
 };
 
 Base.prototype.hideClosingIcon = function(){
     var self = this;
 
-    $('#chat .close-channel-button').hide();
+    $('#chat .close-channel').hide();
 };
 
 
@@ -134,8 +134,8 @@ Base.prototype.focus = function(title){
     self.scrollAtTheEnd();
     self.focusOnPrompt();
 
-    $("#chat .current-title span").text(title);
-    $("#chat .current-title span").removeAttr('title');
+    $("#chat .current-info .title").text(title);
+    $("#chat .current-info .title").removeAttr('title');
 };
 
 Base.prototype.focusOnPrompt = function(){

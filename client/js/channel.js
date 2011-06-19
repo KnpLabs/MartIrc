@@ -54,7 +54,7 @@ Channel.prototype.focus = function(){
     self.showClosingIcon();
 
     if(self.topic){
-	$("#chat .current-title span").prop('title', self.topic);
+	$("#chat .current-info .title").prop('title', self.topic);
     }
 };
 

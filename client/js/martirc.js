@@ -63,7 +63,7 @@ MartIrc.prototype.bindEvents = function() {
         self.parseOutgoingMessage();
     });
 
-    $('#chat .current-title img').live('click', function(event) {
+    $('#chat .current-info img').live('click', function(event) {
         self.removeChannel(null);
     });
 

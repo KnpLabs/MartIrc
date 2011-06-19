@@ -48,7 +48,7 @@
     word-wrap: break-word;
 }
 
-#chat .current-title
+#chat .current-info
 {
     height: 30px;
     display: block;
@@ -56,7 +56,7 @@
     text-align: center;
 }
 
-#chat .current-title span
+#chat .current-info .title
 {
     color: #ffffff;
     font-weight: bold;
@@ -64,7 +64,7 @@
     margin-top: 5px;
 }
 
-#chat .close-channel-button
+#chat .close-channel
 {
     width: 15px;
     height: 15px;
@@ -73,7 +73,7 @@
     display: none;
 }
 
-#chat .close-channel-button img
+#chat .close-channel img
 {
     width: 15px;
     height: 15px;
