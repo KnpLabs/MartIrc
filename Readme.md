@@ -1,6 +1,6 @@
 # Overview
 
-NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a browser supporting websockets. 
+NodeJS wrapper to IRC using Websockets. It allows to connect to IRC using a browser supporting websockets.
 
 # The elevator pitch
 
@@ -36,23 +36,20 @@ Both may be available from your OS package manager.
 # Connecting to the server with you browser
 
 Open `client/client.html` in your browser. The application will try by default to connect to the node server on `localhost:3000`.
-You can send and receive (raw) messages. There is no channel management for the moment, just the server tab.
 
-To join a channel :
+# Using MartIrc
 
-    join #channel
+In the server area, you can write pure irc command and there is a set of shortcut, the same way than vi, for frequent commands.
 
-To change your nick :
+:c - To connect to IRC
 
-    nick mynewnick
+:s - To jump to server
 
-To talk to a channel :
+:j #ubuntu or :j mike - To join a channel or to talk to a user
 
-    privmsg #channel My beautiful message
+:k or :k #ubuntu - To delete the current channel or to delete a channel using its name
 
-To talk in private :
-
-    privmsg targetNick Hi bro!
+:n john - To change nickname
 
 # Credits
 
