@@ -19,19 +19,11 @@ Server.prototype.constructor = Server;
 Server.prototype.focus = function(){
     var self = this;
 
-    self.hideActiveElements();
-    self.setActiveElements();
-    self.showActiveElements();
+    var title = self.name ? "Server : "+self.name : 'Server';
+    Base.prototype.focus.call(self, title);
 
     self.hideUsersTab();
     self.hideClosingIcon();
-
-    var title = self.name ? "Server : "+self.name : 'Server';
-
-    $("#chat .current-title span").text(title);
-
-    self.scrollAtTheEnd();
-    self.focusOnPrompt();
 };
 
 Server.prototype.addMessage = function(message){

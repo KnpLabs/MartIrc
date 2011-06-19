@@ -75,17 +75,10 @@ User.prototype.rename = function(nickname){
 User.prototype.focus = function(){
     var self = this;
 
-    self.hideActiveElements();
-    self.setActiveElements();
-    self.showActiveElements();
+    Base.prototype.focus.call(self, 'Chat with '+self.nickname);
 
     self.hideUsersTab();
     self.showClosingIcon();
-
-    $("#chat .current-title span").text('Chat with '+self.nickname);
-
-    self.scrollAtTheEnd();
-    self.focusOnPrompt();
 };
 
 User.prototype.destroy = function(){

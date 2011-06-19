@@ -47,17 +47,11 @@ Channel.prototype.addMessage = function(nickname, message){
 Channel.prototype.focus = function(){
     var self = this;
 
-    self.hideActiveElements();
-    self.setActiveElements();
-    self.showActiveElements();
+    Base.prototype.focus.call(self, 'Public channel : '+self.name);
 
     self.showUsersTab();
     self.showClosingIcon();
 
-    $("#chat .current-title span").text('Public channel : '+self.name);
-
-    self.scrollAtTheEnd();
-    self.focusOnPrompt();
 };
 
 Channel.prototype.addUser = function(user){

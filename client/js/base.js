@@ -40,22 +40,22 @@ Base.prototype.setActiveElements = function(){
     }
 };
 
+Base.prototype.unsetActiveElements = function(){
+    var self = this;
+
+    $('#channels .active, #chat .active, #users .list.active').removeClass('active');
+};
+
 Base.prototype.showActiveElements = function(){
     var self = this;
 
-    var channelChatAndUsersToEnable = $('#channels #' + self.id + ', #chat .' + self.id + ', #users .list.' + self.id).addClass('active');
-    channelChatAndUsersToEnable.show();
+    $('#chat .active, #users .list.active').show();
 };
 
 Base.prototype.hideActiveElements = function(){
     var self = this;
 
-    var channelToDisable = $('#channels .active');
-    var chatAndUsersToDisable = $('#chat .active, #users .list.active');
-
-    chatAndUsersToDisable.hide();
-    channelToDisable.removeClass('active');
-    chatAndUsersToDisable.removeClass('active');
+    $('#chat .active, #users .list.active').hide();
 };
 
 Base.prototype.showUsersTab = function(){
@@ -121,6 +121,20 @@ Base.prototype.scrollAtTheEnd = function(){
     $("#chat ."+self.id).prop({
         scrollTop: $("#chat ."+self.id).prop("scrollHeight")
     });
+};
+
+Base.prototype.focus = function(title){
+    var self = this;
+
+    self.hideActiveElements();
+    self.unsetActiveElements();
+    self.setActiveElements();
+    self.showActiveElements();
+
+    self.scrollAtTheEnd();
+    self.focusOnPrompt();
+
+    $("#chat .current-title span").text(title);
 };
 
 Base.prototype.focusOnPrompt = function(){
