@@ -187,7 +187,13 @@ MartIrc.prototype.parseIncomingMessage = function(data) {
     case '332':
 	channelName = data.params[1];
 	var topic = data.params[2];
+
 	self.channels[channelName].topic = topic;
+
+	if(self.channels[channelName].isActive()){
+	    self.channels[channelName].focus();
+	}
+
 	break;
     case '353':
         users = data.params[3].split(' ');
