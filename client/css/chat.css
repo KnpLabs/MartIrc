@@ -16,6 +16,7 @@
 {
     display: block;
     float: left;
+    border-right: 1px solid #d3d3d3;
     font-weight: bold;
     padding-left: 2px;
     padding-right: 2px;
@@ -41,6 +42,8 @@
 {
     display: block;
     float: right;
+    position: relative;
+    left: -1px;
     border-left: 1px solid #d3d3d3;
     padding-left: 2px;
     padding-right: 2px;
