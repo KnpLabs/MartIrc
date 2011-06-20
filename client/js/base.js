@@ -21,7 +21,7 @@ Base = function() {
 Base.prototype.isActive = function(){
     var self = this;
 
-    return ($('#channels .active').get(0) === $('#channels .'+self.id).get(0));
+    return ($('#channels .active').get(0) === $('#channels #'+self.id).get(0));
 };
 
 Base.prototype.isCreated = function(){
