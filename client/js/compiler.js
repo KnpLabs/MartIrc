@@ -1,9 +1,9 @@
 /**
-* Compiler constructor
-*
-* @contructor
-*
-*/
+ * Compiler constructor
+ *
+ * @contructor
+ *
+ */
 Compiler = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -15,9 +15,9 @@ Compiler = function() {
 
 
 /**
-* Compiler init
-*
-*/
+ * Compiler init
+ *
+ */
 Compiler.prototype.init = function() {
     var self = this;
 
@@ -42,10 +42,10 @@ Compiler.prototype.init = function() {
 };
 
 /**
-* Compile input
-*
-* @param input The input to compile
-*/
+ * Compile input
+ *
+ * @param input The input to compile
+ */
 Compiler.prototype.compile = function(input) {
     var self = this;
 

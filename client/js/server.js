@@ -1,8 +1,8 @@
 /*
-* Server constructor
-*
-* @constructor
-*/
+ * Server constructor
+ *
+ * @constructor
+ */
 Server = function(){
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);

@@ -1,8 +1,8 @@
 /*
-* User constructor
-*
-* @constructor
-*/
+ * User constructor
+ *
+ * @constructor
+ */
 User = function(nickname){
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);

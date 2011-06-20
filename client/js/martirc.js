@@ -1,9 +1,9 @@
 /**
-* MartIrc constructor
-*
-* @contructor
-*
-*/
+ * MartIrc constructor
+ *
+ * @contructor
+ *
+ */
 MartIrc = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -23,9 +23,9 @@ MartIrc = function() {
 };
 
 /**
-* MartIrc init
-*
-*/
+ * MartIrc init
+ *
+ */
 MartIrc.prototype.init = function() {
     var self = this;
 

@@ -1,9 +1,9 @@
 /**
-* Irc-connection constructor
-*
-* @contructor
-*
-*/
+ * Irc-connection constructor
+ *
+ * @contructor
+ *
+ */
 IrcConnection = function(options) {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
@@ -27,9 +27,9 @@ IrcConnection = function(options) {
 
 
 /**
-* Irc connection init
-*
-*/
+ * Irc connection init
+ *
+ */
 IrcConnection.prototype.init = function() {
     var self = this;
 

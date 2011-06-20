@@ -1,9 +1,9 @@
 /**
-* Storage constructor
-*
-* @contructor
-*
-*/
+ * Storage constructor
+ *
+ * @contructor
+ *
+ */
 Storage = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);

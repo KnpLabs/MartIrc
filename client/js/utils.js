@@ -1,9 +1,9 @@
 /**
-* Utils constructor
-*
-* @contructor
-*
-*/
+ * Utils constructor
+ *
+ * @contructor
+ *
+ */
 Utils = function() {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
