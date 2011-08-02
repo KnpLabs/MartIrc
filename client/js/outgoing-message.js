@@ -26,7 +26,7 @@ OutgoingMessage.prototype.bindEvents = function() {
     });
 };
 
-OutgoingMessage.prototype.parseArgs = function() {
+OutgoingMessage.prototype.parseArguments = function() {
     var self = this;
 
     var extractCommand = new RegExp("^:(\\w)(?: ([\\S]+))*", "");
@@ -46,30 +46,28 @@ OutgoingMessage.prototype.parseArgs = function() {
     return matches;
 };
 
-OutgoingMessage.prototype.processArgs = function() {
+OutgoingMessage.prototype.processArguments = function(arguments) {
     var self = this;
 
     if(!MartIrc.ircConnection) {
         return null;
     }
 
-    var matches = self.parseArgs();
-
-    var command = matches[1];
-    var argument = matches[2];
+    var command = arguments[1];
+    var params = arguments[2];
 
     switch (command) {
     case 'c':
         self.connect();
         break;
     case 'j':
-        self.createChannel(argument);
+        self.createChannel(params);
         break;
     case 'k':
-        self.removeChannel(argument);
+        self.removeChannel(params);
         break;
     case 'n':
-        self.changeNickname(argument);
+        self.changeNickname(params);
         break;
     case 's':
         MartIrc.server.focus();

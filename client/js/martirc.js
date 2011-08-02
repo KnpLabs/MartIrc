@@ -61,7 +61,11 @@ MartIrc.prototype.bindEvents = function() {
     $('#prompt form').submit(function(event) {
         event.preventDefault();
 
-        MartIrc.outgoingMessage.processArgs();
+        var arguments = MartIrc.outgoingMessage.parseArguments();
+
+        if(arguments) {
+            MartIrc.outgoingMessage.processArguments(arguments);
+        }
     });
 
     $('#channels a.server').live('click', function(event) {
