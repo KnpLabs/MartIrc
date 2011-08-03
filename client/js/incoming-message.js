@@ -28,7 +28,10 @@ IncomingMessage.prototype.parse = function(data) {
         self.setChannelTopic(data.params[2], data.params[1]);
         break;
     case '353':
-        self.populateChannelUsers(data.params[3].split(' '), data.params[2]);
+        self.addUsersToChannel(data.params[3].split(' '), data.params[2]);
+        break;
+    case '366':
+        self.populateChannelUsers(data.params[1]);
         break;
     case '376':
         self.restoreChannels();
@@ -36,40 +39,55 @@ IncomingMessage.prototype.parse = function(data) {
     }
 };
 
-IncomingMessage.prototype.receiveMessage = function(channel, nickname, rawMsg) {
+IncomingMessage.prototype.receiveMessage = function(channelName, nickname, rawMsg) {
     var self = this;
 
-    if(channel === MartIrc.ircConnection.settings.nickname){
-        channel = nickname;
+    if(channelName === MartIrc.ircConnection.settings.nickname){
+        channelName = nickname;
     }
 
-    if (!MartIrc.channels[channel]) {
-        var user = new User(channel);
-        user.create();
-        MartIrc.channels[channel] = user;
+    if(!MartIrc.channels.hasElement(channelName)) {
+
+        if(channelName[0] === '#') {
+            MartIrc.channels.setElement(channelName, new Channel(channelName));
+        } else {
+            MartIrc.channels.setElement(channelName, new User(channelName));
+        }
     }
 
-    MartIrc.channels[channel].addMessage(nickname, self.scanMessage(rawMsg));
+    var channelWidget = MartIrc.channels.getElement(channelName) instanceof Channel ? new ChannelWidget(MartIrc.channels.getElement(channelName)) : new UserWidget(MartIrc.channels.getElement(channelName));
 
-    MartIrc.channels[channel].scrollAtTheEnd();
+    if(!channelWidget.isCreated()) {
+        channelWidget.create();
+    }
+
+    channelWidget.addMessage(nickname, self.scanMessage(rawMsg));
+    channelWidget.scrollAtTheEnd();
 };
 
 IncomingMessage.prototype.changeNickname = function(oldNickname, newNickname) {
     var self = this;
 
-    for(name in MartIrc.channels){
+    var widget = null;
 
-        if(MartIrc.channels[name] instanceof Channel){
-            if(MartIrc.channels[name].hasUser(oldNickname)){
-                MartIrc.channels[name].renameUser(oldNickname, newNickname);
+    for(name in MartIrc.channels.get()){
+
+        if(MartIrc.channels.getElement(name) instanceof Channel){
+            if(MartIrc.channels.getElement(name).hasUser(oldNickname)){
+                MartIrc.channels.getElement(name).renameUser(oldNickname, newNickname);
+
+                widget = new ChannelWidget(MartIrc.channels.getElement(name));
+                widget.renameUser(oldNickname, newNickname);
             }
         } else {
 
             if(name == oldNickname){
-                MartIrc.channels[newNickname] = MartIrc.channels[oldNickname];
-                MartIrc.channels[newNickname].rename(newNickname);
+                MartIrc.channels.setElement(newNickname, MartIrc.channels.getElement(oldNickname));
+                MartIrc.channels.getElement(newNickname).rename(newNickname);
+                MartIrc.channels.removeElement(oldNickname);
 
-                delete MartIrc.channels[oldNickname];
+                widget = new UserWidget(MartIrc.channels.getElement(newNickname));
+                widget.rename(oldNickname);
             }
         }
     }
@@ -79,61 +97,85 @@ IncomingMessage.prototype.addUserToChannel = function(nickname, channelName) {
     var self = this;
 
     if(nickname != MartIrc.ircConnection.settings.nickname){
-        MartIrc.channels[channelName].addUser(new User(nickname));
+        MartIrc.channels.getElement(channelName).addUser(nickname);
     }
+
+    var widget = new ChannelWidget(MartIrc.channels.getElement(channelName));
+    widget.addUser(nickname);
 };
 
 IncomingMessage.prototype.removeUserFromChannel = function(nickname, channelName) {
     var self = this;
 
-    if(!MartIrc.channels[channelName]){
+    if(!MartIrc.channels.hasElement(channelName)){
         return;
     }
 
-    MartIrc.channels[channelName].removeUser(nickname);
+    MartIrc.channels.getElement(channelName).removeUser(nickname);
+
+    var widget = new ChannelWidget(MartIrc.channels.getElement(channelName));
+    widget.removeUser(nickname);
 };
 
-IncomingMessage.prototype.populateChannelUsers = function(users, channelName) {
+IncomingMessage.prototype.addUsersToChannel = function(users, channelName) {
     var self = this;
 
-    if(!MartIrc.channels[channelName]){
+    if(!MartIrc.channels.hasElement(channelName)){
         return;
     }
 
     for (i in users) {
-        if(users[i] != MartIrc.ircConnection.settings.nickname){
-            MartIrc.channels[channelName].addUser(new User(users[i]));
+        if(users[i] != MartIrc.ircConnection.settings.nickname) {
+            MartIrc.channels.getElement(channelName).addUser(users[i]);
         }
     }
+};
+
+IncomingMessage.prototype.populateChannelUsers = function(channelName) {
+    var self = this;
+
+    var widget = new ChannelWidget(MartIrc.channels.getElement(channelName));
+    widget.populateUsers();
+    widget.focus();
 };
 
 IncomingMessage.prototype.setChannelTopic = function(topic, channelName) {
     var self = this;
 
-    MartIrc.channels[channelName].topic = topic;
+    MartIrc.channels.getElement(channelName).topic = topic;
 
-    if(MartIrc.channels[channelName].isActive()){
-        MartIrc.channels[channelName].focus();
+    var widget = new ChannelWidget(MartIrc.channels.getElement(channelName));
+
+    if(widget.isActive()){
+        widget.focus();
     }
 };
 
 IncomingMessage.prototype.restoreChannels = function() {
     var self = this;
 
+    var channelWidget = null;
+
     MartIrc.channels = MartIrc.storage.getChannels(MartIrc.ircConnection.settings.ircServerHost);
 
-    if(!Object.keys(MartIrc.channels).length){
-        return;
+    if(!MartIrc.channels.countElement()){
+        return null;
     }
 
-    for(name in MartIrc.channels){
-        if(MartIrc.channels[name] instanceof Channel){
+    for(name in MartIrc.channels.get()){
+        if(name[0] === '#'){
             MartIrc.ircConnection.join(name);
+
+            channelWidget = new ChannelWidget(MartIrc.channels.getElement(name));
+        } else {
+            channelWidget = new UserWidget(MartIrc.channels.getElement(name));
         }
 
-        MartIrc.channels[name].create();
-        MartIrc.channels[name].focus();
+        MartIrc.channels.setActiveChannel(name);
+        channelWidget.create();
     }
+
+    channelWidget.focus();
 };
 
 IncomingMessage.prototype.scanMessage = function(rawMsg) {

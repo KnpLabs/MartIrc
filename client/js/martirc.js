@@ -12,7 +12,7 @@ MartIrc = function() {
     var self = this;
 
     MartIrc.server = new Server();
-    MartIrc.channels = new Array();
+    MartIrc.channels = new Channels();
 
     MartIrc.outgoingMessage = new OutgoingMessage();
     MartIrc.incomingMessage = null;
@@ -61,7 +61,9 @@ MartIrc.prototype.bindEvents = function() {
     $('#prompt form').submit(function(event) {
         event.preventDefault();
 
-        var arguments = MartIrc.outgoingMessage.parseArguments();
+        var arguments = MartIrc.outgoingMessage.parseArguments($('#prompt form input').val());
+
+        $('#prompt form input').val('');
 
         if(arguments) {
             MartIrc.outgoingMessage.processArguments(arguments);
@@ -69,7 +71,8 @@ MartIrc.prototype.bindEvents = function() {
     });
 
     $('#channels a.server').live('click', function(event) {
-        MartIrc.server.focus();
+        var serverWidget = new ServerWidget(MartIrc.server);
+        serverWidget.focus();
     });
 
     $('#prompt form input').focus();
@@ -82,10 +85,10 @@ MartIrc.prototype.connect = function() {
         MartIrc.ircConnection.disconnect();
 
         for(name in MartIrc.channels){
-            MartIrc.channels[name].destroy();
+            MartIrc.channels.get(name).destroy();
         }
 
-        MartIrc.channels = new Array();
+        MartIrc.channels = new Object();
 
         MartIrc.ircConnection = null;
     }
@@ -100,14 +103,15 @@ MartIrc.prototype.connect = function() {
 
     // set the name of the server in the title bar
     MartIrc.server.name = MartIrc.ircConnection.settings.ircServerHost;
-    MartIrc.server.focus();
+
+    var serverWidget = new ServerWidget(MartIrc.server);
+    serverWidget.focus();
 
     $(MartIrc.ircConnection).bind('irc.server', function(event, data) {
         $(self).trigger('irc.server', data);
 
-        MartIrc.server.addMessage(data.raw);
-
-        MartIrc.server.scrollAtTheEnd();
+        serverWidget.addMessage(data.raw);
+        serverWidget.scrollAtTheEnd();
 
         MartIrc.incomingMessage = new IncomingMessage();
         MartIrc.incomingMessage.parse(data);

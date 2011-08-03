@@ -55,7 +55,7 @@ Storage.prototype.removeChannel = function(name, ircServerHost) {
 Storage.prototype.getChannels = function(ircServerHost) {
     var self = this;
 
-    var channels = new Array();
+    var channels = new Channels();
     var cookieData = $.cookies.get('martirc');
 
     if(!cookieData || !cookieData['channels'] || !cookieData['channels'][ircServerHost]){
@@ -67,9 +67,9 @@ Storage.prototype.getChannels = function(ircServerHost) {
     for(i in names){
 
         if(names[i][0] === '#'){
-            channels[names[i]] = new Channel(names[i]);
+            channels.setElement(names[i], new Channel(names[i]));
         } else {
-            channels[names[i]] = new User(names[i]);
+            channels.setElement(names[i], new User(names[i]));
         }
     }
 

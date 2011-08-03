@@ -1,64 +1,61 @@
 /**
- * Base ui constructor
+ * BaseWidget ui constructor
  *
  * @contructor
  *
  */
-Base = function() {
+BaseWidget = function(data) {
     if (! (this instanceof arguments.callee)) {
         return new arguments.callee(arguments);
     }
 
     var self = this;
 
-    self.id = null;
-    self.name = null;
+    self.data = data;
     self.utils = new Utils();
-
-    self.lastMessageSender = null;
 };
 
-Base.prototype.isActive = function(){
+BaseWidget.prototype.isActive = function(){
     var self = this;
 
-    return ($('#channels .active').get(0) === $('#channels #'+self.id).get(0));
+    return ($('#channels .active').get(0) === $('#channels #'+self.data.id).get(0));
 };
 
-Base.prototype.isCreated = function(){
+BaseWidget.prototype.isCreated = function(){
     var self = this;
 
-    return ($('channels #'+self.id).get(0) !== null);
+    return ($('#channels #'+self.data.id).length);
 };
 
-Base.prototype.setActiveElements = function(){
+BaseWidget.prototype.setActiveElements = function(){
     var self = this;
 
-    $('#channels #' + self.id + ', #chat .' + self.id).addClass('active');
+    $('#channels #' + self.data.id + ', #chat .' + self.data.id).addClass('active');
 
-    if($('#users .'+self.id).get(0)){
-        $('#users .'+self.id).addClass('active');
+    if($('#users .'+self.data.id).get(0)){
+        $('#users .'+self.data.id).addClass('active');
     }
 };
 
-Base.prototype.unsetActiveElements = function(){
+BaseWidget.prototype.unsetActiveElements = function(){
     var self = this;
 
     $('#channels .active, #chat .active, #users .list.active').removeClass('active');
 };
 
-Base.prototype.showActiveElements = function(){
+BaseWidget.prototype.showActiveElements = function(){
     var self = this;
 
     $('#chat .active, #users .list.active').show();
 };
 
-Base.prototype.hideActiveElements = function(){
+BaseWidget.prototype.hideActiveElements = function(){
     var self = this;
 
     $('#chat .active, #users .list.active').hide();
 };
 
-Base.prototype.showUsersTab = function(){
+BaseWidget.prototype.showUsersTab = function(){
     var self = this;
 
     $('#chat, #prompt').removeClass('span-20');
@@ -72,7 +69,7 @@ Base.prototype.showUsersTab = function(){
     $('#users').show();
 };
 
-Base.prototype.hideUsersTab = function(){
+BaseWidget.prototype.hideUsersTab = function(){
     var self = this;
 
     $('#chat, #prompt').removeClass('span-16');
@@ -86,44 +83,44 @@ Base.prototype.hideUsersTab = function(){
     $('#users').hide();
 };
 
-Base.prototype.showClosingIcon = function(){
+BaseWidget.prototype.showClosingIcon = function(){
     var self = this;
 
     $('#chat .close-channel').show();
 };
 
-Base.prototype.hideClosingIcon = function(){
+BaseWidget.prototype.hideClosingIcon = function(){
     var self = this;
 
     $('#chat .close-channel').hide();
 };
 
 
-Base.prototype.addMessage = function(nickname, message, msgClasses, txtClasses, nickClasses){
+BaseWidget.prototype.addMessage = function(nickname, message, msgClasses, txtClasses, nickClasses){
     var self = this;
 
     var messageBlock = $('<div>').addClass('msg '+msgClasses+' clear');
     messageBlock.append($('<span>').addClass(nickClasses+' span-2').text(nickname));
     messageBlock.append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 
-    $("#chat ."+self.id).append(messageBlock);
+    $("#chat ."+self.data.id).append(messageBlock);
 };
 
-Base.prototype.appendToLastMessage = function(message, txtClasses){
+BaseWidget.prototype.appendToLastMessage = function(message, txtClasses){
     var self = this;
 
-    $("#chat ."+self.id+' .msg').last().append($('<span>').addClass('txt '+txtClasses+' last').append(message));
+    $("#chat ."+self.data.id+' .msg').last().append($('<span>').addClass('txt '+txtClasses+' last').append(message));
 };
 
-Base.prototype.scrollAtTheEnd = function(){
+BaseWidget.prototype.scrollAtTheEnd = function(){
     var self = this;
 
-    $("#chat ."+self.id).prop({
-        scrollTop: $("#chat ."+self.id).prop("scrollHeight")
+    $("#chat ."+self.data.id).prop({
+        scrollTop: $("#chat ."+self.data.id).prop("scrollHeight")
     });
 };
 
-Base.prototype.focus = function(title){
+BaseWidget.prototype.focus = function(title){
     var self = this;
 
     self.hideActiveElements();
@@ -138,7 +135,7 @@ Base.prototype.focus = function(title){
     $("#chat .current-info .title").removeAttr('title');
 };
 
-Base.prototype.focusOnPrompt = function(){
+BaseWidget.prototype.focusOnPrompt = function(){
     var self = this;
 
     $('#prompt form input').focus();
