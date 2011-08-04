@@ -37,6 +37,8 @@ Both may be available from your OS package manager.
 
 Open `client/client.html` in your browser. The application will try by default to connect to the node server on `localhost:3000`.
 
+If you want to use cookies under chromium (to record opening channels for instance), you have to launch chromium once with --enable-file-cookies and you have to enable cookies in settings as well. 
+
 # Using MartIrc
 
 In the server area, you can write pure irc command and there is a set of shortcut, the same way than vi, for frequent commands.
