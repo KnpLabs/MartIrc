@@ -22,6 +22,10 @@ Storage.prototype.addChannel = function(name, ircServerHost){
 
     var cookieData = $.cookies.get('martirc');
 
+    if(!cookieData) {
+        return null;
+    }
+
     if(!cookieData['channels']){
         cookieData['channels'] = new Object();
     }
@@ -39,7 +43,7 @@ Storage.prototype.removeChannel = function(name, ircServerHost) {
 
     var cookieData = $.cookies.get('martirc');
 
-    if(!cookieData['channels'] || !cookieData['channels'][ircServerHost]){
+    if(!cookieData || !cookieData['channels'] || !cookieData['channels'][ircServerHost]){
         return;
     }
 
@@ -54,7 +58,7 @@ Storage.prototype.getChannels = function(ircServerHost) {
     var channels = new Array();
     var cookieData = $.cookies.get('martirc');
 
-    if(!cookieData['channels'] || !cookieData['channels'][ircServerHost]){
+    if(!cookieData || !cookieData['channels'] || !cookieData['channels'][ircServerHost]){
         return channels;
     }
 
@@ -77,6 +81,10 @@ Storage.prototype.setConnectOnStartup = function(connect) {
 
     var cookieData = $.cookies.get('martirc');
 
+    if(!cookieData) {
+        return null;
+    }
+
     cookieData['connect'] = connect;
     $.cookies.set('martirc', cookieData);
 };
@@ -86,7 +94,7 @@ Storage.prototype.getConnectOnStartup = function(connect) {
 
     var cookieData = $.cookies.get('martirc');
 
-    if(!cookieData['connect']){
+    if(!cookieData || !cookieData['connect']){
         return false;
     }
 
@@ -98,6 +106,10 @@ Storage.prototype.setNickname = function(nickname) {
 
     var cookieData = $.cookies.get('martirc');
 
+    if(!cookieData) {
+        return null;
+    }
+
     cookieData['nickname'] = nickname;
     $.cookies.set('martirc', cookieData);
 };
@@ -107,7 +119,7 @@ Storage.prototype.getNickname = function() {
 
     var cookieData = $.cookies.get('martirc');
 
-    if(!cookieData['nickname']){
+    if(!cookieData || !cookieData['nickname']){
         return null;
     }
 
