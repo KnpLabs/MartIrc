@@ -45,16 +45,22 @@ OutgoingMessage.prototype.parseArguments = function(rawMsg) {
 OutgoingMessage.prototype.processArguments = function(arguments) {
     var self = this;
 
-    if(!MartIrc.ircConnection) {
-        return null;
-    }
-
     var command = arguments[1];
     var params = arguments[2];
 
-    switch (command) {
-    case 'c':
+    if(command === 'c') {
         self.connect();
+
+        return;
+    }
+
+    if(!MartIrc.ircConnection) {
+        return;
+    }
+
+    switch (command) {
+    case 'd':
+        self.disconnect();
         break;
     case 'j':
         self.createChannel(params);
@@ -71,6 +77,52 @@ OutgoingMessage.prototype.processArguments = function(arguments) {
     }
 };
 
+OutgoingMessage.prototype.connect = function()
+{
+    var self = this;
+
+    self.disconnect();
+
+    MartIrc.ircConnection = new IrcConnection(MartIrc.ircConnectionSettings);
+    MartIrc.server.name = MartIrc.ircConnection.settings.ircServerHost;
+
+    $(MartIrc.ircConnection).bind('irc.server', function(event, data) {
+        $(self).trigger('irc.server', data);
+
+        serverWidget.addMessage(data.raw);
+        serverWidget.scrollAtTheEnd();
+
+        MartIrc.incomingMessage = new IncomingMessage();
+        MartIrc.incomingMessage.parse(data);
+    });
+
+    var serverWidget = new ServerWidget(MartIrc.server);
+    serverWidget.focus();
+};
+
+OutgoingMessage.prototype.disconnect = function()
+{
+    var self = this;
+
+    if (!MartIrc.ircConnection || !MartIrc.ircConnection.connected()) {
+        return;
+    }
+
+    MartIrc.ircConnection.disconnect();
+
+    for(name in MartIrc.channels.get()){
+        var channel = MartIrc.channels.getElement(name);
+
+        var channelWidget = channel instanceof Channel ? new ChannelWidget(channel) : new UserWidget(channel);
+        channelWidget.destroy();
+    }
+
+    MartIrc.channels = new Channels();
+    MartIrc.ircConnection = null;
+
+    var serverWidget = new ServerWidget(MartIrc.server);
+    serverWidget.focus();
+};
 
 OutgoingMessage.prototype.sendMessage = function(rawMsg) {
     var self = this;

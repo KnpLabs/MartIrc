@@ -13,6 +13,7 @@ MartIrc = function() {
 
     MartIrc.server = new Server();
     MartIrc.channels = new Channels();
+    MartIrc.ircConnectionSettings = null;
 
     MartIrc.outgoingMessage = new OutgoingMessage();
     MartIrc.incomingMessage = null;
@@ -38,8 +39,16 @@ MartIrc.prototype.init = function() {
 
     $('input[name=connectOnStartup]').prop('checked', MartIrc.storage.getConnectOnStartup());
 
+    MartIrc.ircConnectionSettings = {
+        nodeServerHost: $('#nodeServerHost').val(),
+        nodeServerPort: parseInt($('#nodeServerPort').val()),
+        ircServerHost: $('#ircServerHost').val(),
+        ircServerPort: parseInt($('#ircServerPort').val()),
+        nickname: $('#nickname').val()
+    };
+
     if(MartIrc.storage.getConnectOnStartup()){
-        self.connect();
+        OutgoingMessage.connect();
     }
 };
 
@@ -47,7 +56,7 @@ MartIrc.prototype.bindEvents = function() {
     var self = this;
 
     $('#connectButton').click(function() {
-        self.connect();
+        OutgoingMessage.connect();
     });
 
     $('#connectOnStartup').click(function(event) {
@@ -76,44 +85,4 @@ MartIrc.prototype.bindEvents = function() {
     });
 
     $('#prompt form input').focus();
-};
-
-MartIrc.prototype.connect = function() {
-    var self = this;
-
-    if (MartIrc.ircConnection && MartIrc.ircConnection.connected()) {
-        MartIrc.ircConnection.disconnect();
-
-        for(name in MartIrc.channels){
-            MartIrc.channels.get(name).destroy();
-        }
-
-        MartIrc.channels = new Object();
-
-        MartIrc.ircConnection = null;
-    }
-
-    MartIrc.ircConnection = new IrcConnection({
-        nodeServerHost: $('#nodeServerHost').val(),
-        nodeServerPort: parseInt($('#nodeServerPort').val()),
-        ircServerHost: $('#ircServerHost').val(),
-        ircServerPort: parseInt($('#ircServerPort').val()),
-        nickname: $('#nickname').val()
-    });
-
-    // set the name of the server in the title bar
-    MartIrc.server.name = MartIrc.ircConnection.settings.ircServerHost;
-
-    var serverWidget = new ServerWidget(MartIrc.server);
-    serverWidget.focus();
-
-    $(MartIrc.ircConnection).bind('irc.server', function(event, data) {
-        $(self).trigger('irc.server', data);
-
-        serverWidget.addMessage(data.raw);
-        serverWidget.scrollAtTheEnd();
-
-        MartIrc.incomingMessage = new IncomingMessage();
-        MartIrc.incomingMessage.parse(data);
-    });
 };
