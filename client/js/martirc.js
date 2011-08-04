@@ -48,7 +48,7 @@ MartIrc.prototype.init = function() {
     };
 
     if(MartIrc.storage.getConnectOnStartup()){
-        OutgoingMessage.connect();
+        MartIrc.outgoingMessage.connect();
     }
 };
 
@@ -56,7 +56,7 @@ MartIrc.prototype.bindEvents = function() {
     var self = this;
 
     $('#connectButton').click(function() {
-        OutgoingMessage.connect();
+        MartIrc.outgoingMessage.connect();
     });
 
     $('#connectOnStartup').click(function(event) {
