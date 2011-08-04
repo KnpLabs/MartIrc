@@ -22,6 +22,8 @@ OutgoingMessage.prototype.bindEvents = function() {
     });
 
     $('#nickname').change(function(event) {
+        MartIrc.ircConnection.settings.nickname = $('#nickname').val();
+
         self.changeNickname($('#nickname').val());
     });
 };

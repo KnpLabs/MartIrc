@@ -125,9 +125,7 @@ IncomingMessage.prototype.addUsersToChannel = function(users, channelName) {
     }
 
     for (i in users) {
-        if(users[i] != MartIrc.ircConnection.settings.nickname) {
-            MartIrc.channels.getElement(channelName).addUser(users[i]);
-        }
+        MartIrc.channels.getElement(channelName).addUser(users[i]);
     }
 };
 
